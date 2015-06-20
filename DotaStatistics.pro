@@ -14,8 +14,14 @@ TEMPLATE = app
 CONFIG += c++11
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    utility.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    utility.h
 
 FORMS    += mainwindow.ui
+
+OTHER_FILES += \
+    heroes.xml \
+    items.xml
