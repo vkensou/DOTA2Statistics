@@ -30,7 +30,7 @@ void HeroesRateAndUsed::load(const QString &filename)
     if(!file.exists())
     {
         download();
-        save();
+        save(filename);
         return;
     }
 
