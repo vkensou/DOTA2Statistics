@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "utility.h"
-
+#include "heroesrateandused.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -12,10 +12,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QString result;
-    QUrl url = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?key=" + key;
-    result = downloadWebPage(url);
-    result = result;
+    HeroesRateAndUsed hr;
+//    hr.download();
+//    hr.save("rateandused.xml");
+
+    hr.load("rateandused.xml");
 }
 
 MainWindow::~MainWindow()
