@@ -6,12 +6,12 @@
 #include <functional>
 #include <algorithm>
 
-const QString heroesratefmt = "http://dotamax.com/hero/rate/?time=%1&server=%2&ladder=%3&skill=%4";
+const QString heroesrateandusedfmt = "http://dotamax.com/hero/rate/?time=%1&server=%2&ladder=%3&skill=%4";
 
 void HeroesRateAndUsed::download(const QString &time, const QString &server, const QString &ladder, const QString &skill)
 {
     list.clear();
-    QUrl url = heroesratefmt.arg(time).arg(server).arg(ladder).arg(skill);
+    QUrl url = heroesrateandusedfmt.arg(time, server, ladder, skill);
     auto page = downloadWebPage(url);
 
     static QRegExp rx("<tbody>.*</tbody>");

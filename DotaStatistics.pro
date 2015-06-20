@@ -16,11 +16,13 @@ CONFIG += c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
     utility.cpp \
-    heroesrateandused.cpp
+    heroesrateandused.cpp \
+    heroitems.cpp
 
 HEADERS  += mainwindow.h \
     utility.h \
-    heroesrateandused.h
+    heroesrateandused.h \
+    heroitems.h
 
 FORMS    += mainwindow.ui
 

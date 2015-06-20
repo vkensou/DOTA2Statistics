@@ -3,12 +3,12 @@
     <item id="249" name="silver_edge" chinese_name="白银之锋"/>
     <item id="247" name="moon_shard" chinese_name="银月之晶"/>
     <item id="242" name="crimson_guard" chinese_name="赤红甲"/>
-    <item id="241" name="tango_single" chinese_name="树之祭祀（共享）"/>
+    <item id="241" name="tango_single" chinese_name="树之祭祀(共享)"/>
     <item id="235" name="octarine_core" chinese_name="玲珑心"/>
     <item id="231" name="guardian_greaves" chinese_name="卫士胫甲"/>
     <item id="229" name="solar_crest" chinese_name="炎阳纹章"/>
     <item id="226" name="lotus_orb" chinese_name="清莲宝珠"/>
-    <item id="220" name="travel_boots_2" chinese_name="远行鞋（2级）"/>
+    <item id="220" name="travel_boots_2" chinese_name="远行鞋(等级2)"/>
     <item id="218" name="ward_dispenser" chinese_name="侦查·岗哨守卫"/>
     <item id="216" name="enchanted_mango" chinese_name="魔法芒果"/>
     <item id="215" name="shadow_amulet" chinese_name="暗影护符"/>
@@ -17,13 +17,13 @@
     <item id="210" name="heavens_halberd" chinese_name="天堂之戟"/>
     <item id="208" name="abyssal_blade" chinese_name="深渊之刃"/>
     <item id="206" name="rod_of_atos" chinese_name="阿托斯之棍"/>
-    <item id="204" name="dagon_5" chinese_name="达贡之神力（5级）"/>
-    <item id="203" name="dagon_4" chinese_name="达贡之神力（4级）"/>
-    <item id="202" name="dagon_3" chinese_name="达贡之神力（3级）"/>
-    <item id="201" name="dagon_2" chinese_name="达贡之神力（2级）"/>
-    <item id="196" name="diffusal_blade_2" chinese_name="净魂之刃（2级）"/>
-    <item id="194" name="necronomicon_3" chinese_name="死灵书（3级）"/>
-    <item id="193" name="necronomicon_2" chinese_name="死灵书（2级）"/>
+    <item id="204" name="dagon_5" chinese_name="达贡之神力(等级5)"/>
+    <item id="203" name="dagon_4" chinese_name="达贡之神力(等级4)"/>
+    <item id="202" name="dagon_3" chinese_name="达贡之神力(等级3)"/>
+    <item id="201" name="dagon_2" chinese_name="达贡之神力(等级2)"/>
+    <item id="196" name="diffusal_blade_2" chinese_name="净魂之刃(等级2)"/>
+    <item id="194" name="necronomicon_3" chinese_name="死灵书(等级3)"/>
+    <item id="193" name="necronomicon_2" chinese_name="死灵书(等级2)"/>
     <item id="190" name="veil_of_discord" chinese_name="纷争面纱"/>
     <item id="188" name="smoke_of_deceit" chinese_name="诡计之雾"/>
     <item id="187" name="medallion_of_courage" chinese_name="勇气勋章"/>

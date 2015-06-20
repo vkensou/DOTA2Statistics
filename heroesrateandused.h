@@ -2,7 +2,7 @@
 #define HEROESRATE_H
 
 #include <QString>
-#include <QMap>
+#include <QHash>
 
 class HeroesRateAndUsed
 {
@@ -31,7 +31,7 @@ private:
             return a.name < name;
         }
     };
-    QMap<QString, HeroRateAndUsed> list;
+    QHash<QString, HeroRateAndUsed> list;
 };
 
 #endif // HEROESRATE_H
