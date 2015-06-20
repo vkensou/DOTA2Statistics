@@ -26,6 +26,14 @@ void HeroesRateAndUsed::load(const QString &filename)
     list.clear();
 
     QFile file(filename);
+
+    if(!file.exists())
+    {
+        download();
+        save();
+        return;
+    }
+
     if(!file.open(QIODevice::ReadOnly))
         return;
 
@@ -69,19 +77,19 @@ void HeroesRateAndUsed::save(const QString &filename)
     doc.save(ts, 4);
 }
 
-float HeroesRateAndUsed::getRate(const QString &name)
+float HeroesRateAndUsed::getRate(const QString &chinese_name)
 {
-    auto f = list.find(name);
-    if(f == list.end())
+    auto f = list.find(chinese_name);
+    if(f != list.end())
         return (*f).rate;
     else
         return 0.f;
 }
 
-int HeroesRateAndUsed::getUsed(const QString &name)
+int HeroesRateAndUsed::getUsed(const QString &chinese_name)
 {
-    auto f = list.find(name);
-    if(f == list.end())
+    auto f = list.find(chinese_name);
+    if(f != list.end())
         return (*f).used;
     else
         return 0;

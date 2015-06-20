@@ -8,6 +8,7 @@
 class HeroItems
 {
 public:
+    const QString & getName(){return m_name;}
     HeroItems(const QString &name);
 
     void download();
@@ -17,6 +18,7 @@ public:
     void calcX2(int heroused, float herorate);
 
     float getX2(int heroused, float herorate, const QString &name);
+    float getX2(int heroused, float herorate, int itemused, float itemrate);
 
 private:
     void parseWebPageData(const QString &data);

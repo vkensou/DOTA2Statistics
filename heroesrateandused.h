@@ -11,8 +11,8 @@ public:
     void load(const QString &filename);
     void save(const QString &filename);
 
-    float getRate(const QString &name);
-    int getUsed(const QString &name);
+    float getRate(const QString &chinese_name);
+    int getUsed(const QString &chinese_name);
 private:
     void parseWebPageData(const QString &data);
     struct HeroRateAndUsed

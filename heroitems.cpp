@@ -34,6 +34,14 @@ void HeroItems::load()
     filename = filename.arg(m_name);
 
     QFile file(filename);
+
+    if(!file.exists())
+    {
+        download();
+        save();
+        return;
+    }
+
     if(!file.open(QIODevice::ReadOnly))
         return;
 
@@ -80,16 +88,16 @@ void HeroItems::save()
     doc.save(ts, 4);
 }
 
-double NormalPx(float x)
+float NormalPx(float x)
 {
-    double f;
+    float f;
     f=1.0/sqrt(2.0*M_PI)*exp(-x*x/2.0);
     return f;
 }
 
-double NormalFx(float x)
+float NormalFx(float x)
 {
-    double prob,t,temp;
+    float prob,t,temp;
     int i,n,flag;
     temp=x;
     if(x<0)
@@ -118,9 +126,9 @@ double NormalFx(float x)
     return prob;
 }
 
-double ChisquareFx(float x,int Freedom)
+float ChisquareFx(float x,int Freedom)
 {
-    double f,h,prob;
+    float f,h,prob;
 
     f=exp(-x/2.0)/sqrt(2*M_PI*x);
     h=2.0*NormalFx(sqrt(x))-1.0;
@@ -165,6 +173,8 @@ void HeroItems::calcX2(int heroused, float herorate)
     doc.save(ts, 4);
 }
 
+
+
 float HeroItems::getX2(int heroused, float herorate, const QString &name)
 {
     auto i = list.find(name);
@@ -172,17 +182,29 @@ float HeroItems::getX2(int heroused, float herorate, const QString &name)
     {
         ItemRateAndUsed &item = *i;
 
-        double a = item.used * item.rate;
-        double b = item.used * (1 - item.rate);
-        double c = heroused * herorate - item.used * item.rate;
-        double d = heroused * (1 - herorate) - item.used * (1 - item.rate);
-        double n = heroused;
-        double a1 = n * pow(a * d - b * c, 2);
-        double a2 = (a + b) * (c + d) * (a + c) * (b + d);
+        float a = item.used * item.rate;
+        float b = item.used * (1 - item.rate);
+        float c = heroused * herorate - item.used * item.rate;
+        float d = heroused * (1 - herorate) - item.used * (1 - item.rate);
+        float n = heroused;
+        float a1 = n * pow(a * d - b * c, 2);
+        float a2 = (a + b) * (c + d) * (a + c) * (b + d);
         return a1 / a2;
     }
     else
         return 0;
+}
+
+float HeroItems::getX2(int heroused, float herorate, int itemused, float itemrate)
+{
+    float a = itemused * itemrate;
+    float b = itemused * (1 - itemrate);
+    float c = heroused * herorate - itemused * itemrate;
+    float d = heroused * (1 - herorate) - itemused * (1 - itemrate);
+    float n = heroused;
+    float a1 = n * pow(a * d - b * c, 2);
+    float a2 = (a + b) * (c + d) * (a + c) * (b + d);
+    return a1 / a2;
 }
 
 void HeroItems::parseWebPageData(const QString &data)
