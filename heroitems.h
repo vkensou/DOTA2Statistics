@@ -42,6 +42,10 @@ private:
         }
     };
     QHash<QString, ItemRateAndUsed> list;
+
+    QString getHeroItemsFilename();
+    QString getHeroItemsX2Filename();
+
 };
 
 #endif // HEROITEMS_H

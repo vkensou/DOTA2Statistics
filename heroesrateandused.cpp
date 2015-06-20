@@ -5,13 +5,18 @@
 #include <QDomDocument>
 #include <functional>
 #include <algorithm>
+#include "dataconfig.h"
 
-const QString heroesrateandusedfmt = "http://dotamax.com/hero/rate/?time=%1&server=%2&ladder=%3&skill=%4";
+const QString heroesrateandusedfmt = "http://dotamax.com/hero/rate/?";
 
-void HeroesRateAndUsed::download(const QString &time, const QString &server, const QString &ladder, const QString &skill)
+void HeroesRateAndUsed::download()
 {
     list.clear();
-    QUrl url = heroesrateandusedfmt.arg(time, server, ladder, skill);
+
+    DataConfig &config = DataConfig::getCurrentConfig();
+
+    QUrl url = heroesrateandusedfmt + config.getUrlParams();
+
     auto page = downloadWebPage(url);
 
     static QRegExp rx("<tbody>.*</tbody>");
@@ -21,16 +26,17 @@ void HeroesRateAndUsed::download(const QString &time, const QString &server, con
     parseWebPageData(page);
 }
 
-void HeroesRateAndUsed::load(const QString &filename)
+void HeroesRateAndUsed::load()
 {
     list.clear();
 
+    QString filename = getHeroesRateAndUsedFilename();
     QFile file(filename);
 
     if(!file.exists())
     {
         download();
-        save(filename);
+        save();
         return;
     }
 
@@ -52,7 +58,7 @@ void HeroesRateAndUsed::load(const QString &filename)
     }
 }
 
-void HeroesRateAndUsed::save(const QString &filename)
+void HeroesRateAndUsed::save()
 {
     QDomDocument doc;
     auto root = doc.createElement("RatesAndUsed");
@@ -69,6 +75,7 @@ void HeroesRateAndUsed::save(const QString &filename)
     };
     std::for_each(list.begin(), list.end(), func);
 
+    QString filename = getHeroesRateAndUsedFilename();
     QFile file(filename);
     file.open(QIODevice::WriteOnly | QIODevice::Truncate);
 
@@ -120,3 +127,12 @@ void HeroesRateAndUsed::parseWebPageData(const QString &data)
         list.insert(name, {name, rate, used});
     }
 }
+
+QString HeroesRateAndUsed::getHeroesRateAndUsedFilename()
+{
+    auto config = DataConfig::getCurrentConfig();
+    QString filename("HeroesRateAndUsed%1.xml");
+    filename = filename.arg(config.getFileParams());
+    return filename;
+}
+

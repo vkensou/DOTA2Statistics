@@ -4,6 +4,7 @@
 #include "heroesrateandused.h"
 #include "heroitems.h"
 #include "herolist.h"
+#include "dataconfig.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -14,11 +15,18 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    DataConfig config;
+    config.matchtype = DataConfig::MatchType::All;
+    config.skill = DataConfig::Skill::VeryHigh;
+    config.time = DataConfig::Time::ThisMonth;
+    config.server = DataConfig::Server::All;
+    DataConfig::setCurrentConfig(config);
+
     HeroList herolist;
     herolist.load();
 
     HeroesRateAndUsed hr;
-    hr.load("rateandused.xml");
+    hr.load();
 
 #if 0
     QString name = "leshrac";
@@ -31,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
     HeroItems hero(name);
     hero.load();
     hero.calcX2(hr.getUsed(chinese_name), hr.getRate(chinese_name));
+
+//    auto p = hero.getX2()
 }
 
 MainWindow::~MainWindow()

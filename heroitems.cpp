@@ -3,8 +3,9 @@
 #include <QRegExp>
 #include <QDomDocument>
 #include <QtMath>
+#include "dataconfig.h"
 
-const QString heroitemsfmt = "http://dotamax.com/hero/detail/hero_items/%1/?time=%2&server=%3&ladder=%4&skill=%5";
+const QString heroitemsfmt = "http://dotamax.com/hero/detail/hero_items/%1/?";
 
 HeroItems::HeroItems(const QString &name)
     :m_name(name)
@@ -16,7 +17,8 @@ void HeroItems::download()
 {
     list.clear();
 
-    QUrl url(heroitemsfmt.arg(m_name, "v684", "cn", "y", "vh"));
+    auto config = DataConfig::getCurrentConfig();
+    QUrl url = heroitemsfmt.arg(m_name) + config.getUrlParams();
     auto page = downloadWebPage(url);
 
     static QRegExp rx("<tbody>.*</tbody>");
@@ -30,8 +32,7 @@ void HeroItems::load()
 {
     list.clear();
 
-    QString filename("%1_items.xml");
-    filename = filename.arg(m_name);
+    QString filename = getHeroItemsFilename();
 
     QFile file(filename);
 
@@ -77,8 +78,7 @@ void HeroItems::save()
     };
     std::for_each(list.begin(), list.end(), func);
 
-    QString filename("%1_items.xml");
-    filename = filename.arg(m_name);
+    QString filename = getHeroItemsFilename();
 
     QFile file(filename);
     file.open(QIODevice::WriteOnly | QIODevice::Truncate);
@@ -113,9 +113,7 @@ void HeroItems::calcX2(int heroused, float herorate)
     };
     std::for_each(list.begin(), list.end(), func2);
 
-    QString filename("%1_items_x2.xml");
-    filename = filename.arg(m_name);
-
+    QString filename = getHeroItemsX2Filename();
     QFile file(filename);
     file.open(QIODevice::WriteOnly | QIODevice::Truncate);
 
@@ -184,5 +182,21 @@ void HeroItems::parseWebPageData(const QString &data)
 
         list.insert(name, {name, rate, used});
     }
+}
+
+QString HeroItems::getHeroItemsFilename()
+{
+    auto config = DataConfig::getCurrentConfig();
+    QString filename("%1_items%2.xml");
+    filename = filename.arg(m_name).arg(config.getFileParams());
+    return filename;
+}
+
+QString HeroItems::getHeroItemsX2Filename()
+{
+    auto config = DataConfig::getCurrentConfig();
+    QString filename("%1_items_X2%2.xml");
+    filename = filename.arg(m_name).arg(config.getFileParams());
+    return filename;
 }
 

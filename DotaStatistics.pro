@@ -18,13 +18,15 @@ SOURCES += main.cpp\
     utility.cpp \
     heroesrateandused.cpp \
     heroitems.cpp \
-    herolist.cpp
+    herolist.cpp \
+    dataconfig.cpp
 
 HEADERS  += mainwindow.h \
     utility.h \
     heroesrateandused.h \
     heroitems.h \
-    herolist.h
+    herolist.h \
+    dataconfig.h
 
 FORMS    += mainwindow.ui
 

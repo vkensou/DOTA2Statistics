@@ -7,9 +7,9 @@
 class HeroesRateAndUsed
 {
 public:
-    void download(const QString &time = "v684", const QString &server = "cn", const QString &ladder = "y", const QString &skill = "vh");
-    void load(const QString &filename);
-    void save(const QString &filename);
+    void download();
+    void load();
+    void save();
 
     float getRate(const QString &chinese_name);
     int getUsed(const QString &chinese_name);
@@ -32,6 +32,8 @@ private:
         }
     };
     QHash<QString, HeroRateAndUsed> list;
+
+    QString getHeroesRateAndUsedFilename();
 };
 
 #endif // HEROESRATE_H
