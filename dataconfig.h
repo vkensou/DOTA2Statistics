@@ -11,8 +11,8 @@ public:
     enum class Time{All, ThisMonth, ThisWeek, V684, V683, V682};
     enum class Server{All, CN, Foreign};
 
-    QString getUrlParams();
-    QString getFileParams();
+    QString getUrlParams() const;
+    QString getFileParams() const;
     void save(const QString &filename);
     void load(const QString &filename);
 
@@ -31,10 +31,10 @@ public:
 
 
 private:
-    const char * getMatchTypeStr(MatchType matchtype);
-    const char * getSkillStr(Skill skill);
-    const char * getTimeStr(Time time);
-    const char * getServerStr(Server server);
+    const char * getMatchTypeStr(MatchType matchtype) const;
+    const char * getSkillStr(Skill skill) const;
+    const char * getTimeStr(Time time) const;
+    const char * getServerStr(Server server) const;
 };
 
 #endif // DATACONFIG_H

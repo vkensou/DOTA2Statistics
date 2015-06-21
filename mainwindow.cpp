@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "utility.h"
-#include "heroesrateandused.h"
+#include "HeroesUsedAndRate.h"
 #include "heroitems.h"
 #include "herolist.h"
 #include "dataconfig.h"
@@ -24,8 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->cbb_time->setCurrentIndex((int)config.time);
     ui->cbb_server->setCurrentIndex((int)config.server);
 
-    m_herolist.load();
+    datamanager.opendb();
 
+    m_herolist.load();
 
     m_hru.load();
 
@@ -47,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    datamanager.closedb();
     DataConfig::saveCurrent("datastatistics.ini");
     delete ui;
 }
@@ -113,10 +115,12 @@ void MainWindow::on_btn_calc_clicked()
     if(name.isEmpty())
         return;
 
-    m_hru.load();
+    bool force_download = ui->ckb_force_download->isChecked();
+
+    m_hru.load(force_download);
 
     HeroItems hero(name);
-    hero.load();
+    hero.load(force_download);
     hero.calcX2(m_hru.getUsed(chinese_name), m_hru.getRate(chinese_name));
 
     showItemsX2(hero);

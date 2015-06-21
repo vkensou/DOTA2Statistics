@@ -4,6 +4,7 @@
 #include <QDomDocument>
 #include <QtMath>
 #include "dataconfig.h"
+#include "datamanager.h"
 
 const QString heroitemsfmt = "http://dotamax.com/hero/detail/hero_items/%1/?";
 
@@ -27,64 +28,18 @@ void HeroItems::download()
     parseWebPageData(page);
 }
 
-void HeroItems::load()
+void HeroItems::load(bool force_download)
 {
-    list.clear();
-
-    QString filename = getHeroItemsFilename();
-
-    QFile file(filename);
-
-    if(!file.exists())
+    if(force_download || !DataManager::getInstance().loadHeroItems(*this, DataConfig::getCurrentConfig()))
     {
         download();
         save();
-        return;
-    }
-
-    if(!file.open(QIODevice::ReadOnly))
-        return;
-
-    QDomDocument doc;
-    doc.setContent(&file);
-
-    auto root = doc.documentElement();
-
-    for(auto node = root.firstChildElement("item"); !node.isNull(); node = node.nextSiblingElement("item"))
-    {
-        QString name = node.attribute("name");
-        float rate = node.attribute("rate").toFloat();
-        int used = node.attribute("used").toInt();
-
-        addItem(name, rate, used);
     }
 }
 
 void HeroItems::save()
 {
-    QDomDocument doc;
-    auto root = doc.createElement("HeroItems");
-    doc.appendChild(root);
-
-    auto func = [&doc, &root](const ItemRateAndUsed &hru)
-    {
-        auto node = doc.createElement("item");
-        node.setAttribute("name", hru.name);
-        node.setAttribute("rate", hru.rate);
-        node.setAttribute("used", hru.used);
-
-        root.appendChild(node);
-    };
-    std::for_each(list.begin(), list.end(), func);
-
-    QString filename = getHeroItemsFilename();
-
-    QFile file(filename);
-    file.open(QIODevice::WriteOnly | QIODevice::Truncate);
-
-    QTextStream ts(&file);
-
-    doc.save(ts, 4);
+    DataManager::getInstance().saveHeroItems(*this, DataConfig::getCurrentConfig());
 }
 
 
@@ -170,15 +125,15 @@ void HeroItems::parseWebPageData(const QString &data)
         tdnode = tdnode.nextSiblingElement();
         rate = percentagetoFloat(tdnode.firstChildElement("div").text());
 
-        addItem(name, rate, used);
+        addItem(name, used, rate);
     }
 }
 
-void HeroItems::addItem(const QString &name, float rate, int used)
+void HeroItems::addItem(const QString &name, int used, double rate)
 {
     if(name == "真视宝石" || name == "不朽之守护")
         return;
-    list.insert(name, {name, rate, used});
+    list.insert(name, {name, used, rate});
 }
 
 QString HeroItems::getHeroItemsFilename()

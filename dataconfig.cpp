@@ -3,14 +3,14 @@
 
 static DataConfig curconfig;
 
-QString DataConfig::getUrlParams()
+QString DataConfig::getUrlParams() const
 {
     QString p;
     p.sprintf("&ladder=%s&skill=%s&time=%s&server=%s", getMatchTypeStr(matchtype), getSkillStr(skill), getTimeStr(time), getServerStr(server));
     return p;
 }
 
-QString DataConfig::getFileParams()
+QString DataConfig::getFileParams() const
 {
     QString p;
     p.sprintf("_%s_%s_%s_%s", getMatchTypeStr(matchtype), getSkillStr(skill), getTimeStr(time), getServerStr(server));
@@ -65,7 +65,7 @@ void DataConfig::loadCurrent(const QString &filename)
     curconfig.load(filename);
 }
 
-const char * DataConfig::getMatchTypeStr(DataConfig::MatchType matchtype)
+const char * DataConfig::getMatchTypeStr(DataConfig::MatchType matchtype) const
 {
     static const char *str[] =
     {
@@ -77,7 +77,7 @@ const char * DataConfig::getMatchTypeStr(DataConfig::MatchType matchtype)
     return str[(int)matchtype];
 }
 
-const char * DataConfig::getSkillStr(DataConfig::Skill skill)
+const char * DataConfig::getSkillStr(DataConfig::Skill skill) const
 {
     static const char *str[] =
     {
@@ -90,7 +90,7 @@ const char * DataConfig::getSkillStr(DataConfig::Skill skill)
     return str[(int)skill];
 }
 
-const char * DataConfig::getTimeStr(DataConfig::Time time)
+const char * DataConfig::getTimeStr(DataConfig::Time time) const
 {
     static const char *str[] =
     {
@@ -104,7 +104,7 @@ const char * DataConfig::getTimeStr(DataConfig::Time time)
     return str[(int)time];
 }
 
-const char * DataConfig::getServerStr(DataConfig::Server server)
+const char * DataConfig::getServerStr(DataConfig::Server server) const
 {
     static const char *str[] =
     {

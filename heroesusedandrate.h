@@ -5,11 +5,13 @@
 #include <QUrl>
 #include <QHash>
 
-class HeroesRateAndUsed
+class DataManager;
+
+class HeroesUsedAndRate
 {
 public:
     void download();
-    void load();
+    void load(bool force_download = false);
     void save();
 
     float getRate(const QString &chinese_name);
@@ -19,14 +21,14 @@ private:
     void parseWebPageData(const QString &data);
     struct HeroRateAndUsed
     {
-        HeroRateAndUsed(const QString &name, float rate, int used)
-            :name(name), rate(rate), used(used)
+        HeroRateAndUsed(const QString &name, int used, double rate)
+            :name(name), used(used), rate(rate)
         {
         }
 
         QString name;
-        float rate;
         int used;
+        double rate;
 
         bool operator < (const HeroRateAndUsed &a) const
         {
@@ -35,8 +37,11 @@ private:
     };
     QHash<QString, HeroRateAndUsed> list;
 
-    QUrl getHeroesRateAndUsedUrl();
-    QString getHeroesRateAndUsedFilename();
+    QUrl getHeroesUsedAndRateUrl();
+    QString getHeroesUsedAndRateFilename();
+    void addHero(const QString &name, int used, double rate);
+
+    friend DataManager;
 };
 
 #endif // HEROESRATE_H

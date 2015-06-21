@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui network xml
+QT       += core gui network xml sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -16,17 +16,20 @@ CONFIG += c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
     utility.cpp \
-    heroesrateandused.cpp \
     heroitems.cpp \
     herolist.cpp \
-    dataconfig.cpp
+    dataconfig.cpp \
+    datamanager.cpp \
+    heroesusedandrate.cpp
 
 HEADERS  += mainwindow.h \
     utility.h \
-    heroesrateandused.h \
     heroitems.h \
     herolist.h \
-    dataconfig.h
+    dataconfig.h \
+    datamanager.h \
+    Singleton.h \
+    heroesusedandrate.h
 
 FORMS    += mainwindow.ui
 
