@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     herolist.cpp \
     dataconfig.cpp \
     datamanager.cpp \
-    heroesusedandrate.cpp
+    heroesusedandrate.cpp \
+    heroitemsmanager.cpp \
+    heroesusedandratemanager.cpp
 
 HEADERS  += mainwindow.h \
     utility.h \
@@ -29,7 +31,9 @@ HEADERS  += mainwindow.h \
     dataconfig.h \
     datamanager.h \
     Singleton.h \
-    heroesusedandrate.h
+    heroesusedandrate.h \
+    heroitemsmanager.h \
+    heroesusedandratemanager.h
 
 FORMS    += mainwindow.ui
 

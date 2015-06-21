@@ -6,6 +6,7 @@
 #include "herolist.h"
 #include "dataconfig.h"
 #include <QValidator>
+#include "heroitemsmanager.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -28,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_herolist.load();
 
-    m_hru.load();
+    HeroesUsedAndRate &hru = m_hrumanager.getHeroesUsedAndRate();
 
 #if 0
     QString name = "leshrac";
@@ -38,9 +39,11 @@ MainWindow::MainWindow(QWidget *parent) :
     QString name = m_herolist.getNameByChineseName(chinese_name);
 #endif
 
-    HeroItems hero(name);
+    HeroItems &hero = heroitemsmanager.getHeroItems(name);
+
+//    HeroItems hero(name);
     hero.load();
-    hero.calcX2(m_hru.getUsed(chinese_name), m_hru.getRate(chinese_name));
+    hero.calcX2(hru.getUsed(chinese_name), hru.getRate(chinese_name));
 
     showItemsX2(hero);
 //    auto p = hero.getX2()
@@ -117,11 +120,11 @@ void MainWindow::on_btn_calc_clicked()
 
     bool force_download = ui->ckb_force_download->isChecked();
 
-    m_hru.load(force_download);
+    HeroesUsedAndRate &hru = m_hrumanager.getHeroesUsedAndRate();
 
-    HeroItems hero(name);
+    HeroItems &hero = heroitemsmanager.getHeroItems(name);
     hero.load(force_download);
-    hero.calcX2(m_hru.getUsed(chinese_name), m_hru.getRate(chinese_name));
+    hero.calcX2(hru.getUsed(chinese_name), hru.getRate(chinese_name));
 
     showItemsX2(hero);
 }

@@ -3,8 +3,9 @@
 
 #include <QMainWindow>
 #include "herolist.h"
-#include "HeroesUsedAndRate.h"
+#include "heroesusedandratemanager.h"
 #include "datamanager.h"
+#include "heroitemsmanager.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,8 +37,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
     HeroList m_herolist;
-    HeroesUsedAndRate m_hru;
+    HeroesUsedAndRateManager m_hrumanager;
     DataManager datamanager;
+    HeroItemsManager heroitemsmanager;
 
     void showItemsX2(const HeroItems &items);
 };
