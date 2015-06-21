@@ -8,7 +8,7 @@ QT       += core gui network xml sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = DotaStatistics
+TARGET = DOTA2Statistics
 TEMPLATE = app
 
 CONFIG += c++11
@@ -39,4 +39,7 @@ FORMS    += mainwindow.ui
 
 OTHER_FILES += \
     heroes.xml \
-    items.xml
+    items.xml \
+    dotastatistics.rc
+
+RC_FILE = dotastatistics.rc

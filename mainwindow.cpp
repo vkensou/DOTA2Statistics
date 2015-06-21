@@ -19,30 +19,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     DataConfig::loadCurrent("datastatistics.ini");
 
+    QStringList header;
+    header << "物品" << "X2";
+    ui->table_items->setHorizontalHeaderLabels(header);
+
     updateConfigPanel();
 
     datamanager.opendb();
 
     m_herolist.load();
-
-    HeroesUsedAndRate &hru = m_hrumanager.getHeroesUsedAndRate();
-
-#if 0
-    QString name = "leshrac";
-    QString chinese_name = m_herolist.getChineseNameByName(name);
-#else
-    QString chinese_name = "美杜莎";
-    QString name = m_herolist.getNameByChineseName(chinese_name);
-#endif
-
-    HeroItems &hero = heroitemsmanager.getHeroItems(name);
-
-//    HeroItems hero(name);
-    hero.load();
-    hero.calcX2(hru.getUsed(chinese_name), hru.getRate(chinese_name));
-
-    showItemsX2(hero);
-//    auto p = hero.getX2()
 }
 
 MainWindow::~MainWindow()
@@ -56,9 +41,6 @@ void MainWindow::showItemsX2(const HeroItems &items)
 {
     ui->table_items->clear();
     ui->table_items->setRowCount(items.list.count());
-    QStringList header;
-    header << "物品" << "X2";
-    ui->table_items->setHorizontalHeaderLabels(header);
     int i = 0;
     auto func = [this, &i](const HeroItems::ItemRateAndUsed &item)
     {
