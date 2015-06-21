@@ -82,10 +82,10 @@ const char * DataConfig::getSkillStr(DataConfig::Skill skill)
     static const char *str[] =
     {
         "all",
-        "pro",
-        "vh",
+        "n",
         "h",
-        "n"
+        "vh",
+        "pro"
     };
     return str[(int)skill];
 }

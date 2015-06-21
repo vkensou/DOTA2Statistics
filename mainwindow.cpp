@@ -17,24 +17,29 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     DataConfig::loadCurrent("datastatistics.ini");
+    DataConfig &config = DataConfig::getCurrentConfig();
 
-    HeroList herolist;
-    herolist.load();
+    ui->cbb_matchtype->setCurrentIndex((int)config.matchtype);
+    ui->cbb_skill->setCurrentIndex((int)config.skill);
+    ui->cbb_time->setCurrentIndex((int)config.time);
+    ui->cbb_server->setCurrentIndex((int)config.server);
 
-    HeroesRateAndUsed hr;
-    hr.load();
+    m_herolist.load();
+
+
+    m_hru.load();
 
 #if 0
     QString name = "leshrac";
-    QString chinese_name = herolist.getChineseNameByName(name);
+    QString chinese_name = m_herolist.getChineseNameByName(name);
 #else
     QString chinese_name = "美杜莎";
-    QString name = herolist.getNameByChineseName(chinese_name);
+    QString name = m_herolist.getNameByChineseName(chinese_name);
 #endif
 
     HeroItems hero(name);
     hero.load();
-    hero.calcX2(hr.getUsed(chinese_name), hr.getRate(chinese_name));
+    hero.calcX2(m_hru.getUsed(chinese_name), m_hru.getRate(chinese_name));
 
     showItemsX2(hero);
 //    auto p = hero.getX2()
@@ -76,4 +81,43 @@ void MainWindow::showItemsX2(const HeroItems &items)
     std::for_each(items.list.begin(), items.list.end(), func);
 
     ui->table_items->sortByColumn(1, Qt::DescendingOrder);
+}
+
+void MainWindow::on_cbb_time_currentIndexChanged(int index)
+{
+    DataConfig::getCurrentConfig().time = (DataConfig::Time)index;
+}
+
+void MainWindow::on_cbb_server_currentIndexChanged(int index)
+{
+    DataConfig::getCurrentConfig().server = (DataConfig::Server)index;
+}
+
+void MainWindow::on_cbb_skill_currentIndexChanged(int index)
+{
+    DataConfig::getCurrentConfig().skill = (DataConfig::Skill)index;
+}
+
+void MainWindow::on_cbb_matchtype_currentIndexChanged(int index)
+{
+    DataConfig::getCurrentConfig().matchtype = (DataConfig::MatchType)index;
+}
+
+void MainWindow::on_btn_calc_clicked()
+{
+    if(ui->edt_heroname->text().isEmpty())
+        return;
+
+    auto chinese_name = ui->edt_heroname->text();
+    auto name = m_herolist.getNameByChineseName(chinese_name);
+    if(name.isEmpty())
+        return;
+
+    m_hru.load();
+
+    HeroItems hero(name);
+    hero.load();
+    hero.calcX2(m_hru.getUsed(chinese_name), m_hru.getRate(chinese_name));
+
+    showItemsX2(hero);
 }

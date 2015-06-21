@@ -6,8 +6,8 @@
 class DataConfig
 {
 public:
-    enum class MatchType{All, Ladder, Normal, Solo};
-    enum class Skill{All, Pro, VeryHigh, High, Normal};
+    enum class MatchType{All, Normal, Ladder, Solo};
+    enum class Skill{All, Normal, High, VeryHigh, Pro};
     enum class Time{All, ThisMonth, ThisWeek, V684, V683, V682};
     enum class Server{All, CN, Foreign};
 
