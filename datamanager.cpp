@@ -53,27 +53,21 @@ void DataManager::saveHeroesUsedAndRate(const HeroesUsedAndRate &hur, const Data
 {
     static QString tablenamefmt = "herousedandrate%1";
     static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL);";
-    static QString sqldelete = "DELETE from %1";
+    static QString sqldelete = "DELETE from %1;";
+    static QString sqlinsert = "INSERT INTO %1(name, used, rate) VALUES(%2, %3, %4);";
     QString tablename = tablenamefmt.arg(config.getFileParams());
 
     db.exec(sqlcreate.arg(tablename));
     db.exec(sqldelete.arg(tablename));
 
-    QSqlTableModel model(0, db);
-    model.setTable(tablenamefmt.arg(config.getFileParams()));
-    model.select();
-
-    int row = 0;
-    auto func = [&model, &row](const HeroesUsedAndRate::HeroRateAndUsed &hero)
+    db.transaction();
+    auto func = [this, &tablename](const HeroesUsedAndRate::HeroRateAndUsed &hero)
     {
-        model.insertRow(row);
-        model.setData(model.index(row, model.fieldIndex("name")), hero.name);
-        model.setData(model.index(row, model.fieldIndex("used")), hero.used);
-        model.setData(model.index(row, model.fieldIndex("rate")), hero.rate);
-        model.submit();
-        ++row;
+        QString sql = sqlinsert.arg(tablename).arg(hero.name).arg(hero.used).arg(hero.rate);
+        db.exec(sql);
     };
     std::for_each(hur.list.begin(), hur.list.end(), func);
+    db.commit();
 }
 
 bool DataManager::loadHeroItems(HeroItems &hero, const DataConfig &config)
@@ -106,25 +100,20 @@ void DataManager::saveHeroItems(const HeroItems &hero, const DataConfig &config)
 {
     static QString tablenamefmt = "%1%2";
     static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL);";
-    static QString sqldelete = "DELETE from %1";
+    static QString sqldelete = "DELETE from %1;";
+    static QString sqlinsert = "INSERT INTO %1(name, used, rate) VALUES(%2, %3, %4);";
+
     QString tablename = tablenamefmt.arg(hero.getName()).arg(config.getFileParams());
 
     db.exec(sqlcreate.arg(tablename));
     db.exec(sqldelete.arg(tablename));
 
-    QSqlTableModel model(0, db);
-    model.setTable(tablename);
-    model.select();
-
-    int row = 0;
-    auto func = [&model, &row](const HeroItems::ItemRateAndUsed &item)
+    db.transaction();
+    auto func = [this, &tablename](const HeroItems::ItemRateAndUsed &item)
     {
-        model.insertRow(row);
-        model.setData(model.index(row, model.fieldIndex("name")), item.name);
-        model.setData(model.index(row, model.fieldIndex("used")), item.used);
-        model.setData(model.index(row, model.fieldIndex("rate")), item.rate);
-        model.submit();
-        ++row;
+        QString sql = sqlinsert.arg(tablename).arg(item.name).arg(item.used).arg(item.rate);
+        db.exec(sql);
     };
     std::for_each(hero.list.begin(), hero.list.end(), func);
+    db.commit();
 }

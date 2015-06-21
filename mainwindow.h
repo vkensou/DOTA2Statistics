@@ -21,15 +21,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_btn_CalcX2_clicked();
-
-
     void on_cbb_time_currentIndexChanged(int index);
-
     void on_cbb_server_currentIndexChanged(int index);
-
     void on_cbb_skill_currentIndexChanged(int index);
-
     void on_cbb_matchtype_currentIndexChanged(int index);
 
     void on_btn_calc_clicked();
@@ -42,6 +36,7 @@ private:
     HeroItemsManager heroitemsmanager;
 
     void showItemsX2(const HeroItems &items);
+    void updateConfigPanel();
 };
 
 #endif // MAINWINDOW_H

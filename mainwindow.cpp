@@ -18,12 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     DataConfig::loadCurrent("datastatistics.ini");
-    DataConfig &config = DataConfig::getCurrentConfig();
 
-    ui->cbb_matchtype->setCurrentIndex((int)config.matchtype);
-    ui->cbb_skill->setCurrentIndex((int)config.skill);
-    ui->cbb_time->setCurrentIndex((int)config.time);
-    ui->cbb_server->setCurrentIndex((int)config.server);
+    updateConfigPanel();
 
     datamanager.opendb();
 
@@ -56,17 +52,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_btn_CalcX2_clicked()
-{
-    int hu = ui->spin_HeroUsed->value();
-    double hr = ui->spin_HeroRate->value();
-    int iu = ui->spin_ItemUsed->value();
-    double ir = ui->spin_ItemRate->value();
-
-    double x2 = HeroItems::getX2(hu, hr, iu, ir);
-    ui->lbl_result->setText(QString::number(x2));
-}
-
 void MainWindow::showItemsX2(const HeroItems &items)
 {
     ui->table_items->clear();
@@ -79,13 +64,24 @@ void MainWindow::showItemsX2(const HeroItems &items)
     {
         ui->table_items->setItem(i, 0, new QTableWidgetItem(item.name));
         QTableWidgetItem* wgt_x2 = new QTableWidgetItem();
-        wgt_x2->setData(Qt::DisplayRole, item.x2);
+        wgt_x2->setData(Qt::DisplayRole, (int)item.x2);
+        wgt_x2->setTextAlignment(Qt::AlignRight);
         ui->table_items->setItem(i, 1, wgt_x2);
         ++i;
     };
     std::for_each(items.list.begin(), items.list.end(), func);
 
     ui->table_items->sortByColumn(1, Qt::DescendingOrder);
+}
+
+void MainWindow::updateConfigPanel()
+{
+    DataConfig &config = DataConfig::getCurrentConfig();
+
+    ui->cbb_matchtype->setCurrentIndex((int)config.matchtype);
+    ui->cbb_skill->setCurrentIndex((int)config.skill);
+    ui->cbb_time->setCurrentIndex((int)config.time);
+    ui->cbb_server->setCurrentIndex((int)config.server);
 }
 
 void MainWindow::on_cbb_time_currentIndexChanged(int index)
