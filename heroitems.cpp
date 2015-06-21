@@ -10,7 +10,6 @@ const QString heroitemsfmt = "http://dotamax.com/hero/detail/hero_items/%1/?";
 HeroItems::HeroItems(const QString &name)
     :m_name(name)
 {
-
 }
 
 void HeroItems::download()
@@ -57,7 +56,7 @@ void HeroItems::load()
         float rate = node.attribute("rate").toFloat();
         int used = node.attribute("used").toInt();
 
-        list.insert(name, {name, rate, used});
+        addItem(name, rate, used);
     }
 }
 
@@ -122,38 +121,29 @@ void HeroItems::calcX2(int heroused, float herorate)
     doc.save(ts, 4);
 }
 
-
-
-float HeroItems::getX2(int heroused, float herorate, const QString &name)
+double HeroItems::getX2(int heroused, double herorate, const QString &name)
 {
     auto i = list.find(name);
     if(i != list.end())
     {
         ItemRateAndUsed &item = *i;
 
-        float a = item.used * item.rate;
-        float b = item.used * (1 - item.rate);
-        float c = heroused * herorate - item.used * item.rate;
-        float d = heroused * (1 - herorate) - item.used * (1 - item.rate);
-        float n = heroused;
-        float a1 = n * pow(a * d - b * c, 2);
-        float a2 = (a + b) * (c + d) * (a + c) * (b + d);
-        return a1 / a2;
+        return getX2(heroused, herorate, item.used, item.rate);
     }
     else
         return 0;
 }
 
-float HeroItems::getX2(int heroused, float herorate, int itemused, float itemrate)
+double HeroItems::getX2(int heroused, double herorate, int itemused, double itemrate)
 {
-    float a = itemused * itemrate;
-    float b = itemused * (1 - itemrate);
-    float c = heroused * herorate - itemused * itemrate;
-    float d = heroused * (1 - herorate) - itemused * (1 - itemrate);
-    float n = heroused;
-    float a1 = n * pow(a * d - b * c, 2);
-    float a2 = (a + b) * (c + d) * (a + c) * (b + d);
-    return a1 / a2;
+    if(heroused <= 0 || itemused <= 0)
+        return 0.0;
+
+    double a = itemused * itemrate;
+    double b = itemused * (1 - itemrate);
+    double c = heroused * herorate - itemused * itemrate;
+    double d = heroused * (1 - herorate) - itemused * (1 - itemrate);
+    return independenttest(a, b, c, d);
 }
 
 void HeroItems::parseWebPageData(const QString &data)
@@ -180,23 +170,26 @@ void HeroItems::parseWebPageData(const QString &data)
         tdnode = tdnode.nextSiblingElement();
         rate = percentagetoFloat(tdnode.firstChildElement("div").text());
 
-        list.insert(name, {name, rate, used});
+        addItem(name, rate, used);
     }
+}
+
+void HeroItems::addItem(const QString &name, float rate, int used)
+{
+    if(name == "真视宝石" || name == "不朽之守护")
+        return;
+    list.insert(name, {name, rate, used});
 }
 
 QString HeroItems::getHeroItemsFilename()
 {
-    auto config = DataConfig::getCurrentConfig();
-    QString filename("%1_items%2.xml");
-    filename = filename.arg(m_name).arg(config.getFileParams());
-    return filename;
+    static const QString filenamefmt("%1_items%2.xml");
+    return filenamefmt.arg(m_name).arg(DataConfig::getFileParamsCurrent());
 }
 
 QString HeroItems::getHeroItemsX2Filename()
 {
-    auto config = DataConfig::getCurrentConfig();
-    QString filename("%1_items_X2%2.xml");
-    filename = filename.arg(m_name).arg(config.getFileParams());
-    return filename;
+    static const QString filenamefmt("%1_items_X2%2.xml");
+    return filenamefmt.arg(m_name).arg(DataConfig::getFileParamsCurrent());
 }
 

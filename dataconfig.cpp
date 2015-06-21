@@ -1,4 +1,5 @@
 #include "dataconfig.h"
+#include <QSettings>
 
 static DataConfig curconfig;
 
@@ -16,6 +17,24 @@ QString DataConfig::getFileParams()
     return p;
 }
 
+void DataConfig::save(const QString &filename)
+{
+    QSettings ini(filename, QSettings::IniFormat);
+    ini.setValue("data/matchtype", (int)matchtype);
+    ini.setValue("data/skill", (int)skill);
+    ini.setValue("data/time", (int)time);
+    ini.setValue("data/server", (int)server);
+}
+
+void DataConfig::load(const QString &filename)
+{
+    QSettings ini(filename, QSettings::IniFormat);
+    matchtype = (MatchType)ini.value("data/matchtype", 0).toInt();
+    skill = (Skill)ini.value("data/skill", 0).toInt();
+    time = (Time)ini.value("data/time", 0).toInt();
+    server = (Server)ini.value("data/server", 0).toInt();
+}
+
 DataConfig & DataConfig::getCurrentConfig()
 {
     return curconfig;
@@ -24,6 +43,26 @@ DataConfig & DataConfig::getCurrentConfig()
 void DataConfig::setCurrentConfig(DataConfig &config)
 {
     curconfig = config;
+}
+
+QString DataConfig::getUrlParamsCurrent()
+{
+    return curconfig.getUrlParams();
+}
+
+QString DataConfig::getFileParamsCurrent()
+{
+    return curconfig.getFileParams();
+}
+
+void DataConfig::saveCurrent(const QString &filename)
+{
+    curconfig.save(filename);
+}
+
+void DataConfig::loadCurrent(const QString &filename)
+{
+    curconfig.load(filename);
 }
 
 const char * DataConfig::getMatchTypeStr(DataConfig::MatchType matchtype)

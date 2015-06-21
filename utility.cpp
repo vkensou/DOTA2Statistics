@@ -1,5 +1,6 @@
 #include "utility.h"
 #include <QRegExp>
+#include <QtMath>
 
 QString downloadWebPage(const QUrl &url)
 {
@@ -86,4 +87,12 @@ float ChisquareFx(float x,int Freedom)
     prob=1-h;
 
     return prob;
+}
+
+double independenttest(double a, double b, double c, double d)
+{
+    double s = a * d - b * c;
+    double a1 = (a + b + c + d) * pow(s, 2);
+    double a2 = (a + b) * (c + d) * (a + c) * (b + d);
+    return sign(s) * a1 / a2;
 }

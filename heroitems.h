@@ -17,13 +17,9 @@ public:
 
     void calcX2(int heroused, float herorate);
 
-    float getX2(int heroused, float herorate, const QString &name);
-    float getX2(int heroused, float herorate, int itemused, float itemrate);
+    double getX2(int heroused, double herorate, const QString &name);
+    static double getX2(int heroused, double herorate, int itemused, double itemrate);
 
-private:
-    void parseWebPageData(const QString &data);
-
-    QString m_name;
     struct ItemRateAndUsed
     {
         ItemRateAndUsed(const QString &name, float rate, int used)
@@ -42,6 +38,11 @@ private:
         }
     };
     QHash<QString, ItemRateAndUsed> list;
+private:
+    void parseWebPageData(const QString &data);
+    void addItem(const QString &name, float rate, int used);
+
+    QString m_name;
 
     QString getHeroItemsFilename();
     QString getHeroItemsX2Filename();

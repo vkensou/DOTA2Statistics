@@ -7,16 +7,11 @@
 #include <algorithm>
 #include "dataconfig.h"
 
-const QString heroesrateandusedfmt = "http://dotamax.com/hero/rate/?";
-
 void HeroesRateAndUsed::download()
 {
     list.clear();
 
-    DataConfig &config = DataConfig::getCurrentConfig();
-
-    QUrl url = heroesrateandusedfmt + config.getUrlParams();
-
+    QUrl url = getHeroesRateAndUsedUrl();
     auto page = downloadWebPage(url);
 
     static QRegExp rx("<tbody>.*</tbody>");
@@ -128,11 +123,15 @@ void HeroesRateAndUsed::parseWebPageData(const QString &data)
     }
 }
 
+QUrl HeroesRateAndUsed::getHeroesRateAndUsedUrl()
+{
+    static const QString urlfmt = "http://dotamax.com/hero/rate/?";
+    return urlfmt + DataConfig::getUrlParamsCurrent();
+}
+
 QString HeroesRateAndUsed::getHeroesRateAndUsedFilename()
 {
-    auto config = DataConfig::getCurrentConfig();
-    QString filename("HeroesRateAndUsed%1.xml");
-    filename = filename.arg(config.getFileParams());
-    return filename;
+    static const QString filenamefmt("HeroesRateAndUsed%1.xml");
+    return filenamefmt.arg(DataConfig::getFileParamsCurrent());
 }
 

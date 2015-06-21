@@ -2,6 +2,7 @@
 #define HEROESRATE_H
 
 #include <QString>
+#include <QUrl>
 #include <QHash>
 
 class HeroesRateAndUsed
@@ -13,6 +14,7 @@ public:
 
     float getRate(const QString &chinese_name);
     int getUsed(const QString &chinese_name);
+
 private:
     void parseWebPageData(const QString &data);
     struct HeroRateAndUsed
@@ -33,6 +35,7 @@ private:
     };
     QHash<QString, HeroRateAndUsed> list;
 
+    QUrl getHeroesRateAndUsedUrl();
     QString getHeroesRateAndUsedFilename();
 };
 

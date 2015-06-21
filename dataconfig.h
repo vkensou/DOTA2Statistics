@@ -13,14 +13,23 @@ public:
 
     QString getUrlParams();
     QString getFileParams();
+    void save(const QString &filename);
+    void load(const QString &filename);
 
     static DataConfig & getCurrentConfig();
     static void setCurrentConfig(DataConfig &config);
+    static QString getUrlParamsCurrent();
+    static QString getFileParamsCurrent();
+    static void saveCurrent(const QString &filename);
+    static void loadCurrent(const QString &filename);
+
 
     MatchType matchtype;
     Skill skill;
     Time time;
     Server server;
+
+
 private:
     const char * getMatchTypeStr(MatchType matchtype);
     const char * getSkillStr(Skill skill);
