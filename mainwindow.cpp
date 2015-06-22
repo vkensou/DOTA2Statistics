@@ -7,6 +7,7 @@
 #include "dataconfig.h"
 #include <QValidator>
 #include "heroitemsmanager.h"
+#include <QMessageBox>
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -105,4 +106,12 @@ void MainWindow::on_btn_calc_clicked()
     hero.calcX2(hru.getUsed(chinese_name), hru.getRate(chinese_name));
 
     showItemsX2(hero);
+}
+
+void MainWindow::on_action_about_triggered()
+{
+    QString title = "关于";
+    QString text = "版本：1.0\r\nDeveloped by vkensou\r\nPowered by QT";
+
+    QMessageBox::about(NULL, title, text);
 }
