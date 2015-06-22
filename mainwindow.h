@@ -39,6 +39,7 @@ private:
 
     void showItemsX2(const HeroItems &items);
     void updateConfigPanel();
+    void setTableWidgetHead();
 };
 
 #endif // MAINWINDOW_H

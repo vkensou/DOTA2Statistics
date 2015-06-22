@@ -20,9 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     DataConfig::loadCurrent("datastatistics.ini");
 
-    QStringList header;
-    header << "物品" << "X2";
-    ui->table_items->setHorizontalHeaderLabels(header);
+    setTableWidgetHead();
 
     updateConfigPanel();
 
@@ -41,6 +39,7 @@ MainWindow::~MainWindow()
 void MainWindow::showItemsX2(const HeroItems &items)
 {
     ui->table_items->clear();
+    setTableWidgetHead();
     ui->table_items->setRowCount(items.list.count());
     int i = 0;
     auto func = [this, &i](const HeroItems::ItemRateAndUsed &item)
@@ -65,6 +64,13 @@ void MainWindow::updateConfigPanel()
     ui->cbb_skill->setCurrentIndex((int)config.skill);
     ui->cbb_time->setCurrentIndex((int)config.time);
     ui->cbb_server->setCurrentIndex((int)config.server);
+}
+
+void MainWindow::setTableWidgetHead()
+{
+    QStringList header;
+    header << "物品" << "X2";
+    ui->table_items->setHorizontalHeaderLabels(header);
 }
 
 void MainWindow::on_cbb_time_currentIndexChanged(int index)
