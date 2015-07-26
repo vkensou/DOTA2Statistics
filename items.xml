@@ -1,95 +1,350 @@
 <items>
-    <item id="254" name="glimmer_cape" chinese_name="微光披风"/>
-    <item id="249" name="silver_edge" chinese_name="白银之锋"/>
-    <item id="247" name="moon_shard" chinese_name="银月之晶"/>
-    <item id="242" name="crimson_guard" chinese_name="赤红甲"/>
-    <item id="241" name="tango_single" chinese_name="树之祭祀(共享)"/>
-    <item id="235" name="octarine_core" chinese_name="玲珑心"/>
-    <item id="231" name="guardian_greaves" chinese_name="卫士胫甲"/>
-    <item id="229" name="solar_crest" chinese_name="炎阳纹章"/>
-    <item id="226" name="lotus_orb" chinese_name="清莲宝珠"/>
-    <item id="220" name="travel_boots_2" chinese_name="远行鞋(等级2)"/>
-    <item id="218" name="ward_dispenser" chinese_name="侦查·岗哨守卫"/>
-    <item id="216" name="enchanted_mango" chinese_name="魔法芒果"/>
+    <item id="254" name="glimmer_cape" chinese_name="微光披风">
+        <part chinese_name="暗影护符"/>
+        <part chinese_name="抗魔斗篷"/>
+    </item>
+    <item id="249" name="silver_edge" chinese_name="白银之锋">
+        <part chinese_name="影刃"/>
+        <part chinese_name="散华"/>
+    </item>
+    <item id="247" name="moon_shard" chinese_name="银月之晶">
+        <part chinese_name="振奋宝石"/>
+    </item>
+    <item id="242" name="crimson_guard" chinese_name="赤红甲">
+        <part chinese_name="先锋盾"/>
+        <part chinese_name="玄冥盾牌"/>
+    </item>
+    <item id="241" name="tango_single" chinese_name="树之祭祀(共享)">
+    </item>
+    <item id="235" name="octarine_core" chinese_name="玲珑心">
+        <part chinese_name="振魂石"/>
+        <part chinese_name="神秘法杖"/>
+    </item>
+    <item id="231" name="guardian_greaves" chinese_name="卫士胫甲">
+        <part chinese_name="奥术鞋"/>
+        <part chinese_name="梅肯斯姆"/>
+    </item>
+    <item id="229" name="solar_crest" chinese_name="炎阳纹章">
+        <part chinese_name="勇气勋章"/>
+        <part chinese_name="闪避护符"/>
+    </item>
+    <item id="226" name="lotus_orb" chinese_name="红莲法球">
+        <part chinese_name="板甲"/>
+        <part chinese_name="坚韧球"/>
+    </item>
+    <item id="220" name="travel_boots_2" chinese_name="远行鞋(等级2)">
+        <part chinese_name="远行鞋"/>
+    </item>
+    <item id="218" name="ward_dispenser" chinese_name="侦查·岗哨守卫">
+        <part chinese_name="侦查守卫"/>
+        <part chinese_name="岗哨守卫"/>
+    </item>
+    <item id="216" name="enchanted_mango" chinese_name="魔法芒果">
+    </item>
     <item id="215" name="shadow_amulet" chinese_name="暗影护符"/>
-    <item id="214" name="tranquil_boots" chinese_name="静谧之鞋"/>
-    <item id="212" name="ring_of_aquila" chinese_name="天鹰之戒"/>
-    <item id="210" name="heavens_halberd" chinese_name="天堂之戟"/>
-    <item id="208" name="abyssal_blade" chinese_name="深渊之刃"/>
-    <item id="206" name="rod_of_atos" chinese_name="阿托斯之棍"/>
-    <item id="204" name="dagon_5" chinese_name="达贡之神力(等级5)"/>
-    <item id="203" name="dagon_4" chinese_name="达贡之神力(等级4)"/>
-    <item id="202" name="dagon_3" chinese_name="达贡之神力(等级3)"/>
-    <item id="201" name="dagon_2" chinese_name="达贡之神力(等级2)"/>
-    <item id="196" name="diffusal_blade_2" chinese_name="净魂之刃(等级2)"/>
-    <item id="194" name="necronomicon_3" chinese_name="死灵书(等级3)"/>
-    <item id="193" name="necronomicon_2" chinese_name="死灵书(等级2)"/>
-    <item id="190" name="veil_of_discord" chinese_name="纷争面纱"/>
+    <item id="214" name="tranquil_boots" chinese_name="静谧之鞋">
+        <part chinese_name="速度之靴"/>
+        <part chinese_name="守护指环"/>
+        <part chinese_name="回复戒指"/>
+    </item>
+    <item id="212" name="ring_of_aquila" chinese_name="天鹰之戒">
+        <part chinese_name="怨灵系带"/>
+        <part chinese_name="王者之戒"/>
+    </item>
+    <item id="210" name="heavens_halberd" chinese_name="天堂之戟">
+        <part chinese_name="散华"/>
+        <part chinese_name="闪避护符"/>
+    </item>
+    <item id="208" name="abyssal_blade" chinese_name="深渊之刃">
+        <part chinese_name="碎颅锤"/>
+        <part chinese_name="圣者遗物"/>
+    </item>
+    <item id="206" name="rod_of_atos" chinese_name="阿托斯之棍">
+        <part chinese_name="活力之球"/>
+        <part chinese_name="魔力法杖"/>
+    </item>
+    <item id="204" name="dagon_5" chinese_name="达贡之神力(等级5)">
+        <part chinese_name="达贡之神力(等级4)"/>
+    </item>
+    <item id="203" name="dagon_4" chinese_name="达贡之神力(等级4)">
+        <part chinese_name="达贡之神力(等级3)"/>
+    </item>
+    <item id="202" name="dagon_3" chinese_name="达贡之神力(等级3)">
+        <part chinese_name="达贡之神力(等级2)"/>
+    </item>
+    <item id="201" name="dagon_2" chinese_name="达贡之神力(等级2)">
+        <part chinese_name="达贡之神力"/>
+    </item>
+    <item id="196" name="diffusal_blade_2" chinese_name="净魂之刃(等级2)">
+        <part chinese_name="净魂之刃"/>
+    </item>
+    <item id="194" name="necronomicon_3" chinese_name="死灵书(等级3)">
+        <part chinese_name="死灵书(等级2)"/>
+    </item>
+    <item id="193" name="necronomicon_2" chinese_name="死灵书(等级2)">
+        <part chinese_name="死灵书"/>
+    </item>
+    <item id="190" name="veil_of_discord" chinese_name="纷争面纱">
+        <part chinese_name="铁意头盔"/>
+        <part chinese_name="空灵挂件"/>
+    </item>
     <item id="188" name="smoke_of_deceit" chinese_name="诡计之雾"/>
-    <item id="187" name="medallion_of_courage" chinese_name="勇气勋章"/>
-    <item id="185" name="ancient_janggo" chinese_name="韧鼓"/>
+    <item id="187" name="medallion_of_courage" chinese_name="勇气勋章">
+        <part chinese_name="锁子甲"/>
+        <part chinese_name="贤者面罩"/>
+    </item>
+    <item id="185" name="ancient_janggo" chinese_name="韧鼓">
+        <part chinese_name="护腕"/>
+        <part chinese_name="法师长袍"/>
+    </item>
     <item id="182" name="stout_shield" chinese_name="圆盾"/>
     <item id="181" name="orb_of_venom" chinese_name="淬毒之珠"/>
-    <item id="180" name="arcane_boots" chinese_name="奥术鞋"/>
-    <item id="178" name="soul_ring" chinese_name="灵魂之戒"/>
-    <item id="176" name="ethereal_blade" chinese_name="虚灵之刃"/>
-    <item id="174" name="diffusal_blade" chinese_name="净魂之刃"/>
-    <item id="172" name="mask_of_madness" chinese_name="疯狂面具"/>
-    <item id="170" name="yasha" chinese_name="夜叉"/>
-    <item id="168" name="desolator" chinese_name="黯灭"/>
-    <item id="166" name="maelstrom" chinese_name="漩涡"/>
-    <item id="164" name="helm_of_the_dominator" chinese_name="支配头盔"/>
-    <item id="162" name="sange" chinese_name="散华"/>
-    <item id="160" name="skadi" chinese_name="斯嘉蒂之眼"/>
-    <item id="158" name="mjollnir" chinese_name="雷神之锤"/>
-    <item id="156" name="satanic" chinese_name="撒旦之邪力"/>
-    <item id="154" name="sange_and_yasha" chinese_name="散夜对剑"/>
-    <item id="152" name="invis_sword" chinese_name="影刃"/>
-    <item id="151" name="armlet" chinese_name="莫尔迪基安的臂章"/>
-    <item id="149" name="lesser_crit" chinese_name="水晶剑"/>
-    <item id="147" name="manta" chinese_name="幻影斧"/>
-    <item id="145" name="bfury" chinese_name="狂战斧"/>
-    <item id="143" name="basher" chinese_name="碎颅锤"/>
-    <item id="141" name="greater_crit" chinese_name="代达罗斯之殇"/>
-    <item id="139" name="butterfly" chinese_name="蝴蝶"/>
-    <item id="137" name="radiance" chinese_name="辉耀"/>
-    <item id="135" name="monkey_king_bar" chinese_name="金箍棒"/>
-    <item id="133" name="rapier" chinese_name="圣剑"/>
-    <item id="131" name="hood_of_defiance" chinese_name="挑战头巾"/>
-    <item id="129" name="soul_booster" chinese_name="振魂石"/>
-    <item id="127" name="blade_mail" chinese_name="刃甲"/>
-    <item id="125" name="vanguard" chinese_name="先锋盾"/>
-    <item id="123" name="sphere" chinese_name="林肯法球"/>
-    <item id="121" name="bloodstone" chinese_name="血精石"/>
-    <item id="119" name="shivas_guard" chinese_name="希瓦的守护"/>
-    <item id="117" name="aegis" chinese_name="不朽之守护"/>
-    <item id="116" name="black_king_bar" chinese_name="黑皇杖"/>
-    <item id="114" name="heart" chinese_name="恐鳌之心"/>
-    <item id="112" name="assault" chinese_name="强袭胸甲"/>
-    <item id="110" name="refresher" chinese_name="刷新球"/>
-    <item id="108" name="ultimate_scepter" chinese_name="阿哈利姆神杖"/>
-    <item id="106" name="necronomicon" chinese_name="死灵书"/>
-    <item id="104" name="dagon" chinese_name="达贡之神力"/>
-    <item id="102" name="force_staff" chinese_name="原力法杖"/>
-    <item id="100" name="cyclone" chinese_name="Eul的神圣法杖"/>
-    <item id="98" name="orchid" chinese_name="紫怨"/>
-    <item id="96" name="sheepstick" chinese_name="邪恶镰刀"/>
-    <item id="94" name="headdress" chinese_name="恢复头巾"/>
-    <item id="92" name="urn_of_shadows" chinese_name="影之灵龛"/>
-    <item id="90" name="pipe" chinese_name="洞察烟斗"/>
-    <item id="88" name="ring_of_basilius" chinese_name="王者之戒"/>
-    <item id="86" name="buckler" chinese_name="玄冥盾牌"/>
+    <item id="180" name="arcane_boots" chinese_name="奥术鞋">
+        <part chinese_name=""/>
+    </item>
+    <item id="178" name="soul_ring" chinese_name="灵魂之戒">
+        <part chinese_name="回复戒指"/>
+        <part chinese_name="闲着面罩"/>
+    </item>
+    <item id="176" name="ethereal_blade" chinese_name="虚灵之刃">
+        <part chinese_name="鹰歌弓"/>
+        <part chinese_name="幽魂权杖"/>
+    </item>
+    <item id="174" name="diffusal_blade" chinese_name="净魂之刃">
+        <part chinese_name="欢欣之刃"/>
+        <part chinese_name="法师长袍"/>
+    </item>
+    <item id="172" name="mask_of_madness" chinese_name="疯狂面具">
+        <part chinese_name="吸血面具"/>
+    </item>
+    <item id="170" name="yasha" chinese_name="夜叉">
+            <part chinese_name="欢欣之刃"/>
+            <part chinese_name="精灵布带"/>
+        </item>
+    <item id="168" name="desolator" chinese_name="黯灭">
+        <part chinese_name="秘银锤"/>
+    </item>
+    <item id="166" name="maelstrom" chinese_name="漩涡">
+        <part chinese_name="秘银锤"/>
+        <part chinese_name="加速手套"/>
+    </item>
+    <item id="164" name="helm_of_the_dominator" chinese_name="支配头盔">
+        <part chinese_name="铁意头盔"/>
+        <part chinese_name="吸血面具"/>
+    </item>
+    <item id="162" name="sange" chinese_name="散华">
+        <part chinese_name="食人魔之斧"/>
+        <part chinese_name="力量腰带"/>
+    </item>
+    <item id="160" name="skadi" chinese_name="斯嘉蒂之眼">
+        <part chinese_name="极限法球"/>
+        <part chinese_name="精气之球"/>
+        <part chinese_name="淬毒之珠"/>
+    </item>
+    <item id="158" name="mjollnir" chinese_name="雷神之锤">
+        <part chinese_name="漩涡"/>
+        <part chinese_name="振奋宝石"/>
+    </item>
+    <item id="156" name="satanic" chinese_name="撒旦之邪力">
+        <part chinese_name="掠夺者之斧"/>
+        <part chinese_name="支配头盔"/>
+    </item>
+    <item id="154" name="sange_and_yasha" chinese_name="散夜对剑">
+        <part chinese_name="散华"/>
+        <part chinese_name="夜叉"/>
+    </item>
+    <item id="152" name="invis_sword" chinese_name="影刃">
+        <part chinese_name="暗影护符"/>
+        <part chinese_name="大剑"/>
+    </item>
+    <item id="151" name="armlet" chinese_name="莫尔迪基安的臂章">
+        <part chinese_name="铁意头盔"/>
+        <part chinese_name="加速手套"/>
+        <part chinese_name="攻击之爪"/>
+    </item>
+    <item id="149" name="lesser_crit" chinese_name="水晶剑">
+        <part chinese_name="阔剑"/>
+        <part chinese_name="攻击之爪"/>
+    </item>
+    <item id="147" name="manta" chinese_name="幻影斧">
+        <part chinese_name="夜叉"/>
+        <part chinese_name="极限法球"/>
+    </item>
+    <item id="145" name="bfury" chinese_name="狂战斧">
+        <part chinese_name="阔剑"/>
+        <part chinese_name="大剑"/>
+        <part chinese_name="坚韧球"/>
+        <part chinese_name="压制之刃"/>
+    </item>
+    <item id="143" name="basher" chinese_name="碎颅锤">
+        <part chinese_name="标枪"/>
+        <part chinese_name="力量腰带"/>
+    </item>
+    <item id="141" name="greater_crit" chinese_name="代达罗斯之殇">
+        <part chinese_name="恶魔刀锋"/>
+        <part chinese_name="水晶剑"/>
+    </item>
+    <item id="139" name="butterfly" chinese_name="蝴蝶">
+        <part chinese_name="鹰歌弓"/>
+        <part chinese_name="短棍"/>
+        <part chinese_name="闪避护符"/>
+    </item>
+    <item id="137" name="radiance" chinese_name="辉耀">
+        <part chinese_name="圣者遗物"/>
+    </item>
+    <item id="135" name="monkey_king_bar" chinese_name="金箍棒">
+        <part chinese_name="标枪"/>
+        <part chinese_name="恶魔刀锋"/>
+    </item>
+    <item id="133" name="rapier" chinese_name="圣剑">
+        <part chinese_name="恶魔刀锋"/>
+        <part chinese_name="圣者遗物"/>
+    </item>
+    <item id="131" name="hood_of_defiance" chinese_name="挑战头巾">
+        <part chinese_name="治疗指环"/>
+        <part chinese_name="抗魔斗篷"/>
+        <part chinese_name="回复戒指"/>
+    </item>
+    <item id="129" name="soul_booster" chinese_name="振魂石">
+        <part chinese_name="精气之球"/>
+        <part chinese_name="能量之球"/>
+        <part chinese_name="活力之球"/>
+    </item>
+    <item id="127" name="blade_mail" chinese_name="刃甲">
+        <part chinese_name="锁子甲"/>
+        <part chinese_name="阔剑"/>
+        <part chinese_name="法师长袍"/>
+    </item>
+    <item id="125" name="vanguard" chinese_name="先锋盾">
+        <part chinese_name="活力之球"/>
+        <part chinese_name="圆盾"/>
+        <part chinese_name="治疗指环"/>
+    </item>
+    <item id="123" name="sphere" chinese_name="林肯法球">
+        <part chinese_name="极限法球"/>
+        <part chinese_name="坚韧球"/>
+    </item>
+    <item id="121" name="bloodstone" chinese_name="血精石">
+        <part chinese_name="振魂石"/>
+        <part chinese_name="灵魂之戒"/>
+    </item>
+    <item id="119" name="shivas_guard" chinese_name="希瓦的守护">
+        <part chinese_name="板甲"/>
+        <part chinese_name="神秘法杖"/>
+    </item>
+    <item id="117" name="aegis" chinese_name="不朽之守护">
+    </item>
+    <item id="116" name="black_king_bar" chinese_name="黑皇杖">
+        <part chinese_name="食人魔之斧"/>
+        <part chinese_name="秘银锤"/>
+    </item>
+    <item id="114" name="heart" chinese_name="恐鳌之心">
+        <part chinese_name="掠夺者之斧"/>
+        <part chinese_name="活力之球"/>
+    </item>
+    <item id="112" name="assault" chinese_name="强袭胸甲">
+        <part chinese_name="板甲"/>
+        <part chinese_name="锁子甲"/>
+        <part chinese_name="振奋宝石"/>
+    </item>
+    <item id="110" name="refresher" chinese_name="刷新球">
+        <part chinese_name="坚韧球"/>
+    </item>
+    <item id="108" name="ultimate_scepter" chinese_name="阿哈利姆神杖">
+        <part chinese_name="精气之球"/>
+        <part chinese_name="食人魔之斧"/>
+        <part chinese_name="欢欣之刃"/>
+        <part chinese_name="魔力法杖"/>
+    </item>
+    <item id="106" name="necronomicon" chinese_name="死灵书">
+        <part chinese_name="魔力法杖"/>
+        <part chinese_name="力量腰带"/>
+    </item>
+    <item id="104" name="dagon" chinese_name="达贡之神力">
+        <part chinese_name="魔力法杖"/>
+        <part chinese_name="空灵挂件"/>
+    </item>
+    <item id="102" name="force_staff" chinese_name="原力法杖">
+        <part chinese_name="魔力法杖"/>
+        <part chinese_name="回复戒指"/>
+    </item>
+    <item id="100" name="cyclone" chinese_name="Eul的神圣法杖">
+        <part chinese_name="魔力法杖"/>
+        <part chinese_name="虚无宝石"/>
+        <part chinese_name="贤者面具"/>
+    </item>
+    <item id="98" name="orchid" chinese_name="紫怨">
+        <part chinese_name="空明杖"/>
+    </item>
+    <item id="96" name="sheepstick" chinese_name="邪恶镰刀">
+        <part chinese_name="神秘法杖"/>
+        <part chinese_name="极限法球"/>
+        <part chinese_name="虚无宝石"/>
+    </item>
+    <item id="94" name="headdress" chinese_name="恢复头巾">
+        <part chinese_name="回复戒指"/>
+        <part chinese_name="铁树枝干"/>
+    </item>
+    <item id="92" name="urn_of_shadows" chinese_name="影之灵龛">
+        <part chinese_name="贤者面具"/>
+        <part chinese_name="回复戒指"/>
+    </item>
+    <item id="90" name="pipe" chinese_name="洞察烟斗">
+        <part chinese_name="挑战头巾"/>
+        <part chinese_name="回复头巾"/>
+    </item>
+    <item id="88" name="ring_of_basilius" chinese_name="王者之戒">
+        <part chinese_name="贤者面具"/>
+        <part chinese_name="守护指环"/>
+    </item>
+    <item id="86" name="buckler" chinese_name="玄冥盾牌">
+        <part chinese_name="锁子甲"/>
+        <part chinese_name="铁树枝干"/>
+    </item>
+    </item>
     <item id="84" name="flying_courier" chinese_name="飞行信使"/>
-    <item id="81" name="vladmir" chinese_name="弗拉迪米尔的祭品"/>
-    <item id="79" name="mekansm" chinese_name="梅肯斯姆"/>
-    <item id="77" name="null_talisman" chinese_name="空灵挂件"/>
-    <item id="75" name="wraith_band" chinese_name="怨灵系带"/>
-    <item id="73" name="bracer" chinese_name="护腕"/>
-    <item id="71" name="poor_mans_shield" chinese_name="穷鬼盾"/>
-    <item id="69" name="pers" chinese_name="坚韧球"/>
-    <item id="67" name="oblivion_staff" chinese_name="空明杖"/>
-    <item id="65" name="hand_of_midas" chinese_name="迈达斯之手"/>
-    <item id="63" name="power_treads" chinese_name="动力鞋"/>
+    <item id="81" name="vladmir" chinese_name="弗拉迪米尔的祭品">
+        <part chinese_name="吸血面具"/>
+        <part chinese_name="王者之戒"/>
+        <part chinese_name="恢复头巾"/>
+    </item>
+    <item id="79" name="mekansm" chinese_name="梅肯斯姆">
+        <part chinese_name="玄冥盾拍"/>
+        <part chinese_name="恢复头巾"/>
+    </item>
+    <item id="77" name="null_talisman" chinese_name="空灵挂件">
+        <part chinese_name="智力斗篷"/>
+        <part chinese_name="圆环"/>
+    </item>
+    <item id="75" name="wraith_band" chinese_name="怨灵系带">
+        <part chinese_name="敏捷便鞋"/>
+        <part chinese_name="圆环"/>
+    </item>
+    <item id="73" name="bracer" chinese_name="护腕">
+        <part chinese_name="力量手套"/>
+        <part chinese_name="圆环"/>
+    </item>
+    <item id="71" name="poor_mans_shield" chinese_name="穷鬼盾">
+        <part chinese_name="圆盾"/>
+        <part chinese_name="敏捷便鞋"/>
+    </item>
+    <item id="69" name="pers" chinese_name="坚韧球">
+        <part chinese_name="虚无宝石"/>
+        <part chinese_name="治疗指环"/>
+    </item>
+    <item id="67" name="oblivion_staff" chinese_name="空明杖">
+        <part chinese_name="短棍"/>
+        <part chinese_name="贤者面具"/>
+        <part chinese_name="法师长袍"/>
+    </item>
+    <item id="65" name="hand_of_midas" chinese_name="迈达斯之手">
+        <part chinese_name="加速手套"/>
+    </item>
+    <item id="63" name="power_treads" chinese_name="动力鞋">
+        <part chinese_name="速度之靴"/>
+        <part chinese_name="加速手套"/>
+        <part chinese_name="力量腰带"/>
+    </item>
     <item id="61" name="vitality_booster" chinese_name="活力之球"/>
     <item id="60" name="point_booster" chinese_name="精气之球"/>
     <item id="59" name="energy_booster" chinese_name="能量之球"/>
@@ -101,8 +356,13 @@
     <item id="53" name="reaver" chinese_name="掠夺者之斧"/>
     <item id="52" name="eagle" chinese_name="鹰歌弓"/>
     <item id="51" name="demon_edge" chinese_name="恶魔刀锋"/>
-    <item id="50" name="phase_boots" chinese_name="相位鞋"/>
-    <item id="48" name="travel_boots" chinese_name="远行鞋"/>
+    <item id="50" name="phase_boots" chinese_name="相位鞋">
+        <part chinese_name="速度之靴"/>
+        <part chinese_name="攻击之爪"/>
+    </item>
+    <item id="48" name="travel_boots" chinese_name="远行鞋">
+        <part chinese_name="速度之靴"/>
+    </item>
     <item id="46" name="tpscroll" chinese_name="回城卷轴"/>
     <item id="45" name="courier" chinese_name="动物信使"/>
     <item id="44" name="tango" chinese_name="树之祭祀"/>
@@ -113,7 +373,11 @@
     <item id="39" name="flask" chinese_name="治疗药膏"/>
     <item id="38" name="clarity" chinese_name="净化药水"/>
     <item id="37" name="ghost" chinese_name="幽魂权杖"/>
-    <item id="36" name="magic_wand" chinese_name="魔杖"/>
+    <item id="36" name="magic_wand" chinese_name="魔杖">
+        <part chinese_name="铁树枝干"/>
+        <part chinese_name="魔棒"/>
+        <part chinese_name="圆环"/>
+    </item>
     <item id="34" name="magic_stick" chinese_name="魔棒"/>
     <item id="33" name="cheese" chinese_name="奶酪"/>
     <item id="32" name="talisman_of_evasion" chinese_name="闪避护符"/>
