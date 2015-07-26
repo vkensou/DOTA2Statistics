@@ -7,6 +7,7 @@
 #include "dataconfig.h"
 #include <QValidator>
 #include "heroitemsmanager.h"
+#include <QMessageBox>
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -19,9 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     DataConfig::loadCurrent("datastatistics.ini");
 
-    QStringList header;
-    header << "物品" << "X2";
-    ui->table_items->setHorizontalHeaderLabels(header);
+    setTableWidgetHead();
 
     updateConfigPanel();
 
@@ -40,6 +39,7 @@ MainWindow::~MainWindow()
 void MainWindow::showItemsX2(const HeroItems &items)
 {
     ui->table_items->clear();
+    setTableWidgetHead();
     ui->table_items->setRowCount(items.list.count());
     int i = 0;
     auto func = [this, &i](const HeroItems::ItemRateAndUsed &item)
@@ -64,6 +64,13 @@ void MainWindow::updateConfigPanel()
     ui->cbb_skill->setCurrentIndex((int)config.skill);
     ui->cbb_time->setCurrentIndex((int)config.time);
     ui->cbb_server->setCurrentIndex((int)config.server);
+}
+
+void MainWindow::setTableWidgetHead()
+{
+    QStringList header;
+    header << "物品" << "X2";
+    ui->table_items->setHorizontalHeaderLabels(header);
 }
 
 void MainWindow::on_cbb_time_currentIndexChanged(int index)
@@ -105,4 +112,12 @@ void MainWindow::on_btn_calc_clicked()
     hero.calcX2(hru.getUsed(chinese_name), hru.getRate(chinese_name));
 
     showItemsX2(hero);
+}
+
+void MainWindow::on_action_about_triggered()
+{
+    QString title = "关于";
+    QString text = "版本：1.0\r\nDeveloped by vkensou\r\nPowered by QT";
+
+    QMessageBox::about(NULL, title, text);
 }

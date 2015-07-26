@@ -28,6 +28,8 @@ private slots:
 
     void on_btn_calc_clicked();
 
+    void on_action_about_triggered();
+
 private:
     Ui::MainWindow *ui;
     HeroList m_herolist;
@@ -37,6 +39,7 @@ private:
 
     void showItemsX2(const HeroItems &items);
     void updateConfigPanel();
+    void setTableWidgetHead();
 };
 
 #endif // MAINWINDOW_H

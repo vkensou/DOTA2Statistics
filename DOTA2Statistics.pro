@@ -40,6 +40,8 @@ FORMS    += mainwindow.ui
 OTHER_FILES += \
     heroes.xml \
     items.xml \
-    dotastatistics.rc
+    dota2statistics.rc
 
-RC_FILE = dotastatistics.rc
+RC_FILE = dota2statistics.rc
+
+RESOURCES +=
