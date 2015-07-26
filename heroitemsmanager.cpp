@@ -14,7 +14,6 @@ HeroItems &HeroItemsManager::getHeroItems(const QString &name, const DataConfig 
     if(i == list.end())
     {
         i = list.insert(key, {name});
-        (*i).load();
     }
     return *i;
 }

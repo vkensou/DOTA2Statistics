@@ -5,8 +5,10 @@
 #include <QString>
 #include "heroitems.h"
 #include "dataconfig.h"
+#include "Singleton.h"
 
 class HeroItemsManager
+        :public Singleton<HeroItemsManager>
 {
 public:
     HeroItemsManager();

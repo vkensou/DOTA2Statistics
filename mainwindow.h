@@ -30,12 +30,14 @@ private slots:
 
     void on_action_about_triggered();
 
+    void on_table_sort(int);
 private:
     Ui::MainWindow *ui;
     HeroList m_herolist;
     HeroesUsedAndRateManager m_hrumanager;
-    DataManager datamanager;
-    HeroItemsManager heroitemsmanager;
+    DataManager m_datamanager;
+    HeroItemsManager m_heroitemsmanager;
+    bool m_table_sortorder;
 
     void showItemsX2(const HeroItems &items);
     void updateConfigPanel();

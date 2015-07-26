@@ -4,7 +4,7 @@ HeroesUsedAndRateManager::HeroesUsedAndRateManager()
 {
 }
 
-HeroesUsedAndRate &HeroesUsedAndRateManager::getHeroesUsedAndRate(const DataConfig &config)
+HeroesUsedAndRate &HeroesUsedAndRateManager::getHeroesUsedAndRate(bool force_download, const DataConfig &config)
 {
     static QString keyfmt = "heroesusedandrate%1";
     QString key = keyfmt.arg(config.getFileParams());
@@ -13,7 +13,7 @@ HeroesUsedAndRate &HeroesUsedAndRateManager::getHeroesUsedAndRate(const DataConf
     if(i == list.end())
     {
         i = list.insert(key, {});
-        (*i).load();
+        i->load(force_download);
     }
     return *i;
 }

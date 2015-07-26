@@ -14,9 +14,12 @@ const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m_table_sortorder(true)
 {
     ui->setupUi(this);
+
+    connect(ui->table_items->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(on_table_sort(int)));
 
     DataConfig::loadCurrent("datastatistics.ini");
 
@@ -24,14 +27,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     updateConfigPanel();
 
-    datamanager.opendb();
+    m_datamanager.opendb();
 
     m_herolist.load();
 }
 
 MainWindow::~MainWindow()
 {
-    datamanager.closedb();
+    m_datamanager.closedb();
     DataConfig::saveCurrent("datastatistics.ini");
     delete ui;
 }
@@ -40,7 +43,7 @@ void MainWindow::showItemsX2(const HeroItems &items)
 {
     ui->table_items->clear();
     setTableWidgetHead();
-    ui->table_items->setRowCount(items.list.count());
+    ui->table_items->setRowCount(items.getItemsCount());
     int i = 0;
     auto func = [this, &i](const HeroItems::ItemRateAndUsed &item)
     {
@@ -51,8 +54,9 @@ void MainWindow::showItemsX2(const HeroItems &items)
         ui->table_items->setItem(i, 1, wgt_x2);
         ++i;
     };
-    std::for_each(items.list.begin(), items.list.end(), func);
+    items.for_each_items(func);
 
+    m_table_sortorder = true;
     ui->table_items->sortByColumn(1, Qt::DescendingOrder);
 }
 
@@ -105,11 +109,8 @@ void MainWindow::on_btn_calc_clicked()
 
     bool force_download = ui->ckb_force_download->isChecked();
 
-    HeroesUsedAndRate &hru = m_hrumanager.getHeroesUsedAndRate();
-
-    HeroItems &hero = heroitemsmanager.getHeroItems(name);
+    HeroItems &hero = m_heroitemsmanager.getHeroItems(name);
     hero.load(force_download);
-    hero.calcX2(hru.getUsed(chinese_name), hru.getRate(chinese_name));
 
     showItemsX2(hero);
 }
@@ -120,4 +121,16 @@ void MainWindow::on_action_about_triggered()
     QString text = "版本：1.0\r\nDeveloped by vkensou\r\nPowered by QT";
 
     QMessageBox::about(NULL, title, text);
+}
+
+void MainWindow::on_table_sort(int column)
+{
+    if(column == 1)
+    {
+        m_table_sortorder = !m_table_sortorder;
+        if(m_table_sortorder)
+            ui->table_items->sortByColumn(1, Qt::DescendingOrder);
+        else
+            ui->table_items->sortByColumn(1, Qt::AscendingOrder);
+    }
 }

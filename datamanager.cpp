@@ -9,7 +9,7 @@ DataManager::DataManager()
     :query(db)
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("dotasatistics.db");
+    db.setDatabaseName("dota2satistics.db");
 
 }
 
@@ -54,8 +54,11 @@ void DataManager::saveHeroesUsedAndRate(const HeroesUsedAndRate &hur, const Data
     static QString tablenamefmt = "herousedandrate%1";
     static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL);";
     static QString sqldelete = "DELETE from %1;";
-    static QString sqlinsert = "INSERT INTO %1(name, used, rate) VALUES(%2, %3, %4);";
+    static QString sqlinsert = "INSERT INTO %1(name, used, rate) VALUES('%2', %3, %4);";
     QString tablename = tablenamefmt.arg(config.getFileParams());
+
+    QSqlError error;
+    QString errortext;
 
     db.exec(sqlcreate.arg(tablename));
     db.exec(sqldelete.arg(tablename));
@@ -83,14 +86,15 @@ bool DataManager::loadHeroItems(HeroItems &hero, const DataConfig &config)
         return false;
     else
     {
-        hero.list.clear();
+        hero.clear();
         for(int i = 0; i < model.rowCount(); ++i)
         {
             auto record = model.record(i);
             auto name = record.value("name").toString();
             auto used = record.value("used").toInt();
             auto rate = record.value("rate").toDouble();
-            hero.addItem(name, used, rate);
+            auto x2 = record.value("x2").toDouble();
+            hero.addItem(name, used, rate, x2);
         }
         return true;
     }
@@ -99,9 +103,9 @@ bool DataManager::loadHeroItems(HeroItems &hero, const DataConfig &config)
 void DataManager::saveHeroItems(const HeroItems &hero, const DataConfig &config)
 {
     static QString tablenamefmt = "%1%2";
-    static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL);";
+    static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL, x2 DOUBLE NOT NULL);";
     static QString sqldelete = "DELETE from %1;";
-    static QString sqlinsert = "INSERT INTO %1(name, used, rate) VALUES(%2, %3, %4);";
+    static QString sqlinsert = "INSERT INTO %1(name, used, rate, x2) VALUES('%2', %3, %4, %5);";
 
     QString tablename = tablenamefmt.arg(hero.getName()).arg(config.getFileParams());
 
@@ -111,9 +115,9 @@ void DataManager::saveHeroItems(const HeroItems &hero, const DataConfig &config)
     db.transaction();
     auto func = [this, &tablename](const HeroItems::ItemRateAndUsed &item)
     {
-        QString sql = sqlinsert.arg(tablename).arg(item.name).arg(item.used).arg(item.rate);
+        QString sql = sqlinsert.arg(tablename).arg(item.name).arg(item.used).arg(item.rate).arg(item.x2);
         db.exec(sql);
     };
-    std::for_each(hero.list.begin(), hero.list.end(), func);
+    hero.for_each_items(func);
     db.commit();
 }

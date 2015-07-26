@@ -5,13 +5,15 @@
 #include <QString>
 #include "heroesusedandrate.h"
 #include "dataconfig.h"
+#include "Singleton.h"
 
 class HeroesUsedAndRateManager
+        :public Singleton<HeroesUsedAndRateManager>
 {
 public:
     HeroesUsedAndRateManager();
 
-    HeroesUsedAndRate & getHeroesUsedAndRate(const DataConfig &config = DataConfig::getCurrentConfig());
+    HeroesUsedAndRate & getHeroesUsedAndRate(bool force_download = false, const DataConfig &config = DataConfig::getCurrentConfig());
 private:
     QHash<QString, HeroesUsedAndRate> list;
 };

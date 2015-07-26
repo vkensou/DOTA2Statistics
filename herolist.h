@@ -3,8 +3,10 @@
 
 #include <vector>
 #include <QString>
+#include "Singleton.h"
 
 class HeroList
+        :public Singleton<HeroList>
 {
 public:
     void addHero(int id, const QString &name, const QString &chinese_name);

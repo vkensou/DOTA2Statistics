@@ -5,17 +5,25 @@
 #include <QtMath>
 #include "dataconfig.h"
 #include "datamanager.h"
+#include "heroesusedandratemanager.h"
+#include "herolist.h"
 
 const QString heroitemsfmt = "http://dotamax.com/hero/detail/hero_items/%1/?";
 
 HeroItems::HeroItems(const QString &name)
     :m_name(name)
+    ,m_chinese_name(HeroList::getInstance().getChineseNameByName(m_name))
 {
+}
+
+void HeroItems::clear()
+{
+    m_list.clear();
 }
 
 void HeroItems::download()
 {
-    list.clear();
+    m_list.clear();
 
     auto config = DataConfig::getCurrentConfig();
     QUrl url = heroitemsfmt.arg(m_name) + config.getUrlParams();
@@ -33,6 +41,8 @@ void HeroItems::load(bool force_download)
     if(force_download || !DataManager::getInstance().loadHeroItems(*this, DataConfig::getCurrentConfig()))
     {
         download();
+        HeroesUsedAndRate &hru = HeroesUsedAndRateManager::getInstance().getHeroesUsedAndRate(force_download);
+        calcX2(hru.getUsed(m_chinese_name), hru.getRate(m_chinese_name));
         save();
     }
 }
@@ -42,22 +52,13 @@ void HeroItems::save()
     DataManager::getInstance().saveHeroItems(*this, DataConfig::getCurrentConfig());
 }
 
-
-void HeroItems::calcX2(int heroused, float herorate)
+void HeroItems::saveasxml()
 {
-    auto func1 = [this, heroused, herorate](ItemRateAndUsed &item)
-    {
-        item.x2 = getX2(heroused, herorate, item.name);
-    };
-
-    std::for_each(list.begin(), list.end(), func1);
-
-
     QDomDocument doc;
     auto root = doc.createElement("X2");
     doc.appendChild(root);
 
-    auto func2 = [&doc, &root](const ItemRateAndUsed &hru)
+    auto func = [&doc, &root](const ItemRateAndUsed &hru)
     {
         auto node = doc.createElement("item");
         node.setAttribute("name", hru.name);
@@ -65,7 +66,7 @@ void HeroItems::calcX2(int heroused, float herorate)
 
         root.appendChild(node);
     };
-    std::for_each(list.begin(), list.end(), func2);
+    for_each_items(func);
 
     QString filename = getHeroItemsX2Filename();
     QFile file(filename);
@@ -76,17 +77,28 @@ void HeroItems::calcX2(int heroused, float herorate)
     doc.save(ts, 4);
 }
 
-double HeroItems::getX2(int heroused, double herorate, const QString &name)
+int HeroItems::getItemsCount() const
 {
-    auto i = list.find(name);
-    if(i != list.end())
-    {
-        ItemRateAndUsed &item = *i;
+    return m_list.count();
+}
 
-        return getX2(heroused, herorate, item.used, item.rate);
-    }
-    else
-        return 0;
+void HeroItems::for_each_items(std::function<void(ItemRateAndUsed &)> func)
+{
+    std::for_each(m_list.begin(), m_list.end(), func);
+}
+
+void HeroItems::for_each_items(std::function<void (const HeroItems::ItemRateAndUsed &)> func) const
+{
+    std::for_each(m_list.begin(), m_list.end(), func);
+}
+
+void HeroItems::calcX2(int heroused, float herorate)
+{
+    auto func1 = [this, heroused, herorate](ItemRateAndUsed &item)
+    {
+        item.x2 = getX2(heroused, herorate, item.used, item.rate);
+    };
+    for_each_items(func1);
 }
 
 double HeroItems::getX2(int heroused, double herorate, int itemused, double itemrate)
@@ -125,15 +137,15 @@ void HeroItems::parseWebPageData(const QString &data)
         tdnode = tdnode.nextSiblingElement();
         rate = percentagetoFloat(tdnode.firstChildElement("div").text());
 
-        addItem(name, used, rate);
+        addItem(name, used, rate, 0);
     }
 }
 
-void HeroItems::addItem(const QString &name, int used, double rate)
+void HeroItems::addItem(const QString &name, int used, double rate, double x2)
 {
     if(name == "真视宝石" || name == "不朽之守护")
         return;
-    list.insert(name, {name, used, rate});
+    m_list.insert(name, {name, used, rate, x2});
 }
 
 QString HeroItems::getHeroItemsFilename()

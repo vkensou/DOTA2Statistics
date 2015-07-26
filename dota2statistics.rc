@@ -6,8 +6,8 @@ IDI_ICON1 ICON DISCARDABLE "dota2.ico"
 #include <winver.h>
 #endif
 VS_VERSION_INFO VERSIONINFO
-    FILEVERSION 1,1,0,0
-    PRODUCTVERSION 1,1,0,0
+    FILEVERSION 1,2,0,0
+    PRODUCTVERSION 1,2,0,0
     FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
     FILEFLAGS VS_FF_DEBUG
@@ -24,12 +24,12 @@ VS_VERSION_INFO VERSIONINFO
             BEGIN
                 VALUE "CompanyName", "vkensou"
                 VALUE "FileDescription", "DOTA2 Statistics"
-                VALUE "FileVersion", "1.1.0.0"
+                VALUE "FileVersion", "1.2.0.0"
                 VALUE "InternalName", "DOTA2Statistics.exe"
                 VALUE "LegalCopyright", "Copyright by vkensou"
                 VALUE "OriginalFilename", "DOTA2Statistics.exe"
                 VALUE "ProductName", "DOTA2Statistics"
-                VALUE "ProductVersion", "1.1.0.0"
+                VALUE "ProductVersion", "1.2.0.0"
             END
         END
         BLOCK "VarFileInfo"
