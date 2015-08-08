@@ -1,3 +1,5 @@
+﻿#pragma execution_character_set("utf-8")
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "utility.h"
@@ -8,6 +10,7 @@
 #include <QValidator>
 #include "heroitemsmanager.h"
 #include <QMessageBox>
+#include "version.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -18,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_table_sortorder(true)
 {
     ui->setupUi(this);
+
+	setWindowTitle("DOTA2统计学V"PRODUCT_VERSION_STR);
 
     connect(ui->table_items->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(on_table_sort(int)));
 
@@ -118,7 +123,7 @@ void MainWindow::on_btn_calc_clicked()
 void MainWindow::on_action_about_triggered()
 {
     QString title = "关于";
-    QString text = "版本：1.0\r\nDeveloped by vkensou\r\nPowered by QT";
+	QString text = "版本："PRODUCT_VERSION_STR"\r\nDeveloped by vkensou\r\nPowered by QT";
 
     QMessageBox::about(NULL, title, text);
 }

@@ -1,4 +1,4 @@
-#include "heroitems.h"
+﻿#include "heroitems.h"
 #include "utility.h"
 #include <QRegExp>
 #include <QDomDocument>
