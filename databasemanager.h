@@ -8,11 +8,11 @@ class HeroesUsedAndRate;
 class HeroItems;
 class DataConfig;
 
-class DataManager
-        :public Singleton<DataManager>
+class DataBaseManager
+        :public Singleton<DataBaseManager>
 {
 public:
-    DataManager();
+    DataBaseManager();
 
     bool opendb();
     void closedb();
@@ -25,7 +25,6 @@ public:
 
 private:
     QSqlDatabase db;
-    QSqlQuery query;
 };
 
 

@@ -23,12 +23,10 @@ public:
     static void saveCurrent(const QString &filename);
     static void loadCurrent(const QString &filename);
 
-
     MatchType matchtype;
     Skill skill;
     Time time;
     Server server;
-
 
 private:
     const char * getMatchTypeStr(MatchType matchtype) const;

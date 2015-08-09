@@ -1,29 +1,28 @@
-#include "datamanager.h"
+#include "databasemanager.h"
 #include "dataconfig.h"
 #include "heroesusedandrate.h"
 #include "heroitems.h"
 #include <functional>
 #include <algorithm>
 
-DataManager::DataManager()
-    :query(db)
+DataBaseManager::DataBaseManager()
 {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("dota2satistics.db");
 
 }
 
-bool DataManager::opendb()
+bool DataBaseManager::opendb()
 {
     return db.open();
 }
 
-void DataManager::closedb()
+void DataBaseManager::closedb()
 {
     db.close();
 }
 
-bool DataManager::loadHeroesUsedAndRate(HeroesUsedAndRate &hur, const DataConfig &config)
+bool DataBaseManager::loadHeroesUsedAndRate(HeroesUsedAndRate &hur, const DataConfig &config)
 {
     static QString tablenamefmt = "herousedandrate%1";
     QString tablename = tablenamefmt.arg(config.getFileParams());
@@ -36,7 +35,7 @@ bool DataManager::loadHeroesUsedAndRate(HeroesUsedAndRate &hur, const DataConfig
         return false;
     else
     {
-        hur.list.clear();
+        hur.clear();
         for(int i = 0; i < model.rowCount(); ++i)
         {
             auto record = model.record(i);
@@ -49,7 +48,7 @@ bool DataManager::loadHeroesUsedAndRate(HeroesUsedAndRate &hur, const DataConfig
     }
 }
 
-void DataManager::saveHeroesUsedAndRate(const HeroesUsedAndRate &hur, const DataConfig &config)
+void DataBaseManager::saveHeroesUsedAndRate(const HeroesUsedAndRate &hur, const DataConfig &config)
 {
     static QString tablenamefmt = "herousedandrate%1";
     static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL);";
@@ -73,7 +72,7 @@ void DataManager::saveHeroesUsedAndRate(const HeroesUsedAndRate &hur, const Data
     db.commit();
 }
 
-bool DataManager::loadHeroItems(HeroItems &hero, const DataConfig &config)
+bool DataBaseManager::loadHeroItems(HeroItems &hero, const DataConfig &config)
 {
     static QString tablenamefmt = "%1%2";
     QString tablename = tablenamefmt.arg(hero.getName()).arg(config.getFileParams());
@@ -100,7 +99,7 @@ bool DataManager::loadHeroItems(HeroItems &hero, const DataConfig &config)
     }
 }
 
-void DataManager::saveHeroItems(const HeroItems &hero, const DataConfig &config)
+void DataBaseManager::saveHeroItems(const HeroItems &hero, const DataConfig &config)
 {
     static QString tablenamefmt = "%1%2";
     static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL, x2 DOUBLE NOT NULL);";

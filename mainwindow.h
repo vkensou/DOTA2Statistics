@@ -5,7 +5,8 @@
 #include <QLabel>
 #include "herolist.h"
 #include "heroesusedandratemanager.h"
-#include "datamanager.h"
+#include "databasemanager.h"
+#include "webdatadownloader.h"
 #include "heroitemsmanager.h"
 
 namespace Ui {
@@ -36,7 +37,8 @@ private:
     Ui::MainWindow *ui;
     HeroList m_herolist;
     HeroesUsedAndRateManager m_hrumanager;
-    DataManager m_datamanager;
+    DataBaseManager m_databasemanager;
+	WebDataDownloader m_webdatadownloader;
     HeroItemsManager m_heroitemsmanager;
     bool m_table_sortorder;
 	StatusBarSeter *m_statusbarsetter;

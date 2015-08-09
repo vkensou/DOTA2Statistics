@@ -50,9 +50,6 @@
     <ClCompile Include="dataconfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="datamanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="heroesusedandrate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -89,12 +86,18 @@
     <ClCompile Include="GeneratedFiles\Release\moc_statusbarsetter.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="databasemanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="webdatadownloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="webdatasourcedotamax.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataconfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="datamanager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="heroesusedandrate.h">
@@ -125,6 +128,18 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="databasemanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="webdatadownloader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="iwebdatasource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="webdatasourcedotamax.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

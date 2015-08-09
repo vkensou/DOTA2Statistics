@@ -6,12 +6,11 @@
 #include <QDomDocument>
 #include <QtMath>
 #include "dataconfig.h"
-#include "datamanager.h"
+#include "databasemanager.h"
 #include "heroesusedandratemanager.h"
 #include "herolist.h"
 #include "statusbarsetter.h"
-
-const QString heroitemsfmt = "http://dotamax.com/hero/detail/hero_items/%1/?";
+#include "webdatadownloader.h"
 
 HeroItems::HeroItems(const QString &name)
     :m_name(name)
@@ -26,22 +25,12 @@ void HeroItems::clear()
 
 void HeroItems::download()
 {
-    m_list.clear();
-
-	StatusBarSeter::setStatusBar("Downloading items used and rate...");
-
-    auto config = DataConfig::getCurrentConfig();
-    QUrl url = heroitemsfmt.arg(m_name) + config.getUrlParams();
-    auto data = downloadWebPage(url);
-
-	StatusBarSeter::setStatusBar("Download items used and rate complete");
-
-    parseWebPageData(data);
+	WebDataDownloader::getInstance().downloadHeroItems(*this, DataConfig::getCurrentConfig());
 }
 
 void HeroItems::load(bool force_download)
 {
-    if(force_download || !DataManager::getInstance().loadHeroItems(*this, DataConfig::getCurrentConfig()))
+    if(force_download || !DataBaseManager::getInstance().loadHeroItems(*this, DataConfig::getCurrentConfig()))
     {
         download();
         HeroesUsedAndRate &hru = HeroesUsedAndRateManager::getInstance().getHeroesUsedAndRate(force_download);
@@ -52,7 +41,7 @@ void HeroItems::load(bool force_download)
 
 void HeroItems::save()
 {
-    DataManager::getInstance().saveHeroItems(*this, DataConfig::getCurrentConfig());
+    DataBaseManager::getInstance().saveHeroItems(*this, DataConfig::getCurrentConfig());
 }
 
 void HeroItems::saveasxml()
@@ -118,43 +107,6 @@ double HeroItems::getX2(int heroused, double herorate, int itemused, double item
     double c = heroused * herorate - itemused * itemrate;
     double d = heroused * (1 - herorate) - itemused * (1 - itemrate);
     return independenttest(a, b, c, d);
-}
-
-void HeroItems::parseWebPageData(const QString &webdata)
-{
-	StatusBarSeter::setStatusBar("Parsing...");
-
-	static QRegExp rx("<tbody>.*</tbody>");
-	rx.indexIn(webdata);
-	auto page = rx.cap(0);
-
-    QDomDocument doc;
-	doc.setContent(page);
-
-    auto root = doc.documentElement();
-
-    for(auto node = root.firstChildElement("tr"); !node.isNull(); node = node.nextSiblingElement())
-    {
-        QString name;
-        float rate;
-        int used;
-
-        auto tdnode = node.firstChildElement();
-        name = tdnode.firstChildElement("a").text();
-        name.replace(" ", "");
-        name.replace("\n", "");
-
-        tdnode = tdnode.nextSiblingElement();
-        used = sepNumStrtoInt(tdnode.firstChildElement("div").text());
-
-        tdnode = tdnode.nextSiblingElement();
-        rate = percentagetoFloat(tdnode.firstChildElement("div").text());
-
-        addItem(name, used, rate, 0);
-    }
-
-	StatusBarSeter::setStatusBar("Parse complete");
-
 }
 
 void HeroItems::addItem(const QString &name, int used, double rate, double x2)

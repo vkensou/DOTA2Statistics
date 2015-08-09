@@ -6,26 +6,18 @@
 #include <functional>
 #include <algorithm>
 #include "dataconfig.h"
-#include "datamanager.h"
+#include "databasemanager.h"
 #include "statusbarsetter.h"
+#include "webdatadownloader.h"
 
 void HeroesUsedAndRate::download()
 {
-	StatusBarSeter::setStatusBar("Downloading hero's used and rate data...");
-
-    list.clear();
-
-    QUrl url = getHeroesUsedAndRateUrl();
-    auto data = downloadWebPage(url);
-
-	StatusBarSeter::setStatusBar("Download hero's used and rate data complete");
-
-    parseWebPageData(data);
+	WebDataDownloader::getInstance().downloadHeroesUsedAndRate(*this, DataConfig::getCurrentConfig());
 }
 
 void HeroesUsedAndRate::load(bool force_download)
 {
-    if(force_download || !DataManager::getInstance().loadHeroesUsedAndRate(*this, DataConfig::getCurrentConfig()))
+    if(force_download || !DataBaseManager::getInstance().loadHeroesUsedAndRate(*this, DataConfig::getCurrentConfig()))
     {
         download();
         save();
@@ -34,7 +26,7 @@ void HeroesUsedAndRate::load(bool force_download)
 
 void HeroesUsedAndRate::save()
 {
-    DataManager::getInstance().saveHeroesUsedAndRate(*this, DataConfig::getCurrentConfig());
+    DataBaseManager::getInstance().saveHeroesUsedAndRate(*this, DataConfig::getCurrentConfig());
 }
 
 float HeroesUsedAndRate::getRate(const QString &chinese_name)
@@ -55,50 +47,15 @@ int HeroesUsedAndRate::getUsed(const QString &chinese_name)
         return 0;
 }
 
-void HeroesUsedAndRate::parseWebPageData(const QString &webdata)
-{
-	StatusBarSeter::setStatusBar("Parsing...");
-
-	static QRegExp rx("<tbody>.*</tbody>");
-	rx.indexIn(webdata);
-	auto page = rx.cap(0);
-
-    QDomDocument doc;
-	doc.setContent(page);
-
-    auto root = doc.documentElement();
-
-    for(auto node = root.firstChildElement("tr"); !node.isNull(); node = node.nextSiblingElement())
-    {
-        QString name;
-        float rate;
-        int used;
-
-        auto tdnode = node.firstChildElement();
-        name = tdnode.firstChildElement("span").text();
-
-        tdnode = tdnode.nextSiblingElement();
-        rate = percentagetoFloat(tdnode.firstChildElement("div").text());
-
-        tdnode = tdnode.nextSiblingElement();
-        used = sepNumStrtoInt(tdnode.firstChildElement("div").text());
-
-        addHero(name, used, rate);
-    }
-
-	StatusBarSeter::setStatusBar("Parse hero's used and rate data complete");
-}
-
-QUrl HeroesUsedAndRate::getHeroesUsedAndRateUrl()
-{
-    static const QString urlfmt = "http://dotamax.com/hero/rate/?";
-    return urlfmt + DataConfig::getUrlParamsCurrent();
-}
-
 QString HeroesUsedAndRate::getHeroesUsedAndRateFilename()
 {
     static const QString filenamefmt("HeroesUsedAndRate%1.xml");
     return filenamefmt.arg(DataConfig::getFileParamsCurrent());
+}
+
+void HeroesUsedAndRate::clear()
+{
+	list.clear();
 }
 
 void HeroesUsedAndRate::addHero(const QString &name, int used, double rate)

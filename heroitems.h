@@ -5,7 +5,8 @@
 #include <QHash>
 #include <functional>
 
-class DataManager;
+class DataBaseManager;
+class WebDataDownloader;
 
 //hero winning rate with item
 class HeroItems
@@ -47,7 +48,6 @@ public:
     void for_each_items(std::function<void(const ItemRateAndUsed &)> func) const;
 
 private:
-    void parseWebPageData(const QString &webdata);
     void calcX2(int heroused, float herorate);
     double getX2(int heroused, double herorate, int itemused, double itemrate);
     void clear();
@@ -61,7 +61,8 @@ private:
     QHash<QString, ItemRateAndUsed> m_list;
 
 
-    friend DataManager;
+    friend DataBaseManager;
+	friend WebDataDownloader;
 };
 
 #endif // HEROITEMS_H

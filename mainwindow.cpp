@@ -35,14 +35,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     updateConfigPanel();
 
-    m_datamanager.opendb();
+    m_databasemanager.opendb();
 
     m_herolist.load();
 }
 
 MainWindow::~MainWindow()
 {
-    m_datamanager.closedb();
+    m_databasemanager.closedb();
     DataConfig::saveCurrent("datastatistics.ini");
     delete ui;
 	delete m_statusbarsetter;

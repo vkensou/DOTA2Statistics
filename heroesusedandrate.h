@@ -5,7 +5,8 @@
 #include <QUrl>
 #include <QHash>
 
-class DataManager;
+class DataBaseManager;
+class WebDataDownloader;
 
 class HeroesUsedAndRate
 {
@@ -18,7 +19,6 @@ public:
     int getUsed(const QString &chinese_name);
 
 private:
-    void parseWebPageData(const QString &data);
     struct HeroRateAndUsed
     {
         HeroRateAndUsed(const QString &name, int used, double rate)
@@ -37,11 +37,12 @@ private:
     };
     QHash<QString, HeroRateAndUsed> list;
 
-    QUrl getHeroesUsedAndRateUrl();
     QString getHeroesUsedAndRateFilename();
+	void clear();
     void addHero(const QString &name, int used, double rate);
 
-    friend DataManager;
+    friend DataBaseManager;
+	friend WebDataDownloader;
 };
 
 #endif // HEROESRATE_H
