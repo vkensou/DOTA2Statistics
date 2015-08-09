@@ -22,7 +22,7 @@ void DataBaseManager::closedb()
     db.close();
 }
 
-bool DataBaseManager::loadHeroesUsedAndRate(HeroesUsedAndRate &hur, const DataConfig &config)
+bool DataBaseManager::loadHeroesUsedAndRate(std::function<void(const QString &, int, double)> callback, const DataConfig &config)
 {
     static QString tablenamefmt = "herousedandrate%1";
     QString tablename = tablenamefmt.arg(config.getFileParams());
@@ -35,20 +35,19 @@ bool DataBaseManager::loadHeroesUsedAndRate(HeroesUsedAndRate &hur, const DataCo
         return false;
     else
     {
-        hur.clear();
         for(int i = 0; i < model.rowCount(); ++i)
         {
             auto record = model.record(i);
             auto name = record.value("name").toString();
             auto used = record.value("used").toInt();
             auto rate = record.value("rate").toDouble();
-            hur.addHero(name, used, rate);
+			callback(name, used, rate);
         }
         return true;
     }
 }
 
-void DataBaseManager::saveHeroesUsedAndRate(const HeroesUsedAndRate &hur, const DataConfig &config)
+void DataBaseManager::saveHeroesUsedAndRate(std::function<void(std::function<void(const HeroRateAndUsed &)>)> &callback, const DataConfig &config)
 {
     static QString tablenamefmt = "herousedandrate%1";
     static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL);";
@@ -63,12 +62,12 @@ void DataBaseManager::saveHeroesUsedAndRate(const HeroesUsedAndRate &hur, const 
     db.exec(sqldelete.arg(tablename));
 
     db.transaction();
-    auto func = [this, &tablename](const HeroesUsedAndRate::HeroRateAndUsed &hero)
+	auto func = [this, &tablename](const HeroRateAndUsed &hero)
     {
-        QString sql = sqlinsert.arg(tablename).arg(hero.name).arg(hero.used).arg(hero.rate);
+		QString sql = sqlinsert.arg(tablename).arg(hero.name).arg(hero.used).arg(hero.rate);
         db.exec(sql);
     };
-    std::for_each(hur.list.begin(), hur.list.end(), func);
+	callback(func);
     db.commit();
 }
 

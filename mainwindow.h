@@ -8,6 +8,7 @@
 #include "databasemanager.h"
 #include "webdatadownloader.h"
 #include "heroitemsmanager.h"
+#include "webdatasourcemanager.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,10 +41,12 @@ private:
     DataBaseManager m_databasemanager;
 	WebDataDownloader m_webdatadownloader;
     HeroItemsManager m_heroitemsmanager;
-    bool m_table_sortorder;
-	StatusBarSeter *m_statusbarsetter;
+	WebDataSourceManager m_webdatasourcemanager;
+ 	StatusBarSeter *m_statusbarsetter;
+	bool m_table_sortorder;
 
 	void initStatusBar();
+	void initConfigPanel();
     void showItemsX2(const HeroItems &items);
     void updateConfigPanel();
     void setTableWidgetHead();

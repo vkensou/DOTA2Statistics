@@ -12,6 +12,7 @@
 #include <QMessageBox>
 #include "version.h"
 #include "statusbarsetter.h"
+#include "iwebdatasource.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -24,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
 	initStatusBar();
+	initConfigPanel();
 
 	setWindowTitle("DOTA2统计学 V"PRODUCT_VERSION_STR);
 
@@ -53,6 +55,28 @@ void MainWindow::initStatusBar()
 	m_statusbarsetter = new StatusBarSeter;
 	connect(StatusBarSeter::getInstancePtr(), SIGNAL(setStatusBar_impl(QString)), this, SLOT(setStatusBarText(QString)));
 	setStatusBarText("Ready");
+}
+
+void MainWindow::initConfigPanel()
+{
+	ui->cbb_time->clear();
+	ui->cbb_server->clear();
+	ui->cbb_matchtype->clear();
+	ui->cbb_skill->clear();
+
+	auto source = WebDataSourceManager::getInstance().getWebDataSourceCurrent();
+
+	ui->cbb_time->setEnabled(source->isSupportSetTime());
+	ui->cbb_server->setEnabled(source->isSupportSetServer());
+	ui->cbb_matchtype->setEnabled(source->isSupportSetMatchType());
+	ui->cbb_skill->setEnabled(source->isSupportSetSkill());
+
+	ui->cbb_time->addItems(source->getTimeSetterTextList());
+	ui->cbb_server->addItems(source->getServerSetterText());
+	ui->cbb_matchtype->addItems(source->getMatchTypeSetterText());
+	ui->cbb_skill->addItems(source->getSkillSetterText());
+
+	updateConfigPanel();
 }
 
 void MainWindow::showItemsX2(const HeroItems &items)

@@ -5,6 +5,8 @@
 #include "heroesusedandrate.h"
 #include "heroitems.h"
 #include "dataconfig.h"
+#include "webdatasourcemanager.h"
+#include "iwebdatasource.h"
 
 WebDataDownloader::WebDataDownloader()
 {
@@ -15,18 +17,16 @@ WebDataDownloader::~WebDataDownloader()
 {
 }
 
-bool WebDataDownloader::downloadHeroesUsedAndRate(HeroesUsedAndRate &hur, const DataConfig &config)
+bool WebDataDownloader::downloadHeroesUsedAndRate(std::function<void(const QString &, int, double)> func, const DataConfig &config)
 {
 	StatusBarSeter::setStatusBar("Downloading hero's used and rate data...");
-
-	hur.clear();
 
 	auto url = getHeroesUsedAndRateUrl(config);
 	auto data = downloadWebPage(url);
 
 	StatusBarSeter::setStatusBar("Download hero's used and rate data complete");
 
-	parse_HeroesUsedAndRate_WebPageData(hur, data);
+	parse_HeroesUsedAndRate_WebPageData(func, data);
 
 	return true;
 }
@@ -47,7 +47,7 @@ bool WebDataDownloader::downloadHeroItems(HeroItems &hero, const DataConfig &con
 	return true;
 }
 
-void WebDataDownloader::parse_HeroesUsedAndRate_WebPageData(HeroesUsedAndRate &hur, const QString &webdata)
+void WebDataDownloader::parse_HeroesUsedAndRate_WebPageData(std::function<void(const QString &, int, double)> func, const QString &webdata)
 {
 	StatusBarSeter::setStatusBar("Parsing...");
 
@@ -59,7 +59,7 @@ void WebDataDownloader::parse_HeroesUsedAndRate_WebPageData(HeroesUsedAndRate &h
 	doc.setContent(page);
 
 	auto root = doc.documentElement();
-
+	
 	for (auto node = root.firstChildElement("tr"); !node.isNull(); node = node.nextSiblingElement())
 	{
 		QString name;
@@ -75,7 +75,7 @@ void WebDataDownloader::parse_HeroesUsedAndRate_WebPageData(HeroesUsedAndRate &h
 		tdnode = tdnode.nextSiblingElement();
 		used = sepNumStrtoInt(tdnode.firstChildElement("div").text());
 
-		hur.addHero(name, used, rate);
+		func(name, used, rate);
 	}
 
 	StatusBarSeter::setStatusBar("Parse hero's used and rate data complete");
@@ -119,12 +119,10 @@ void WebDataDownloader::parse_HeroItems_WebPageData(HeroItems &hero, const QStri
 
 QUrl WebDataDownloader::getHeroesUsedAndRateUrl(const DataConfig &config)
 {
-	static const QString urlfmt = "http://dotamax.com/hero/rate/?%1";
-	return urlfmt.arg(config.getUrlParams());
+	return WebDataSourceManager::getInstance().getWebDataSourceCurrent()->getHeroesUsedAndRateUrl(config);
 }
 
 QUrl WebDataDownloader::getHeroItemsUrl(const QString &heroname, const DataConfig &config)
 {
-	static const QString heroitemsfmt = "http://dotamax.com/hero/detail/hero_items/%1/?%2";
-	return heroitemsfmt.arg(heroname).arg(config.getUrlParams());
+	return WebDataSourceManager::getInstance().getWebDataSourceCurrent()->getHeroItemsUrl(heroname, config);
 }

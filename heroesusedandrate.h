@@ -4,13 +4,34 @@
 #include <QString>
 #include <QUrl>
 #include <QHash>
+#include <functional>
 
 class DataBaseManager;
 class WebDataDownloader;
 
+class HeroRateAndUsed
+{
+public:
+	HeroRateAndUsed(const QString &name, int used, double rate)
+		:name(name), used(used), rate(rate)
+	{
+	}
+
+	QString name;
+	int used;
+	double rate;
+
+	bool operator < (const HeroRateAndUsed &a) const
+	{
+		return a.name < name;
+	}
+};
+
 class HeroesUsedAndRate
 {
 public:
+	HeroesUsedAndRate();
+
     void download();
     void load(bool force_download = false);
     void save();
@@ -19,30 +40,13 @@ public:
     int getUsed(const QString &chinese_name);
 
 private:
-    struct HeroRateAndUsed
-    {
-        HeroRateAndUsed(const QString &name, int used, double rate)
-            :name(name), used(used), rate(rate)
-        {
-        }
-
-        QString name;
-        int used;
-        double rate;
-
-        bool operator < (const HeroRateAndUsed &a) const
-        {
-            return a.name < name;
-        }
-    };
-    QHash<QString, HeroRateAndUsed> list;
+    QHash<QString, HeroRateAndUsed> m_list;
+	std::function<void(const QString &, int, double)> m_addHero_callback;
+	std::function<void(std::function<void(const HeroRateAndUsed &)>)> m_enumList;
 
     QString getHeroesUsedAndRateFilename();
 	void clear();
     void addHero(const QString &name, int used, double rate);
-
-    friend DataBaseManager;
-	friend WebDataDownloader;
 };
 
 #endif // HEROESRATE_H

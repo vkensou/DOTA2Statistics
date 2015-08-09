@@ -13,7 +13,7 @@ HeroesUsedAndRate &HeroesUsedAndRateManager::getHeroesUsedAndRate(bool force_dow
     if(i == list.end())
     {
         i = list.insert(key, {});
-        i->load(force_download);
     }
+	i->load(force_download);
     return *i;
 }

@@ -93,7 +93,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="webdatasourcedotamax.cpp">
-      <Filter>Generated Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="webdatasourcemanager.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +143,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="webdatasourcedotamax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="webdatasourcemanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="webdatasourcedotabuff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

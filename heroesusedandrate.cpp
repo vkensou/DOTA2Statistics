@@ -10,15 +10,38 @@
 #include "statusbarsetter.h"
 #include "webdatadownloader.h"
 
+HeroesUsedAndRate::HeroesUsedAndRate()
+{
+	m_addHero_callback = [this](const QString &name, int used, double rate)->void
+	{
+		addHero(name, used, rate);
+	};
+	m_enumList = [this](std::function<void(const HeroRateAndUsed &)> &func)->void
+	{
+		std::for_each(m_list.begin(), m_list.end(), func);
+	};
+}
+
 void HeroesUsedAndRate::download()
 {
-	WebDataDownloader::getInstance().downloadHeroesUsedAndRate(*this, DataConfig::getCurrentConfig());
+	auto func = [this](const QString &name, int used, double rate)
+	{
+		addHero(name, used, rate);
+	};
+
+	WebDataDownloader::getInstance().downloadHeroesUsedAndRate(func, DataConfig::getCurrentConfig());
 }
 
 void HeroesUsedAndRate::load(bool force_download)
 {
-    if(force_download || !DataBaseManager::getInstance().loadHeroesUsedAndRate(*this, DataConfig::getCurrentConfig()))
+	auto func = [this](const QString &name, int used, double rate)
+	{
+		addHero(name, used, rate);
+	};
+
+	if (force_download || !DataBaseManager::getInstance().loadHeroesUsedAndRate(func, DataConfig::getCurrentConfig()))
     {
+		m_list.clear();
         download();
         save();
     }
@@ -26,13 +49,13 @@ void HeroesUsedAndRate::load(bool force_download)
 
 void HeroesUsedAndRate::save()
 {
-    DataBaseManager::getInstance().saveHeroesUsedAndRate(*this, DataConfig::getCurrentConfig());
+	DataBaseManager::getInstance().saveHeroesUsedAndRate(m_enumList, DataConfig::getCurrentConfig());
 }
 
 float HeroesUsedAndRate::getRate(const QString &chinese_name)
 {
-    auto f = list.find(chinese_name);
-    if(f != list.end())
+    auto f = m_list.find(chinese_name);
+    if(f != m_list.end())
         return (*f).rate;
     else
         return 0.f;
@@ -40,8 +63,8 @@ float HeroesUsedAndRate::getRate(const QString &chinese_name)
 
 int HeroesUsedAndRate::getUsed(const QString &chinese_name)
 {
-    auto f = list.find(chinese_name);
-    if(f != list.end())
+    auto f = m_list.find(chinese_name);
+    if(f != m_list.end())
         return (*f).used;
     else
         return 0;
@@ -55,11 +78,11 @@ QString HeroesUsedAndRate::getHeroesUsedAndRateFilename()
 
 void HeroesUsedAndRate::clear()
 {
-	list.clear();
+	m_list.clear();
 }
 
 void HeroesUsedAndRate::addHero(const QString &name, int used, double rate)
 {
-    list.insert(name, {name, used, rate});
+    m_list.insert(name, {name, used, rate});
 }
 

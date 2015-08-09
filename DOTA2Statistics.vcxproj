@@ -164,6 +164,7 @@
     <ClCompile Include="utility.cpp" />
     <ClCompile Include="webdatadownloader.cpp" />
     <ClCompile Include="webdatasourcedotamax.cpp" />
+    <ClCompile Include="webdatasourcemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataconfig.h" />
@@ -176,7 +177,9 @@
     <ClInclude Include="herolist.h" />
     <ClInclude Include="iwebdatasource.h" />
     <ClInclude Include="webdatadownloader.h" />
+    <ClInclude Include="webdatasourcedotabuff.h" />
     <ClInclude Include="webdatasourcedotamax.h" />
+    <ClInclude Include="webdatasourcemanager.h" />
     <CustomBuild Include="statusbarsetter.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing statusbarsetter.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
