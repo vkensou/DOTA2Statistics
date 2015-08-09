@@ -47,7 +47,7 @@ public:
     void for_each_items(std::function<void(const ItemRateAndUsed &)> func) const;
 
 private:
-    void parseWebPageData(const QString &data);
+    void parseWebPageData(const QString &webdata);
     void calcX2(int heroused, float herorate);
     double getX2(int heroused, double herorate, int itemused, double itemrate);
     void clear();

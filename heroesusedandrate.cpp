@@ -7,19 +7,20 @@
 #include <algorithm>
 #include "dataconfig.h"
 #include "datamanager.h"
+#include "statusbarsetter.h"
 
 void HeroesUsedAndRate::download()
 {
+	StatusBarSeter::setStatusBar("Downloading hero's used and rate data...");
+
     list.clear();
 
     QUrl url = getHeroesUsedAndRateUrl();
-    auto page = downloadWebPage(url);
+    auto data = downloadWebPage(url);
 
-    static QRegExp rx("<tbody>.*</tbody>");
-    rx.indexIn(page);
-    page = rx.cap(0);
+	StatusBarSeter::setStatusBar("Download hero's used and rate data complete");
 
-    parseWebPageData(page);
+    parseWebPageData(data);
 }
 
 void HeroesUsedAndRate::load(bool force_download)
@@ -54,10 +55,16 @@ int HeroesUsedAndRate::getUsed(const QString &chinese_name)
         return 0;
 }
 
-void HeroesUsedAndRate::parseWebPageData(const QString &data)
+void HeroesUsedAndRate::parseWebPageData(const QString &webdata)
 {
+	StatusBarSeter::setStatusBar("Parsing...");
+
+	static QRegExp rx("<tbody>.*</tbody>");
+	rx.indexIn(webdata);
+	auto page = rx.cap(0);
+
     QDomDocument doc;
-    doc.setContent(data);
+	doc.setContent(page);
 
     auto root = doc.documentElement();
 
@@ -78,6 +85,8 @@ void HeroesUsedAndRate::parseWebPageData(const QString &data)
 
         addHero(name, used, rate);
     }
+
+	StatusBarSeter::setStatusBar("Parse hero's used and rate data complete");
 }
 
 QUrl HeroesUsedAndRate::getHeroesUsedAndRateUrl()

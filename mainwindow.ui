@@ -345,6 +345,7 @@
    </widget>
    <addaction name="menu"/>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <action name="action_about">
    <property name="text">
     <string>关于</string>

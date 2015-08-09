@@ -1,4 +1,6 @@
-﻿#include "heroitems.h"
+﻿#pragma execution_character_set("utf-8")
+
+#include "heroitems.h"
 #include "utility.h"
 #include <QRegExp>
 #include <QDomDocument>
@@ -7,6 +9,7 @@
 #include "datamanager.h"
 #include "heroesusedandratemanager.h"
 #include "herolist.h"
+#include "statusbarsetter.h"
 
 const QString heroitemsfmt = "http://dotamax.com/hero/detail/hero_items/%1/?";
 
@@ -25,15 +28,15 @@ void HeroItems::download()
 {
     m_list.clear();
 
+	StatusBarSeter::setStatusBar("Downloading items used and rate...");
+
     auto config = DataConfig::getCurrentConfig();
     QUrl url = heroitemsfmt.arg(m_name) + config.getUrlParams();
-    auto page = downloadWebPage(url);
+    auto data = downloadWebPage(url);
 
-    static QRegExp rx("<tbody>.*</tbody>");
-    rx.indexIn(page);
-    page = rx.cap(0);
+	StatusBarSeter::setStatusBar("Download items used and rate complete");
 
-    parseWebPageData(page);
+    parseWebPageData(data);
 }
 
 void HeroItems::load(bool force_download)
@@ -94,11 +97,15 @@ void HeroItems::for_each_items(std::function<void (const HeroItems::ItemRateAndU
 
 void HeroItems::calcX2(int heroused, float herorate)
 {
+	StatusBarSeter::setStatusBar("Calculating X2...");
+
     auto func1 = [this, heroused, herorate](ItemRateAndUsed &item)
     {
         item.x2 = getX2(heroused, herorate, item.used, item.rate);
     };
     for_each_items(func1);
+
+	StatusBarSeter::setStatusBar("Calculate complete");
 }
 
 double HeroItems::getX2(int heroused, double herorate, int itemused, double itemrate)
@@ -113,10 +120,16 @@ double HeroItems::getX2(int heroused, double herorate, int itemused, double item
     return independenttest(a, b, c, d);
 }
 
-void HeroItems::parseWebPageData(const QString &data)
+void HeroItems::parseWebPageData(const QString &webdata)
 {
+	StatusBarSeter::setStatusBar("Parsing...");
+
+	static QRegExp rx("<tbody>.*</tbody>");
+	rx.indexIn(webdata);
+	auto page = rx.cap(0);
+
     QDomDocument doc;
-    doc.setContent(data);
+	doc.setContent(page);
 
     auto root = doc.documentElement();
 
@@ -139,6 +152,9 @@ void HeroItems::parseWebPageData(const QString &data)
 
         addItem(name, used, rate, 0);
     }
+
+	StatusBarSeter::setStatusBar("Parse complete");
+
 }
 
 void HeroItems::addItem(const QString &name, int used, double rate, double x2)

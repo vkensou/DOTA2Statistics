@@ -11,6 +11,7 @@
 #include "heroitemsmanager.h"
 #include <QMessageBox>
 #include "version.h"
+#include "statusbarsetter.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -22,7 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-	setWindowTitle("DOTA2统计学V"PRODUCT_VERSION_STR);
+	initStatusBar();
+
+	setWindowTitle("DOTA2统计学 V"PRODUCT_VERSION_STR);
 
     connect(ui->table_items->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(on_table_sort(int)));
 
@@ -42,10 +45,20 @@ MainWindow::~MainWindow()
     m_datamanager.closedb();
     DataConfig::saveCurrent("datastatistics.ini");
     delete ui;
+	delete m_statusbarsetter;
+}
+
+void MainWindow::initStatusBar()
+{
+	m_statusbarsetter = new StatusBarSeter;
+	connect(StatusBarSeter::getInstancePtr(), SIGNAL(setStatusBar_impl(QString)), this, SLOT(setStatusBarText(QString)));
+	setStatusBarText("Ready");
 }
 
 void MainWindow::showItemsX2(const HeroItems &items)
 {
+	setStatusBarText("Table updating...");
+
     ui->table_items->clear();
     setTableWidgetHead();
     ui->table_items->setRowCount(items.getItemsCount());
@@ -63,6 +76,8 @@ void MainWindow::showItemsX2(const HeroItems &items)
 
     m_table_sortorder = true;
     ui->table_items->sortByColumn(1, Qt::DescendingOrder);
+
+	setStatusBarText("Table update complete");
 }
 
 void MainWindow::updateConfigPanel()
@@ -80,6 +95,12 @@ void MainWindow::setTableWidgetHead()
     QStringList header;
     header << "物品" << "X2";
     ui->table_items->setHorizontalHeaderLabels(header);
+}
+
+void MainWindow::setStatusBarText(const QString &text)
+{
+	ui->statusBar->showMessage(text);
+	//ui->statusBar->messageChanged(text);
 }
 
 void MainWindow::on_cbb_time_currentIndexChanged(int index)
@@ -110,7 +131,10 @@ void MainWindow::on_btn_calc_clicked()
     auto chinese_name = ui->edt_heroname->text();
     auto name = m_herolist.getNameByChineseName(chinese_name);
     if(name.isEmpty())
-        return;
+	{
+		QMessageBox::warning(NULL, windowTitle(), "没有这个英雄");
+		return;
+	}
 
     bool force_download = ui->ckb_force_download->isChecked();
 
@@ -118,6 +142,8 @@ void MainWindow::on_btn_calc_clicked()
     hero.load(force_download);
 
     showItemsX2(hero);
+
+	setStatusBarText("Ready");
 }
 
 void MainWindow::on_action_about_triggered()

@@ -5,7 +5,7 @@ template <class T>
 class Singleton
 {
 public:
-    typedef Singleton<T> Base;
+    typedef Singleton<T> base;
 
     Singleton()
     {
