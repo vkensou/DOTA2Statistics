@@ -18,6 +18,13 @@ HeroItems::HeroItems(const QString &name)
 {
 }
 
+HeroItems::~HeroItems()
+{
+	pointerContainerDeleteAndClear(m_list);
+	//std::for_each(m_list.begin(), m_list.end(), [](auto *p){delete p; });
+	//m_list.clear();
+}
+
 void HeroItems::clear()
 {
     m_list.clear();
@@ -50,11 +57,11 @@ void HeroItems::saveasxml()
     auto root = doc.createElement("X2");
     doc.appendChild(root);
 
-    auto func = [&doc, &root](const ItemRateAndUsed &hru)
+    auto func = [&doc, &root](const ItemRateAndUsed *hru)
     {
         auto node = doc.createElement("item");
-        node.setAttribute("name", hru.name);
-        node.setAttribute("x2", hru.x2);
+        node.setAttribute("name", hru->name);
+        node.setAttribute("x2", hru->x2);
 
         root.appendChild(node);
     };
@@ -74,23 +81,23 @@ int HeroItems::getItemsCount() const
     return m_list.count();
 }
 
-void HeroItems::for_each_items(std::function<void(ItemRateAndUsed &)> func)
+void HeroItems::for_each_items(std::function<void(ItemRateAndUsed *)> func)
 {
     std::for_each(m_list.begin(), m_list.end(), func);
 }
 
-void HeroItems::for_each_items(std::function<void (const HeroItems::ItemRateAndUsed &)> func) const
+void HeroItems::for_each_items(std::function<void (const ItemRateAndUsed * )> func) const
 {
-    std::for_each(m_list.begin(), m_list.end(), func);
+    std::for_each(m_list.constBegin(), m_list.constEnd(), func);
 }
 
 void HeroItems::calcX2(int heroused, float herorate)
 {
 	StatusBarSeter::setStatusBar("Calculating X2...");
 
-    auto func1 = [this, heroused, herorate](ItemRateAndUsed &item)
+    auto func1 = [this, heroused, herorate](ItemRateAndUsed *item)
     {
-        item.x2 = getX2(heroused, herorate, item.used, item.rate);
+        item->x2 = getX2(heroused, herorate, item->used, item->rate);
     };
     for_each_items(func1);
 
@@ -113,7 +120,7 @@ void HeroItems::addItem(const QString &name, int used, double rate, double x2)
 {
     if(name == "真视宝石" || name == "不朽之守护")
         return;
-    m_list.insert(name, {name, used, rate, x2});
+	m_list.insert(name, new  ItemRateAndUsed(name, used, rate, x2));
 }
 
 QString HeroItems::getHeroItemsFilename()

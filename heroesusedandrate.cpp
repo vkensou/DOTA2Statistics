@@ -12,34 +12,27 @@
 
 HeroesUsedAndRate::HeroesUsedAndRate()
 {
-	m_addHero_callback = [this](const QString &name, int used, double rate)->void
-	{
-		addHero(name, used, rate);
-	};
-	m_enumList = [this](std::function<void(const HeroRateAndUsed &)> &func)->void
+	using namespace std::placeholders;
+	m_addHero_callback = std::bind(&HeroesUsedAndRate::addHero, this, _1, _2, _3);
+	m_enumList = [this](std::function<void(const HeroRateAndUsed * const)> &func)->void
 	{
 		std::for_each(m_list.begin(), m_list.end(), func);
 	};
 }
 
+HeroesUsedAndRate::~HeroesUsedAndRate()
+{
+	pointerContainerDeleteAndClear(m_list);
+}
+
 void HeroesUsedAndRate::download()
 {
-	auto func = [this](const QString &name, int used, double rate)
-	{
-		addHero(name, used, rate);
-	};
-
-	WebDataDownloader::getInstance().downloadHeroesUsedAndRate(func, DataConfig::getCurrentConfig());
+	WebDataDownloader::getInstance().downloadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig());
 }
 
 void HeroesUsedAndRate::load(bool force_download)
 {
-	auto func = [this](const QString &name, int used, double rate)
-	{
-		addHero(name, used, rate);
-	};
-
-	if (force_download || !DataBaseManager::getInstance().loadHeroesUsedAndRate(func, DataConfig::getCurrentConfig()))
+	if (force_download || !DataBaseManager::getInstance().loadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig()))
     {
 		m_list.clear();
         download();
@@ -54,20 +47,14 @@ void HeroesUsedAndRate::save()
 
 float HeroesUsedAndRate::getRate(const QString &chinese_name)
 {
-    auto f = m_list.find(chinese_name);
-    if(f != m_list.end())
-        return (*f).rate;
-    else
-        return 0.f;
+	auto data = getHero(chinese_name);
+	return data->rate;
 }
 
 int HeroesUsedAndRate::getUsed(const QString &chinese_name)
 {
-    auto f = m_list.find(chinese_name);
-    if(f != m_list.end())
-        return (*f).used;
-    else
-        return 0;
+	auto data = getHero(chinese_name);
+	return data->used;
 }
 
 QString HeroesUsedAndRate::getHeroesUsedAndRateFilename()
@@ -83,6 +70,20 @@ void HeroesUsedAndRate::clear()
 
 void HeroesUsedAndRate::addHero(const QString &name, int used, double rate)
 {
-    m_list.insert(name, {name, used, rate});
+	m_list.insert(name, new HeroRateAndUsed{ name, used, rate });
 }
 
+HeroRateAndUsed * HeroesUsedAndRate::getHero(const QString &chinese_name)
+{
+	auto f = m_list.find(chinese_name);
+	if (f != m_list.end())
+		return f.value();
+	else
+		return nullptr;
+
+}
+
+HeroRateAndUsed::HeroRateAndUsed(const QString &name, int used, double rate) :name(name), used(used), rate(rate)
+{
+
+}

@@ -12,10 +12,11 @@ class HeroItemsManager
 {
 public:
     HeroItemsManager();
+	~HeroItemsManager();
 
     HeroItems & getHeroItems(const QString &name, const DataConfig &config = DataConfig::getCurrentConfig());
 private:
-    QHash<QString, HeroItems> list;
+    QHash<QString, HeroItems *> m_list;
 };
 
 #endif // HEROITEMSMANAGER_H

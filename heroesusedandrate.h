@@ -12,10 +12,8 @@ class WebDataDownloader;
 class HeroRateAndUsed
 {
 public:
-	HeroRateAndUsed(const QString &name, int used, double rate)
-		:name(name), used(used), rate(rate)
-	{
-	}
+	HeroRateAndUsed(const QString &name, int used, double rate);
+	HeroRateAndUsed(const HeroRateAndUsed&) = delete;
 
 	QString name;
 	int used;
@@ -31,6 +29,8 @@ class HeroesUsedAndRate
 {
 public:
 	HeroesUsedAndRate();
+	~HeroesUsedAndRate();
+	HeroesUsedAndRate(const HeroesUsedAndRate&) = delete;
 
     void download();
     void load(bool force_download = false);
@@ -40,13 +40,14 @@ public:
     int getUsed(const QString &chinese_name);
 
 private:
-    QHash<QString, HeroRateAndUsed> m_list;
+	QHash<QString, HeroRateAndUsed *> m_list;
 	std::function<void(const QString &, int, double)> m_addHero_callback;
-	std::function<void(std::function<void(const HeroRateAndUsed &)>)> m_enumList;
+	std::function<void(std::function<void(const HeroRateAndUsed *)>)> m_enumList;
 
     QString getHeroesUsedAndRateFilename();
 	void clear();
     void addHero(const QString &name, int used, double rate);
+	HeroRateAndUsed * getHero(const QString &chinese_name);
 };
 
 #endif // HEROESRATE_H

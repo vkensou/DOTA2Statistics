@@ -47,7 +47,7 @@ bool DataBaseManager::loadHeroesUsedAndRate(std::function<void(const QString &, 
     }
 }
 
-void DataBaseManager::saveHeroesUsedAndRate(std::function<void(std::function<void(const HeroRateAndUsed &)>)> &callback, const DataConfig &config)
+void DataBaseManager::saveHeroesUsedAndRate(std::function<void(std::function<void(const HeroRateAndUsed *)>)> &callback, const DataConfig &config)
 {
     static QString tablenamefmt = "herousedandrate%1";
     static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL);";
@@ -62,9 +62,9 @@ void DataBaseManager::saveHeroesUsedAndRate(std::function<void(std::function<voi
     db.exec(sqldelete.arg(tablename));
 
     db.transaction();
-	auto func = [this, &tablename](const HeroRateAndUsed &hero)
+	auto func = [this, &tablename](const HeroRateAndUsed *hero)
     {
-		QString sql = sqlinsert.arg(tablename).arg(hero.name).arg(hero.used).arg(hero.rate);
+		QString sql = sqlinsert.arg(tablename).arg(hero->name).arg(hero->used).arg(hero->rate);
         db.exec(sql);
     };
 	callback(func);
@@ -111,9 +111,9 @@ void DataBaseManager::saveHeroItems(const HeroItems &hero, const DataConfig &con
     db.exec(sqldelete.arg(tablename));
 
     db.transaction();
-    auto func = [this, &tablename](const HeroItems::ItemRateAndUsed &item)
+    auto func = [this, &tablename](const HeroItems::ItemRateAndUsed * item)
     {
-        QString sql = sqlinsert.arg(tablename).arg(item.name).arg(item.used).arg(item.rate).arg(item.x2);
+		QString sql = sqlinsert.arg(tablename).arg(item->name).arg(item->used).arg(item->rate).arg(item->x2);
         db.exec(sql);
     };
     hero.for_each_items(func);

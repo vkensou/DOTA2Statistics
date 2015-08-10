@@ -14,6 +14,8 @@ class HeroItems
 public:
     const QString & getName() const{return m_name;}
     HeroItems(const QString &name);
+	~HeroItems();
+	HeroItems(const HeroItems &) = delete;
 
     void download();
     void load(bool force_download = false);
@@ -32,6 +34,8 @@ public:
         {
         }
 
+		ItemRateAndUsed(const ItemRateAndUsed &) = delete;
+
         QString name;
         int used;
         double rate;
@@ -44,8 +48,8 @@ public:
     };
 
     int getItemsCount() const;
-    void for_each_items(std::function<void(ItemRateAndUsed &)> func);
-    void for_each_items(std::function<void(const ItemRateAndUsed &)> func) const;
+    void for_each_items(std::function<void(ItemRateAndUsed *)> func);
+    void for_each_items(std::function<void(const ItemRateAndUsed *)> func) const;
 
 private:
     void calcX2(int heroused, float herorate);
@@ -58,7 +62,7 @@ private:
     QString m_name;
     QString m_chinese_name;
 
-    QHash<QString, ItemRateAndUsed> m_list;
+	QHash<QString, ItemRateAndUsed *> m_list;
 
 
     friend DataBaseManager;

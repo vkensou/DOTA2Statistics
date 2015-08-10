@@ -12,10 +12,11 @@ class HeroesUsedAndRateManager
 {
 public:
     HeroesUsedAndRateManager();
+	~HeroesUsedAndRateManager();
 
     HeroesUsedAndRate & getHeroesUsedAndRate(bool force_download = false, const DataConfig &config = DataConfig::getCurrentConfig());
 private:
-    QHash<QString, HeroesUsedAndRate> list;
+	QHash<QString, HeroesUsedAndRate *> m_list;
 };
 
 
