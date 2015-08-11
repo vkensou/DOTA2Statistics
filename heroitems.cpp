@@ -16,28 +16,29 @@ HeroItems::HeroItems(const QString &name)
     :m_name(name)
     ,m_chinese_name(HeroList::getInstance().getChineseNameByName(m_name))
 {
+	using namespace std::placeholders;
+	m_addItem_callback = std::bind(&HeroItems::addItem, this, _1, _2, _3, _4);
+	m_enumList = [this](std::function<void(const ItemRateAndUsed *)> &func)->void
+	{
+		std::for_each(m_list.begin(), m_list.end(), func);
+	};
+
 }
 
 HeroItems::~HeroItems()
 {
 	pointerContainerDeleteAndClear(m_list);
-	//std::for_each(m_list.begin(), m_list.end(), [](auto *p){delete p; });
-	//m_list.clear();
-}
-
-void HeroItems::clear()
-{
-    m_list.clear();
 }
 
 void HeroItems::download()
 {
-	WebDataDownloader::getInstance().downloadHeroItems(*this, DataConfig::getCurrentConfig());
+	WebDataDownloader::getInstance().downloadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig());
 }
 
 void HeroItems::load(bool force_download)
 {
-    if(force_download || !DataBaseManager::getInstance().loadHeroItems(*this, DataConfig::getCurrentConfig()))
+	m_list.clear();
+	if (force_download || !DataBaseManager::getInstance().loadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig()))
     {
         download();
         HeroesUsedAndRate &hru = HeroesUsedAndRateManager::getInstance().getHeroesUsedAndRate(force_download);
@@ -48,7 +49,7 @@ void HeroItems::load(bool force_download)
 
 void HeroItems::save()
 {
-    DataBaseManager::getInstance().saveHeroItems(*this, DataConfig::getCurrentConfig());
+	DataBaseManager::getInstance().saveHeroItems(m_name, m_enumList, DataConfig::getCurrentConfig());
 }
 
 void HeroItems::saveasxml()

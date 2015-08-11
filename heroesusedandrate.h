@@ -45,7 +45,6 @@ private:
 	std::function<void(std::function<void(const HeroRateAndUsed *)>)> m_enumList;
 
     QString getHeroesUsedAndRateFilename();
-	void clear();
     void addHero(const QString &name, int used, double rate);
 	HeroRateAndUsed * getHero(const QString &chinese_name);
 };

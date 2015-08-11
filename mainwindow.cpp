@@ -87,7 +87,7 @@ void MainWindow::showItemsX2(const HeroItems &items)
     setTableWidgetHead();
     ui->table_items->setRowCount(items.getItemsCount());
     int i = 0;
-    auto func = [this, &i](const HeroItems::ItemRateAndUsed * item)
+    auto func = [this, &i](const ItemRateAndUsed * item)
     {
         ui->table_items->setItem(i, 0, new QTableWidgetItem(item->name));
         QTableWidgetItem* wgt_x2 = new QTableWidgetItem();

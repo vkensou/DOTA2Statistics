@@ -14,7 +14,7 @@ HeroesUsedAndRate::HeroesUsedAndRate()
 {
 	using namespace std::placeholders;
 	m_addHero_callback = std::bind(&HeroesUsedAndRate::addHero, this, _1, _2, _3);
-	m_enumList = [this](std::function<void(const HeroRateAndUsed * const)> &func)->void
+	m_enumList = [this](std::function<void(const HeroRateAndUsed *)> &func)->void
 	{
 		std::for_each(m_list.begin(), m_list.end(), func);
 	};
@@ -32,9 +32,9 @@ void HeroesUsedAndRate::download()
 
 void HeroesUsedAndRate::load(bool force_download)
 {
+	m_list.clear();
 	if (force_download || !DataBaseManager::getInstance().loadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig()))
     {
-		m_list.clear();
         download();
         save();
     }
@@ -61,11 +61,6 @@ QString HeroesUsedAndRate::getHeroesUsedAndRateFilename()
 {
     static const QString filenamefmt("HeroesUsedAndRate%1.xml");
     return filenamefmt.arg(DataConfig::getFileParamsCurrent());
-}
-
-void HeroesUsedAndRate::clear()
-{
-	m_list.clear();
 }
 
 void HeroesUsedAndRate::addHero(const QString &name, int used, double rate)

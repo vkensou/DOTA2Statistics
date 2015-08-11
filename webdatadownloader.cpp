@@ -31,18 +31,16 @@ bool WebDataDownloader::downloadHeroesUsedAndRate(std::function<void(const QStri
 	return true;
 }
 
-bool WebDataDownloader::downloadHeroItems(HeroItems &hero, const DataConfig &config)
+bool WebDataDownloader::downloadHeroItems(const QString &heroname, std::function<void(const QString &, int, double, double)> func, const DataConfig &config)
 {
 	StatusBarSeter::setStatusBar("Downloading items used and rate...");
 
-	hero.clear();
-
-	auto url = getHeroItemsUrl(hero.getName(), config);
+	auto url = getHeroItemsUrl(heroname, config);
 	auto data = downloadWebPage(url);
 
 	StatusBarSeter::setStatusBar("Download items used and rate complete");
 
-	parse_HeroItems_WebPageData(hero, data);
+	parse_HeroItems_WebPageData(func, data);
 
 	return true;
 }
@@ -81,7 +79,7 @@ void WebDataDownloader::parse_HeroesUsedAndRate_WebPageData(std::function<void(c
 	StatusBarSeter::setStatusBar("Parse hero's used and rate data complete");
 }
 
-void WebDataDownloader::parse_HeroItems_WebPageData(HeroItems &hero, const QString &webdata)
+void WebDataDownloader::parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double)> func, const QString &webdata)
 {
 	StatusBarSeter::setStatusBar("Parsing...");
 
@@ -111,7 +109,7 @@ void WebDataDownloader::parse_HeroItems_WebPageData(HeroItems &hero, const QStri
 		tdnode = tdnode.nextSiblingElement();
 		rate = percentagetoFloat(tdnode.firstChildElement("div").text());
 
-		hero.addItem(name, used, rate, 0);
+		func(name, used, rate, 0);
 	}
 
 	StatusBarSeter::setStatusBar("Parse complete");
