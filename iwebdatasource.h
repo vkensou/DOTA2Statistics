@@ -19,6 +19,7 @@ public:
 
 	virtual QUrl getHeroesUsedAndRateUrl(const DataConfig &config) = 0;
 	virtual QUrl getHeroItemsUrl(const QString &heroname, const DataConfig &config) = 0;
+	virtual QString getFileParams(const DataConfig &config) = 0;
 
 	virtual const QStringList & getTimeSetterTextList() = 0;
 	virtual const QStringList & getSkillSetterText() = 0;

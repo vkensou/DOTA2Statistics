@@ -3,7 +3,6 @@
 #include "singleton.h"
 #include <QHash>
 #include <QString>
-#include <QSharedPointer>
 
 class IWebDataSource;
 
@@ -11,7 +10,7 @@ class WebDataSourceManager
 	:public Singleton < WebDataSourceManager >
 {
 public:
-	enum WebDataSource{DOTAMAX};
+	enum WebDataSource{ DOTAMAX, DOTABUFF };
 
 	WebDataSourceManager();
 	~WebDataSourceManager();
@@ -23,7 +22,7 @@ public:
 	WebDataSource getWebDataSourceEnumCurrent();
 
 private:
-	QHash<WebDataSource, QSharedPointer<IWebDataSource>> m_list;
+	QHash<WebDataSource, IWebDataSource *> m_list;
 	WebDataSource m_currentsourceenum;
 	IWebDataSource *m_currentsource;
 };

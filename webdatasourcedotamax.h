@@ -31,4 +31,6 @@ public:
 
 	virtual void parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double) > func, const QString &webdata) override;
 
+	virtual QString getFileParams(const DataConfig &config) override;
+
 };

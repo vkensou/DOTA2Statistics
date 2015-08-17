@@ -174,3 +174,9 @@ void WebDataSource_DotaMax::parse_HeroItems_WebPageData(std::function<void(const
 		func(name, used, rate, 0);
 	}
 }
+
+QString WebDataSource_DotaMax::getFileParams(const DataConfig &config)
+{
+	static const QString urlfmt = "_%1_%2_%3_%4";
+	return urlfmt.arg(getMatchTypeStr(config.matchtype)).arg(getSkillStr(config.skill)).arg(getTimeStr(config.time)).arg(getServerStr(config.server));
+}

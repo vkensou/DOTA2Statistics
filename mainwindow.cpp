@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+	m_webdatasourcemanager.setCurrentSource(WebDataSourceManager::DOTABUFF);
+	
 	initStatusBar();
 	initConfigPanel();
 

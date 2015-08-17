@@ -1,17 +1,13 @@
 #include "dataconfig.h"
 #include <QSettings>
+#include "webdatasourcemanager.h"
+#include "iwebdatasource.h"
 
 static DataConfig curconfig;
 
-QString DataConfig::getUrlParams() const
-{
-    QString p;
-    p.sprintf("&ladder=%s&skill=%s&time=%s&server=%s", getMatchTypeStr(matchtype), getSkillStr(skill), getTimeStr(time), getServerStr(server));
-    return p;
-}
-
 QString DataConfig::getFileParams() const
 {
+	return WebDataSourceManager::getInstance().getWebDataSourceCurrent()->getFileParams(*this);
     QString p;
     p.sprintf("_%s_%s_%s_%s", getMatchTypeStr(matchtype), getSkillStr(skill), getTimeStr(time), getServerStr(server));
     return p;
@@ -46,14 +42,14 @@ void DataConfig::setCurrentConfig(DataConfig &config)
     curconfig = config;
 }
 
-QString DataConfig::getUrlParamsCurrent()
-{
-    return curconfig.getUrlParams();
-}
+//QString DataConfig::getUrlParamsCurrent()
+//{
+//    return curconfig.getUrlParams();
+//}
 
 QString DataConfig::getFileParamsCurrent()
 {
-    return curconfig.getFileParams();
+	return curconfig.getFileParams();
 }
 
 void DataConfig::saveCurrent(const QString &filename)
