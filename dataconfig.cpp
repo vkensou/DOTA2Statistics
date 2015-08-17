@@ -20,19 +20,20 @@ QString DataConfig::getFileParams() const
 void DataConfig::save(const QString &filename)
 {
     QSettings ini(filename, QSettings::IniFormat);
-    ini.setValue("data/matchtype", (int)matchtype);
-    ini.setValue("data/skill", (int)skill);
-    ini.setValue("data/time", (int)time);
-    ini.setValue("data/server", (int)server);
+	ini.setValue("data/webdatasource", webdatasource);
+	ini.setValue("data/matchtype", matchtype);
+    ini.setValue("data/skill", skill);
+    ini.setValue("data/time", time);
+    ini.setValue("data/server", server);
 }
 
 void DataConfig::load(const QString &filename)
 {
     QSettings ini(filename, QSettings::IniFormat);
-    matchtype = (MatchType)ini.value("data/matchtype", 0).toInt();
-    skill = (Skill)ini.value("data/skill", 0).toInt();
-    time = (Time)ini.value("data/time", 0).toInt();
-    server = (Server)ini.value("data/server", 0).toInt();
+    matchtype = ini.value("data/matchtype", 0).toInt();
+    skill = ini.value("data/skill", 0).toInt();
+    time = ini.value("data/time", 0).toInt();
+    server = ini.value("data/server", 0).toInt();
 }
 
 DataConfig & DataConfig::getCurrentConfig()
@@ -65,7 +66,7 @@ void DataConfig::loadCurrent(const QString &filename)
     curconfig.load(filename);
 }
 
-const char * DataConfig::getMatchTypeStr(DataConfig::MatchType matchtype) const
+const char * DataConfig::getMatchTypeStr(unsigned char matchtype) const
 {
     static const char *str[] =
     {
@@ -77,7 +78,7 @@ const char * DataConfig::getMatchTypeStr(DataConfig::MatchType matchtype) const
     return str[(int)matchtype];
 }
 
-const char * DataConfig::getSkillStr(DataConfig::Skill skill) const
+const char * DataConfig::getSkillStr(unsigned char skill) const
 {
     static const char *str[] =
     {
@@ -90,7 +91,7 @@ const char * DataConfig::getSkillStr(DataConfig::Skill skill) const
     return str[(int)skill];
 }
 
-const char * DataConfig::getTimeStr(DataConfig::Time time) const
+const char * DataConfig::getTimeStr(unsigned char time) const
 {
     static const char *str[] =
     {
@@ -104,7 +105,7 @@ const char * DataConfig::getTimeStr(DataConfig::Time time) const
     return str[(int)time];
 }
 
-const char * DataConfig::getServerStr(DataConfig::Server server) const
+const char * DataConfig::getServerStr(unsigned char server) const
 {
     static const char *str[] =
     {

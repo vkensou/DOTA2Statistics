@@ -24,4 +24,13 @@ public:
 	virtual const QStringList & getSkillSetterText() = 0;
 	virtual const QStringList & getMatchTypeSetterText() = 0;
 	virtual const QStringList & getServerSetterText() = 0;
+
+	virtual const char * getMatchTypeStr(unsigned char matchtype) const = 0;
+	virtual const char * getSkillStr(unsigned char skill) const = 0;
+	virtual const char * getTimeStr(unsigned char time) const = 0;
+	virtual const char * getServerStr(unsigned char server) const = 0;
+
+	virtual void parse_HeroesUsedAndRate_WebPageData(std::function<void(const QString &, int, double)> func, const QString &webdata) = 0;
+	virtual void parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double)> func, const QString &webdata) = 0;
+
 };

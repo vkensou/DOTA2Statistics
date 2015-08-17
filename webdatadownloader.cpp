@@ -26,7 +26,11 @@ bool WebDataDownloader::downloadHeroesUsedAndRate(std::function<void(const QStri
 
 	StatusBarSeter::setStatusBar("Download hero's used and rate data complete");
 
-	parse_HeroesUsedAndRate_WebPageData(func, data);
+	StatusBarSeter::setStatusBar("Parsing...");
+
+	WebDataSourceManager::getInstance().getWebDataSourceCurrent()->parse_HeroesUsedAndRate_WebPageData(func, data);
+
+	StatusBarSeter::setStatusBar("Parse hero's used and rate data complete");
 
 	return true;
 }
@@ -40,79 +44,13 @@ bool WebDataDownloader::downloadHeroItems(const QString &heroname, std::function
 
 	StatusBarSeter::setStatusBar("Download items used and rate complete");
 
-	parse_HeroItems_WebPageData(func, data);
-
-	return true;
-}
-
-void WebDataDownloader::parse_HeroesUsedAndRate_WebPageData(std::function<void(const QString &, int, double)> func, const QString &webdata)
-{
 	StatusBarSeter::setStatusBar("Parsing...");
 
-	static QRegExp rx("<tbody>.*</tbody>");
-	rx.indexIn(webdata);
-	auto page = rx.cap(0);
-
-	QDomDocument doc;
-	doc.setContent(page);
-
-	auto root = doc.documentElement();
-	
-	for (auto node = root.firstChildElement("tr"); !node.isNull(); node = node.nextSiblingElement())
-	{
-		QString name;
-		float rate;
-		int used;
-
-		auto tdnode = node.firstChildElement();
-		name = tdnode.firstChildElement("span").text();
-
-		tdnode = tdnode.nextSiblingElement();
-		rate = percentagetoFloat(tdnode.firstChildElement("div").text());
-
-		tdnode = tdnode.nextSiblingElement();
-		used = sepNumStrtoInt(tdnode.firstChildElement("div").text());
-
-		func(name, used, rate);
-	}
+	WebDataSourceManager::getInstance().getWebDataSourceCurrent()->parse_HeroItems_WebPageData(func, data);
 
 	StatusBarSeter::setStatusBar("Parse hero's used and rate data complete");
-}
 
-void WebDataDownloader::parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double)> func, const QString &webdata)
-{
-	StatusBarSeter::setStatusBar("Parsing...");
-
-	static QRegExp rx("<tbody>.*</tbody>");
-	rx.indexIn(webdata);
-	auto page = rx.cap(0);
-
-	QDomDocument doc;
-	doc.setContent(page);
-
-	auto root = doc.documentElement();
-
-	for (auto node = root.firstChildElement("tr"); !node.isNull(); node = node.nextSiblingElement())
-	{
-		QString name;
-		float rate;
-		int used;
-
-		auto tdnode = node.firstChildElement();
-		name = tdnode.firstChildElement("a").text();
-		name.replace(" ", "");
-		name.replace("\n", "");
-
-		tdnode = tdnode.nextSiblingElement();
-		used = sepNumStrtoInt(tdnode.firstChildElement("div").text());
-
-		tdnode = tdnode.nextSiblingElement();
-		rate = percentagetoFloat(tdnode.firstChildElement("div").text());
-
-		func(name, used, rate, 0);
-	}
-
-	StatusBarSeter::setStatusBar("Parse complete");
+	return true;
 }
 
 QUrl WebDataDownloader::getHeroesUsedAndRateUrl(const DataConfig &config)

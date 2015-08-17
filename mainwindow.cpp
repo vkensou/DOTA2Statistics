@@ -129,22 +129,22 @@ void MainWindow::setStatusBarText(const QString &text)
 
 void MainWindow::on_cbb_time_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().time = (DataConfig::Time)index;
+    DataConfig::getCurrentConfig().time = index;
 }
 
 void MainWindow::on_cbb_server_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().server = (DataConfig::Server)index;
+    DataConfig::getCurrentConfig().server = index;
 }
 
 void MainWindow::on_cbb_skill_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().skill = (DataConfig::Skill)index;
+    DataConfig::getCurrentConfig().skill = index;
 }
 
 void MainWindow::on_cbb_matchtype_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().matchtype = (DataConfig::MatchType)index;
+    DataConfig::getCurrentConfig().matchtype = index;
 }
 
 void MainWindow::on_btn_calc_clicked()
