@@ -9,6 +9,7 @@
 #include "databasemanager.h"
 #include "statusbarsetter.h"
 #include "webdatadownloader.h"
+#include <QDebug>
 
 HeroesUsedAndRate::HeroesUsedAndRate()
 {
@@ -32,12 +33,12 @@ void HeroesUsedAndRate::download()
 
 void HeroesUsedAndRate::load(bool force_download)
 {
-	m_list.clear();
-	if (force_download || !DataBaseManager::getInstance().loadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig()))
-    {
-        download();
-        save();
-    }
+	if (force_download || (m_list.empty() && !DataBaseManager::getInstance().loadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig())))
+	{
+		m_list.clear();
+		download();
+		save();
+	}
 }
 
 void HeroesUsedAndRate::save()
@@ -65,7 +66,10 @@ QString HeroesUsedAndRate::getHeroesUsedAndRateFilename()
 
 void HeroesUsedAndRate::addHero(const QString &name, int used, double rate)
 {
-	m_list.insert(name, new HeroRateAndUsed{ name, used, rate });
+	if (m_list.find(name) != m_list.end())
+		qDebug() << name;
+	else
+		m_list.insert(name, new HeroRateAndUsed{ name, used, rate });
 }
 
 HeroRateAndUsed * HeroesUsedAndRate::getHero(const QString &chinese_name)
@@ -80,5 +84,12 @@ HeroRateAndUsed * HeroesUsedAndRate::getHero(const QString &chinese_name)
 
 HeroRateAndUsed::HeroRateAndUsed(const QString &name, int used, double rate) :name(name), used(used), rate(rate)
 {
+	int a = 0;
+	a = 1 + 3;
+}
 
+HeroRateAndUsed::~HeroRateAndUsed()
+{
+	int a = 0;
+	a = 1 + 3;
 }

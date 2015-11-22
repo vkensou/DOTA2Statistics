@@ -27,9 +27,9 @@ public:
 
 	virtual const char * getServerStr(unsigned char server) const override;
 
-	virtual void parse_HeroesUsedAndRate_WebPageData(std::function<void(const QString &, int, double) > func, const QString &webdata) override;
+	virtual void parse_HeroesUsedAndRate_WebPageData(std::function<void(const QString &, int, double) > &func, const QString &webdata) override;
 
-	virtual void parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double) > func, const QString &webdata) override;
+	virtual void parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double) > &func, const QString &webdata) override;
 
 	virtual QString getFileParams(const DataConfig &config) override;
 

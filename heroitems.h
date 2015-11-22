@@ -47,8 +47,8 @@ public:
 
 
     int getItemsCount() const;
-    void for_each_items(std::function<void(ItemRateAndUsed *)> func);
-    void for_each_items(std::function<void(const ItemRateAndUsed *)> func) const;
+    void for_each_items(std::function<void(ItemRateAndUsed *)> &func);
+    void for_each_items(std::function<void(const ItemRateAndUsed *)> &func) const;
 
 private:
     void calcX2(int heroused, float herorate);

@@ -115,7 +115,7 @@ const char * WebDataSource_DotaMax::getServerStr(unsigned char server) const
 	return str[server];
 }
 
-void WebDataSource_DotaMax::parse_HeroesUsedAndRate_WebPageData(std::function<void(const QString &, int, double) > func, const QString &webdata)
+void WebDataSource_DotaMax::parse_HeroesUsedAndRate_WebPageData(std::function<void(const QString &, int, double) > &func, const QString &webdata)
 {
 	static QRegExp rx("<tbody>.*</tbody>");
 	rx.indexIn(webdata);
@@ -145,7 +145,7 @@ void WebDataSource_DotaMax::parse_HeroesUsedAndRate_WebPageData(std::function<vo
 	}
 }
 
-void WebDataSource_DotaMax::parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double) > func, const QString &webdata)
+void WebDataSource_DotaMax::parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double) > &func, const QString &webdata)
 {
 	static QRegExp rx("<tbody>.*</tbody>");
 	rx.indexIn(webdata);

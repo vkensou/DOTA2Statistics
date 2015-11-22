@@ -17,7 +17,7 @@ WebDataDownloader::~WebDataDownloader()
 {
 }
 
-bool WebDataDownloader::downloadHeroesUsedAndRate(std::function<void(const QString &, int, double)> func, const DataConfig &config)
+bool WebDataDownloader::downloadHeroesUsedAndRate(std::function<void(const QString &, int, double)> &func, const DataConfig &config)
 {
 	StatusBarSeter::setStatusBar("Downloading hero's used and rate data...");
 
@@ -35,7 +35,7 @@ bool WebDataDownloader::downloadHeroesUsedAndRate(std::function<void(const QStri
 	return true;
 }
 
-bool WebDataDownloader::downloadHeroItems(const QString &heroname, std::function<void(const QString &, int, double, double)> func, const DataConfig &config)
+bool WebDataDownloader::downloadHeroItems(const QString &heroname, std::function<void(const QString &, int, double, double)> &func, const DataConfig &config)
 {
 	StatusBarSeter::setStatusBar("Downloading items used and rate...");
 

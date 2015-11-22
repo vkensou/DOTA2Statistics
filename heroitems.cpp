@@ -11,6 +11,7 @@
 #include "herolist.h"
 #include "statusbarsetter.h"
 #include "webdatadownloader.h"
+#include <QDebug>
 
 HeroItems::HeroItems(const QString &name)
     :m_name(name)
@@ -36,14 +37,14 @@ void HeroItems::download()
 
 void HeroItems::load(bool force_download)
 {
-	m_list.clear();
-	if (force_download || !DataBaseManager::getInstance().loadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig()))
-    {
-        download();
-        HeroesUsedAndRate &hru = HeroesUsedAndRateManager::getInstance().getHeroesUsedAndRate(force_download);
-        calcX2(hru.getUsed(m_chinese_name), hru.getRate(m_chinese_name));
-        save();
-    }
+	if (force_download || (m_list.empty() && !DataBaseManager::getInstance().loadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig())))
+	{
+		m_list.clear();
+		download();
+		HeroesUsedAndRate &hru = HeroesUsedAndRateManager::getInstance().getHeroesUsedAndRate(force_download);
+		calcX2(hru.getUsed(m_chinese_name), hru.getRate(m_chinese_name));
+		save();
+	}
 }
 
 void HeroItems::save()
@@ -57,7 +58,7 @@ void HeroItems::saveasxml()
     auto root = doc.createElement("X2");
     doc.appendChild(root);
 
-    auto func = [&doc, &root](const ItemRateAndUsed *hru)
+	std::function<void(const ItemRateAndUsed *)> func = [&doc, &root](const ItemRateAndUsed *hru)
     {
         auto node = doc.createElement("item");
         node.setAttribute("name", hru->name);
@@ -81,12 +82,12 @@ int HeroItems::getItemsCount() const
     return m_list.count();
 }
 
-void HeroItems::for_each_items(std::function<void(ItemRateAndUsed *)> func)
+void HeroItems::for_each_items(std::function<void(ItemRateAndUsed *)> &func)
 {
     std::for_each(m_list.begin(), m_list.end(), func);
 }
 
-void HeroItems::for_each_items(std::function<void (const ItemRateAndUsed * )> func) const
+void HeroItems::for_each_items(std::function<void (const ItemRateAndUsed * )> &func) const
 {
     std::for_each(m_list.constBegin(), m_list.constEnd(), func);
 }
@@ -95,7 +96,7 @@ void HeroItems::calcX2(int heroused, float herorate)
 {
 	StatusBarSeter::setStatusBar("Calculating X2...");
 
-    auto func1 = [this, heroused, herorate](ItemRateAndUsed *item)
+	std::function<void(ItemRateAndUsed *)> func1 = [this, heroused, herorate](ItemRateAndUsed *item)
     {
         item->x2 = getX2(heroused, herorate, item->used, item->rate);
     };
@@ -120,7 +121,13 @@ void HeroItems::addItem(const QString &name, int used, double rate, double x2)
 {
     if(name == "真视宝石" || name == "不朽之守护")
         return;
-	m_list.insert(name, new  ItemRateAndUsed(name, used, rate, x2));
+
+	if (m_list.find(name) != m_list.end())
+		qDebug() << name << used << rate;
+	else
+	{
+		m_list.insert(name, new  ItemRateAndUsed(name, used, rate, x2));
+	}
 }
 
 QString HeroItems::getHeroItemsFilename()

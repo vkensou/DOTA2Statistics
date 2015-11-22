@@ -31,7 +31,7 @@ public:
 	virtual const char * getTimeStr(unsigned char time) const = 0;
 	virtual const char * getServerStr(unsigned char server) const = 0;
 
-	virtual void parse_HeroesUsedAndRate_WebPageData(std::function<void(const QString &, int, double)> func, const QString &webdata) = 0;
-	virtual void parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double)> func, const QString &webdata) = 0;
+	virtual void parse_HeroesUsedAndRate_WebPageData(std::function<void(const QString &, int, double)> &func, const QString &webdata) = 0;
+	virtual void parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double)> &func, const QString &webdata) = 0;
 
 };

@@ -16,8 +16,8 @@ public:
 	WebDataDownloader();
 	~WebDataDownloader();
 
-	bool downloadHeroesUsedAndRate(std::function<void(const QString &, int, double)> func, const DataConfig &config);
-	bool downloadHeroItems(const QString &heroname, std::function<void(const QString &, int, double, double)> func, const DataConfig &config);
+	bool downloadHeroesUsedAndRate(std::function<void(const QString &, int, double)> &func, const DataConfig &config);
+	bool downloadHeroItems(const QString &heroname, std::function<void(const QString &, int, double, double)> &func, const DataConfig &config);
 
 private:
 	QUrl getHeroesUsedAndRateUrl(const DataConfig &config);

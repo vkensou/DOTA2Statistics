@@ -36,13 +36,14 @@
   <hero name="bristleback" chinese_name="钢背兽" id="99">
     <alias>钢背</alias>
   </hero>
-  <hero name="shredder" chinese_name="伐木机" id="98">
+  <hero name="timbersaw" chinese_name="伐木机" id="98" dotamax="shredder">
   </hero>
-  <hero name="magnataur" chinese_name="马格纳斯" id="97">
+  <hero name="magnus" chinese_name="马格纳斯" id="97" dotamax="magnataur">
     <alias>猛犸</alias>
   </hero>
-  <hero name="centaur" chinese_name="半人马战行者" id="96">
+  <hero name="centaur warrunner" chinese_name="半人马战行者" id="96" dotamax="centaur">
     <alias>半人马</alias>
+    <alias>人马</alias>
   </hero>
   <hero name="troll warlord" chinese_name="巨魔战将" id="95">
     <alias>巨魔</alias>
@@ -51,11 +52,13 @@
   </hero>
   <hero name="slark" chinese_name="斯拉克" id="93">
     <alias>小鱼人</alias>
+    <alias>小鱼</alias>
+    <alias>鱼人夜行者</alias>
   </hero>
   <hero name="visage" chinese_name="维萨吉" id="92">
     <alias>死灵龙</alias>
   </hero>
-  <hero name="wisp" chinese_name="艾欧" id="91">
+  <hero name="io" chinese_name="艾欧" id="91" dotamax="wisp">
     <alias>小精灵</alias>
   </hero>
   <hero name="keeper of the light" chinese_name="光之守卫" id="90">
@@ -81,7 +84,7 @@
   <hero name="ogre magi" chinese_name="食人魔魔法师" id="84">
     <alias>蓝胖</alias>
   </hero>
-  <hero name="treant" chinese_name="树精卫士" id="83">
+  <hero name="treant protector" chinese_name="树精卫士" id="83" dotamax="treant">
     <alias>大树</alias>
   </hero>
   <hero name="meepo" chinese_name="米波" id="82">
@@ -126,7 +129,7 @@
     <alias>拍拍</alias>
     <alias>拍拍熊</alias>
   </hero>
-  <hero name="doom bringer" chinese_name="末日使者" id="69">
+  <hero name="doom" chinese_name="末日使者" id="69" dotamax="doom_bringer">
     <alias>末日</alias>
   </hero>
   <hero name="ancient apparition" chinese_name="远古冰魄" id="68">
@@ -175,15 +178,16 @@
     <alias>兔子</alias>
     <alias>ds</alias>
   </hero>
-  <hero name="life stealer" chinese_name="噬魂鬼" id="54">
+  <hero name="lifestealer" chinese_name="噬魂鬼" id="54" dotamax="life_stealer">
     <alias>小狗</alias>
   </hero>
-  <hero name="furion" chinese_name="先知" id="53">
+  <hero name="nature's prophet" chinese_name="先知" id="53" dotamax="furion" dotabuff="natures-prophet">
+    
   </hero>
   <hero name="leshrac" chinese_name="拉席克" id="52">
     <alias>老鹿</alias>
   </hero>
-  <hero name="rattletrap" chinese_name="发条技师" id="51">
+  <hero name="clockwerk" chinese_name="发条技师" id="51" dotamax="rattletrap">
     <alias>发条</alias>
   </hero>
   <hero name="dazzle" chinese_name="戴泽" id="50">
@@ -209,7 +213,7 @@
   <hero name="death prophet" chinese_name="死亡先知" id="43">
     <alias>dp</alias>
   </hero>
-  <hero name="skeleton king" chinese_name="冥魂大帝" id="42">
+  <hero name="wraith king" chinese_name="冥魂大帝" id="42" dotamax="skeleton_king">
     <alias>骷髅王</alias>
   </hero>
   <hero name="faceless void" chinese_name="虚空假面" id="41">
@@ -219,7 +223,7 @@
   <hero name="venomancer" chinese_name="剧毒术士" id="40">
     <alias>剧毒</alias>
   </hero>
-  <hero name="queenofpain" chinese_name="痛苦女王" id="39">
+  <hero name="queen of pain" chinese_name="痛苦女王" id="39" dotamax="queenofpain">
     <alias>女王</alias>
     <alias>qop</alias>
   </hero>
@@ -227,7 +231,7 @@
   </hero>
   <hero name="warlock" chinese_name="术士" id="37">
   </hero>
-  <hero name="necrolyte" chinese_name="瘟疫法师" id="36">
+  <hero name="necrophos" chinese_name="瘟疫法师" id="36" dotamax="necrolyte">
     <alias>瘟疫</alias>
     <alias>死灵法</alias>
   </hero>
@@ -251,6 +255,8 @@
   </hero>
   <hero name="slardar" chinese_name="斯拉达" id="28">
     <alias>大鱼人</alias>
+    <alias>大鱼</alias>
+    <alias>鱼人守卫</alias>
   </hero>
   <hero name="shadow shaman" chinese_name="暗影萨满" id="27">
     <alias>小y</alias>
@@ -264,13 +270,13 @@
   <hero name="kunkka" chinese_name="昆卡" id="23">
     <alias>船长</alias>
   </hero>
-  <hero name="zuus" chinese_name="宙斯" id="22">
+  <hero name="zeus" chinese_name="宙斯" id="22" dotamax="zuus">
     <alias>雷神</alias>
   </hero>
-  <hero name="windrunner" chinese_name="风行者" id="21">
+  <hero name="windranger" chinese_name="风行者" id="21" dotamax="windrunner">
     <alias>风行</alias>
   </hero>
-  <hero name="vengefulspirit" chinese_name="复仇之魂" id="20">
+  <hero name="vengeful spirit" chinese_name="复仇之魂" id="20" dotamax="vengefulspirit">
     <alias>复仇</alias>
     <alias>vs</alias>
   </hero>

@@ -22,7 +22,7 @@ void DataBaseManager::closedb()
     db.close();
 }
 
-bool DataBaseManager::loadHeroesUsedAndRate(std::function<void(const QString &, int, double)> callback, const DataConfig &config)
+bool DataBaseManager::loadHeroesUsedAndRate(std::function<void(const QString &, int, double)> &callback, const DataConfig &config)
 {
 	QString tablename = getTable_HeroesUsedAndRate_Name(config);
 
@@ -73,7 +73,7 @@ void DataBaseManager::saveHeroesUsedAndRate(std::function<void(std::function<voi
     QString errortext = error.text();
 }
 
-bool DataBaseManager::loadHeroItems(const QString &heroname, std::function<void(const QString &, int, double, double)> callback, const DataConfig &config)
+bool DataBaseManager::loadHeroItems(const QString &heroname, std::function<void(const QString &, int, double, double)> &callback, const DataConfig &config)
 {
 	QString tablename = getTable_HeroItems_Name(heroname, config);
 

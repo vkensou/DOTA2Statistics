@@ -14,6 +14,7 @@ class HeroRateAndUsed
 public:
 	HeroRateAndUsed(const QString &name, int used, double rate);
 	HeroRateAndUsed(const HeroRateAndUsed&) = delete;
+	~HeroRateAndUsed();
 
 	QString name;
 	int used;

@@ -95,7 +95,7 @@ const char * WebDataSource_DotaBuff::getServerStr(unsigned char) const
 	return str;
 }
 
-void WebDataSource_DotaBuff::parse_HeroesUsedAndRate_WebPageData(std::function<void(const QString &, int, double) > func, const QString &webdata)
+void WebDataSource_DotaBuff::parse_HeroesUsedAndRate_WebPageData(std::function<void(const QString &, int, double) > &func, const QString &webdata)
 {
 	static QRegExp rx("<tbody>.*</tbody>");
 	rx.indexIn(webdata);
@@ -128,7 +128,7 @@ void WebDataSource_DotaBuff::parse_HeroesUsedAndRate_WebPageData(std::function<v
 	}
 }
 
-void WebDataSource_DotaBuff::parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double) > func, const QString &webdata)
+void WebDataSource_DotaBuff::parse_HeroItems_WebPageData(std::function<void(const QString &, int, double, double) > &func, const QString &webdata)
 {
 	static QRegExp rx("<tbody>.*</tbody>");
 	rx.indexIn(webdata);
@@ -155,6 +155,13 @@ void WebDataSource_DotaBuff::parse_HeroItems_WebPageData(std::function<void(cons
 
 		tdnode = tdnode.nextSiblingElement();
 		rate = tdnode.attribute("data-value").toFloat() / 100;
+
+		if (name == QString("远行鞋"))
+		{
+			QString str = node.attribute("data-link-to");
+			if (str.contains("2"))
+				name = "远行鞋（2级）";
+		}
 
 		func(name, used, rate, 0);
 	}
