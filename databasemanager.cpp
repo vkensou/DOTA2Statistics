@@ -30,7 +30,10 @@ bool DataBaseManager::loadHeroesUsedAndRate(std::function<void(const QString &, 
     model.setTable(tablename);
     model.select();
 
-    if(model.rowCount() == 0)
+	QSqlError error = model.lastError();
+	QString errortext = error.text();
+
+	if (model.rowCount() == 0)
         return false;
     else
     {
@@ -48,7 +51,7 @@ bool DataBaseManager::loadHeroesUsedAndRate(std::function<void(const QString &, 
 
 void DataBaseManager::saveHeroesUsedAndRate(std::function<void(std::function<void(const HeroRateAndUsed *)>)> &callback, const DataConfig &config)
 {
-	QString tablename = getTable_HeroesUsedAndRate_Name(config);
+	QString tablename = "[" + getTable_HeroesUsedAndRate_Name(config) + "]";
 
     static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL);";
     static QString sqldelete = "DELETE from %1;";
@@ -78,7 +81,10 @@ bool DataBaseManager::loadHeroItems(const QString &heroname, std::function<void(
     model.setTable(tablename);
     model.select();
 
-    if(model.rowCount() == 0)
+	QSqlError error = model.lastError();
+	QString errortext = error.text();
+
+	if (model.rowCount() == 0)
         return false;
     else
     {
@@ -97,7 +103,7 @@ bool DataBaseManager::loadHeroItems(const QString &heroname, std::function<void(
 
 void DataBaseManager::saveHeroItems(const QString &heroname, std::function<void(std::function<void(const ItemRateAndUsed *)>)> &callback, const DataConfig &config)
 {
-	QString tablename = getTable_HeroItems_Name(heroname, config);
+	QString tablename = "[" + getTable_HeroItems_Name(heroname, config) + "]";
 
 	static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL, x2 DOUBLE NOT NULL);";
     static QString sqldelete = "DELETE from %1;";
@@ -115,16 +121,23 @@ void DataBaseManager::saveHeroItems(const QString &heroname, std::function<void(
     };
 	callback(func);
     db.commit();
+
+	QSqlError error = db.lastError();
+	QString errortext = error.text();
+
 }
 
 QString DataBaseManager::getTable_HeroesUsedAndRate_Name(const DataConfig &config)
 {
-	static QString tablenamefmt = "[herousedandrate%1]";
+	static QString tablenamefmt = "herousedandrate%1";
 	return tablenamefmt.arg(config.getFileParams());
 }
 
 QString DataBaseManager::getTable_HeroItems_Name(const QString &heroname, const DataConfig &config)
 {
-	static QString tablenamefmt = "[%1%2]";
-	return tablenamefmt.arg(heroname).arg(config.getFileParams());
+	static QString tablenamefmt = "%1%2";
+	QString tablename = tablenamefmt.arg(heroname).arg(config.getFileParams());
+	tablename.replace(" ", "");
+	tablename.replace(".", "");
+	return tablename;
 }

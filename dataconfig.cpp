@@ -23,10 +23,19 @@ void DataConfig::save(const QString &filename)
 void DataConfig::load(const QString &filename)
 {
     QSettings ini(filename, QSettings::IniFormat);
+	webdatasource = ini.value("data/webdatasource", 0).toInt();
     matchtype = ini.value("data/matchtype", 0).toInt();
     skill = ini.value("data/skill", 0).toInt();
     time = ini.value("data/time", 0).toInt();
     server = ini.value("data/server", 0).toInt();
+}
+
+void DataConfig::reset()
+{
+	matchtype = 0;
+	skill = 0;
+	time = 0;
+	server = 0;
 }
 
 DataConfig & DataConfig::getCurrentConfig()

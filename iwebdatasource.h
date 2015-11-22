@@ -22,9 +22,9 @@ public:
 	virtual QString getFileParams(const DataConfig &config) = 0;
 
 	virtual const QStringList & getTimeSetterTextList() = 0;
-	virtual const QStringList & getSkillSetterText() = 0;
-	virtual const QStringList & getMatchTypeSetterText() = 0;
-	virtual const QStringList & getServerSetterText() = 0;
+	virtual const QStringList & getSkillSetterTextList() = 0;
+	virtual const QStringList & getMatchTypeSetterTextList() = 0;
+	virtual const QStringList & getServerSetterTextList() = 0;
 
 	virtual const char * getMatchTypeStr(unsigned char matchtype) const = 0;
 	virtual const char * getSkillStr(unsigned char skill) const = 0;

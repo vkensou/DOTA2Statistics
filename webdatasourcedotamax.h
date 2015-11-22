@@ -15,9 +15,9 @@ public:
 	QUrl getHeroItemsUrl(const QString &heroname, const DataConfig &config) override;
 
 	virtual const QStringList & getTimeSetterTextList() override;
-	virtual const QStringList & getSkillSetterText() override;
-	virtual const QStringList & getMatchTypeSetterText() override;
-	virtual const QStringList & getServerSetterText() override;
+	virtual const QStringList & getSkillSetterTextList() override;
+	virtual const QStringList & getMatchTypeSetterTextList() override;
+	virtual const QStringList & getServerSetterTextList() override;
 
 	virtual const char * getMatchTypeStr(unsigned char matchtype) const override;
 

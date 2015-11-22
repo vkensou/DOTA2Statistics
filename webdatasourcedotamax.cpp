@@ -47,19 +47,19 @@ const QStringList & WebDataSource_DotaMax::getTimeSetterTextList()
 	return list;
 }
 
-const QStringList & WebDataSource_DotaMax::getSkillSetterText()
+const QStringList & WebDataSource_DotaMax::getSkillSetterTextList()
 {
 	static const QStringList list = { "全部", "Normal", "High", "Very High", "职业比赛" };
 	return list;
 }
 
-const QStringList & WebDataSource_DotaMax::getMatchTypeSetterText()
+const QStringList & WebDataSource_DotaMax::getMatchTypeSetterTextList()
 {
 	static const QStringList list = { "全部", "普通", "天梯", "SOLO" };
 	return list;
 }
 
-const QStringList & WebDataSource_DotaMax::getServerSetterText()
+const QStringList & WebDataSource_DotaMax::getServerSetterTextList()
 {
 	static const QStringList list = { "全部", "中国", "国外" };
 	return list;

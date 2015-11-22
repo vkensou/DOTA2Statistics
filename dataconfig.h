@@ -9,6 +9,7 @@ public:
     QString getFileParams() const;
     void save(const QString &filename);
     void load(const QString &filename);
+	void reset();
 
     static DataConfig & getCurrentConfig();
     static void setCurrentConfig(DataConfig &config);

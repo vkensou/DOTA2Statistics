@@ -14,6 +14,7 @@
 #include "statusbarsetter.h"
 #include "iwebdatasource.h"
 #include <QCompleter>
+#include "setdatasourcedialog.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -26,16 +27,17 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-	m_webdatasourcemanager.setCurrentSource(WebDataSourceManager::DOTABUFF);
-	
 	initStatusBar();
-	initConfigPanel();
 
 	setWindowTitle("DOTA2统计学 V"PRODUCT_VERSION_STR);
 
     connect(ui->table_items->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(on_table_sort(int)));
 
     DataConfig::loadCurrent("datastatistics.ini");
+
+	m_webdatasourcemanager.setCurrentSource(WebDataSourceManager::WebDataSource(DataConfig::getCurrentConfig().webdatasource));
+
+	initConfigPanel();
 
     setTableWidgetHead();
 
@@ -66,6 +68,7 @@ void MainWindow::initStatusBar()
 
 void MainWindow::initConfigPanel()
 {
+	m_initing = true;
 	ui->cbb_time->clear();
 	ui->cbb_server->clear();
 	ui->cbb_matchtype->clear();
@@ -79,9 +82,10 @@ void MainWindow::initConfigPanel()
 	ui->cbb_skill->setEnabled(source->isSupportSetSkill());
 
 	ui->cbb_time->addItems(source->getTimeSetterTextList());
-	ui->cbb_server->addItems(source->getServerSetterText());
-	ui->cbb_matchtype->addItems(source->getMatchTypeSetterText());
-	ui->cbb_skill->addItems(source->getSkillSetterText());
+	ui->cbb_server->addItems(source->getServerSetterTextList());
+	ui->cbb_matchtype->addItems(source->getMatchTypeSetterTextList());
+	ui->cbb_skill->addItems(source->getSkillSetterTextList());
+	m_initing = false;
 
 	updateConfigPanel();
 }
@@ -155,22 +159,26 @@ void MainWindow::setStatusBarText(const QString &text)
 
 void MainWindow::on_cbb_time_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().time = index;
+	if (!m_initing)
+		DataConfig::getCurrentConfig().time = index;
 }
 
 void MainWindow::on_cbb_server_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().server = index;
+	if (!m_initing)
+		DataConfig::getCurrentConfig().server = index;
 }
 
 void MainWindow::on_cbb_skill_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().skill = index;
+	if (!m_initing)
+		DataConfig::getCurrentConfig().skill = index;
 }
 
 void MainWindow::on_cbb_matchtype_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().matchtype = index;
+	if (!m_initing)
+		DataConfig::getCurrentConfig().matchtype = index;
 }
 
 void MainWindow::on_btn_calc_clicked()
@@ -203,6 +211,20 @@ void MainWindow::on_action_about_triggered()
 	QString text = "版本："PRODUCT_VERSION_STR"\r\nDeveloped by vkensou\r\nPowered by QT";
 
     QMessageBox::about(NULL, title, text);
+}
+
+void MainWindow::on_action_set_datasource_triggered()
+{
+	SetDataSourceDlg dlg;
+	if (dlg.exec())
+	{
+		auto n = dlg.getSelected();
+		m_webdatasourcemanager.setCurrentSource(n);
+		DataConfig::getCurrentConfig().webdatasource = (int)n;
+		DataConfig::getCurrentConfig().reset();
+
+		initConfigPanel();
+	}
 }
 
 void MainWindow::on_table_sort(int column)

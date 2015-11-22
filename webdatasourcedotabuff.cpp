@@ -46,19 +46,19 @@ const QStringList & WebDataSource_DotaBuff::getTimeSetterTextList()
 	return list;
 }
 
-const QStringList & WebDataSource_DotaBuff::getSkillSetterText()
+const QStringList & WebDataSource_DotaBuff::getSkillSetterTextList()
 {
 	static const QStringList list = { "全部" };
 	return list;
 }
 
-const QStringList & WebDataSource_DotaBuff::getMatchTypeSetterText()
+const QStringList & WebDataSource_DotaBuff::getMatchTypeSetterTextList()
 {
 	static const QStringList list = { "全部" };
 	return list;
 }
 
-const QStringList & WebDataSource_DotaBuff::getServerSetterText()
+const QStringList & WebDataSource_DotaBuff::getServerSetterTextList()
 {
 	static const QStringList list = { "全部" };
 	return list;

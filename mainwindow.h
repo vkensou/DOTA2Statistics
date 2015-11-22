@@ -32,6 +32,7 @@ private slots:
     void on_cbb_matchtype_currentIndexChanged(int index);
     void on_btn_calc_clicked();
     void on_action_about_triggered();
+	void on_action_set_datasource_triggered();
     void on_table_sort(int);
 	void setStatusBarText(const QString &text);
 
@@ -46,6 +47,7 @@ private:
  	StatusBarSeter *m_statusbarsetter;
 	bool m_table_sortorder;
 	QCompleter *m_completer;
+	bool m_initing;
 
 	void initStatusBar();
 	void initConfigPanel();
