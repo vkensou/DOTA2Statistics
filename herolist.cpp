@@ -38,15 +38,37 @@ void HeroList::load()
                 auto &hero = addHero(id, name, chinese_name);
 				hero.aliases.push_back(name.toLower());
 				hero.aliases.push_back(chinese_name);
+
+				QString dotamaxstr = heronode.attribute("dotamax");
+				hero.dotamax_alias = dotamaxstr;
+
+				QString dotabuffstr = heronode.attribute("dotabuff");
+				hero.dotabuff_alias = dotabuffstr;
+
 				for (auto aliasnode = heronode.firstChildElement("alias"); !aliasnode.isNull(); aliasnode = aliasnode.nextSiblingElement("alias"))
 				{
 					QString alias = aliasnode.text().toLower();
 					if (!alias.isEmpty())
 						hero.aliases.push_back(alias);
+
 				}
             }
         }
     }
+}
+
+HeroList::Hero * HeroList::getHeroByName(const QString &name)
+{
+	auto i = std::find_if(m_list.begin(), m_list.end(), [&name](const Hero &hero){
+		return hero.name == name;
+	});
+	if (i != m_list.end())
+	{
+		return &*i;
+	}
+	else
+		return nullptr;
+
 }
 
 QString HeroList::getNameByChineseName(const QString &chinesname)
@@ -69,6 +91,33 @@ QString HeroList::getNameByAlias(const QString &alias)
 		return (*i).name;
 	else
 		return "";
+}
+
+QString HeroList::getDotaMaxName(const QString &name)
+{
+	auto hero = getHeroByName(name);
+	if (hero->dotamax_alias.isEmpty())
+	{
+		QString nm = name;
+		QString fixedname = nm.replace(" ", "_");
+		return fixedname;
+	}
+	else
+		return hero->dotamax_alias;
+}
+
+QString HeroList::getDotaBuffName(const QString &name)
+{
+	auto hero = getHeroByName(name);
+
+	if (hero->dotabuff_alias.isEmpty())
+	{
+		QString nm = name;
+		QString fixedname = nm.replace(" ", "-");
+		return fixedname;
+	}
+	else
+		return hero->dotabuff_alias;
 }
 
 QString HeroList::getChineseNameByName(const QString &name)

@@ -4,6 +4,7 @@
 
 #include "dataconfig.h"
 #include <QDomDocument>
+#include "herolist.h"
 
 bool WebDataSource_DotaBuff::isSupportSetTime()
 {
@@ -34,8 +35,7 @@ QUrl WebDataSource_DotaBuff::getHeroesUsedAndRateUrl(const DataConfig &config)
 QUrl WebDataSource_DotaBuff::getHeroItemsUrl(const QString &heroname, const DataConfig &config)
 {
 	static const QString heroitemsfmt = "http://zh.dotabuff.com/heroes/%1/items?date=%2";
-	QString nm = heroname;
-	QString fixedname = nm.replace("_", "-");
+	QString fixedname = HeroList::getInstance().getDotaBuffName(heroname);
 	auto str = heroitemsfmt.arg(fixedname).arg(getTimeStr(config.time));
 	return str;
 }
@@ -122,7 +122,7 @@ void WebDataSource_DotaBuff::parse_HeroesUsedAndRate_WebPageData(std::function<v
 
 		tdnode = tdnode.nextSiblingElement();
 		tdnode = tdnode.nextSiblingElement();
-		rate = tdnode.attribute("data-value").toFloat();
+		rate = tdnode.attribute("data-value").toFloat() / 100;
 
 		func(name, used, rate);
 	}
@@ -154,7 +154,7 @@ void WebDataSource_DotaBuff::parse_HeroItems_WebPageData(std::function<void(cons
 		used = tdnode.attribute("data-value").toInt();
 
 		tdnode = tdnode.nextSiblingElement();
-		rate = tdnode.attribute("data-value").toFloat();
+		rate = tdnode.attribute("data-value").toFloat() / 100;
 
 		func(name, used, rate, 0);
 	}
@@ -162,6 +162,6 @@ void WebDataSource_DotaBuff::parse_HeroItems_WebPageData(std::function<void(cons
 
 QString WebDataSource_DotaBuff::getFileParams(const DataConfig &config)
 {
-	static const QString urlfmt = "_%1_%2_%3_%4";
+	static const QString urlfmt = "_%1_%2_%3_%4_dotabuff";
 	return urlfmt.arg(getMatchTypeStr(config.matchtype)).arg(getSkillStr(config.skill)).arg(getTimeStr(config.time)).arg(getServerStr(config.server));
 }

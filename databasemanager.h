@@ -25,6 +25,10 @@ public:
 	void saveHeroItems(const QString &heroname, std::function<void(std::function<void(const ItemRateAndUsed *)>)> &callback, const DataConfig &config);
 
 private:
+	QString getTable_HeroesUsedAndRate_Name(const DataConfig &config);
+	QString getTable_HeroItems_Name(const QString &heroname, const DataConfig &config);
+
+private:
     QSqlDatabase db;
 };
 

@@ -22,6 +22,7 @@ public:
 		QString name;
 		QString chinese_name;
 		QStringList aliases;
+		QString dotamax_alias, dotabuff_alias;
 
 		bool operator < (const Hero &a) const
 		{
@@ -31,8 +32,11 @@ public:
 
 public:
     void load();
+	Hero * getHeroByName(const QString &name);
     QString getNameByChineseName(const QString &chinesname);
 	QString getNameByAlias(const QString &alias);
+	QString getDotaMaxName(const QString &name);
+	QString getDotaBuffName(const QString &name);
 	QString getChineseNameByName(const QString &name);
 	const std::vector<Hero> & getHeroList();
 

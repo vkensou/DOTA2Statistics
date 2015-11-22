@@ -24,8 +24,7 @@ void DataBaseManager::closedb()
 
 bool DataBaseManager::loadHeroesUsedAndRate(std::function<void(const QString &, int, double)> callback, const DataConfig &config)
 {
-    static QString tablenamefmt = "herousedandrate%1";
-    QString tablename = tablenamefmt.arg(config.getFileParams());
+	QString tablename = getTable_HeroesUsedAndRate_Name(config);
 
     QSqlTableModel model(0, db);
     model.setTable(tablename);
@@ -49,14 +48,11 @@ bool DataBaseManager::loadHeroesUsedAndRate(std::function<void(const QString &, 
 
 void DataBaseManager::saveHeroesUsedAndRate(std::function<void(std::function<void(const HeroRateAndUsed *)>)> &callback, const DataConfig &config)
 {
-    static QString tablenamefmt = "herousedandrate%1";
+	QString tablename = getTable_HeroesUsedAndRate_Name(config);
+
     static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL);";
     static QString sqldelete = "DELETE from %1;";
     static QString sqlinsert = "INSERT INTO %1(name, used, rate) VALUES('%2', %3, %4);";
-    QString tablename = tablenamefmt.arg(config.getFileParams());
-
-    QSqlError error;
-    QString errortext;
 
     db.exec(sqlcreate.arg(tablename));
     db.exec(sqldelete.arg(tablename));
@@ -69,12 +65,14 @@ void DataBaseManager::saveHeroesUsedAndRate(std::function<void(std::function<voi
     };
 	callback(func);
     db.commit();
+
+	QSqlError error = db.lastError();
+    QString errortext = error.text();
 }
 
 bool DataBaseManager::loadHeroItems(const QString &heroname, std::function<void(const QString &, int, double, double)> callback, const DataConfig &config)
 {
-    static QString tablenamefmt = "%1%2";
-	QString tablename = tablenamefmt.arg(heroname).arg(config.getFileParams());
+	QString tablename = getTable_HeroItems_Name(heroname, config);
 
     QSqlTableModel model(0, db);
     model.setTable(tablename);
@@ -99,12 +97,12 @@ bool DataBaseManager::loadHeroItems(const QString &heroname, std::function<void(
 
 void DataBaseManager::saveHeroItems(const QString &heroname, std::function<void(std::function<void(const ItemRateAndUsed *)>)> &callback, const DataConfig &config)
 {
-    static QString tablenamefmt = "%1%2";
-    static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL, x2 DOUBLE NOT NULL);";
+	QString tablename = getTable_HeroItems_Name(heroname, config);
+
+	static QString sqlcreate = "CREATE TABLE IF NOT EXISTS %1 (name TEXT NOT NULL, used INTEGER NOT NULL, rate DOUBLE NOT NULL, x2 DOUBLE NOT NULL);";
     static QString sqldelete = "DELETE from %1;";
     static QString sqlinsert = "INSERT INTO %1(name, used, rate, x2) VALUES('%2', %3, %4, %5);";
 
-	QString tablename = tablenamefmt.arg(heroname).arg(config.getFileParams());
 
     db.exec(sqlcreate.arg(tablename));
     db.exec(sqldelete.arg(tablename));
@@ -117,4 +115,16 @@ void DataBaseManager::saveHeroItems(const QString &heroname, std::function<void(
     };
 	callback(func);
     db.commit();
+}
+
+QString DataBaseManager::getTable_HeroesUsedAndRate_Name(const DataConfig &config)
+{
+	static QString tablenamefmt = "[herousedandrate%1]";
+	return tablenamefmt.arg(config.getFileParams());
+}
+
+QString DataBaseManager::getTable_HeroItems_Name(const QString &heroname, const DataConfig &config)
+{
+	static QString tablenamefmt = "[%1%2]";
+	return tablenamefmt.arg(heroname).arg(config.getFileParams());
 }

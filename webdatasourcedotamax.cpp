@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <QDomDocument>
 #include "utility.h"
+#include "herolist.h"
 
 bool WebDataSource_DotaMax::isSupportSetTime()
 {
@@ -36,7 +37,8 @@ QUrl WebDataSource_DotaMax::getHeroesUsedAndRateUrl(const DataConfig &config)
 QUrl WebDataSource_DotaMax::getHeroItemsUrl(const QString &heroname, const DataConfig &config)
 {
 	static const QString heroitemsfmt = "http://dotamax.com/hero/detail/hero_items/%1/?&ladder=%2&skill=%3&time=%4&server=%5";
-	return heroitemsfmt.arg(heroname).arg(getMatchTypeStr(config.matchtype)).arg(getSkillStr(config.skill)).arg(getTimeStr(config.time)).arg(getServerStr(config.server));
+	QString fixedname = HeroList::getInstance().getDotaMaxName(heroname);
+	return heroitemsfmt.arg(fixedname).arg(getMatchTypeStr(config.matchtype)).arg(getSkillStr(config.skill)).arg(getTimeStr(config.time)).arg(getServerStr(config.server));
 }
 
 const QStringList & WebDataSource_DotaMax::getTimeSetterTextList()
@@ -177,6 +179,6 @@ void WebDataSource_DotaMax::parse_HeroItems_WebPageData(std::function<void(const
 
 QString WebDataSource_DotaMax::getFileParams(const DataConfig &config)
 {
-	static const QString urlfmt = "_%1_%2_%3_%4";
+	static const QString urlfmt = "_%1_%2_%3_%4_dotamax";
 	return urlfmt.arg(getMatchTypeStr(config.matchtype)).arg(getSkillStr(config.skill)).arg(getTimeStr(config.time)).arg(getServerStr(config.server));
 }

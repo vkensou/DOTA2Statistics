@@ -1,5 +1,5 @@
 <heroes>
-  <hero name="winter_wyvern" chinese_name="寒冬飞龙" id="112">
+  <hero name="winter wyvern" chinese_name="寒冬飞龙" id="112">
     <alias>冰龙</alias>
   </hero>
   <hero name="oracle" chinese_name="神谕者" id="111">
@@ -10,24 +10,24 @@
   <hero name="terrorblade" chinese_name="恐怖利刃" id="109">
     <alias>tb</alias>
   </hero>
-  <hero name="earth_spirit" chinese_name="大地之灵" id="107">
+  <hero name="earth spirit" chinese_name="大地之灵" id="107">
     <alias>土猫</alias>
   </hero>
-  <hero name="ember_spirit" chinese_name="灰烬之灵" id="106">
+  <hero name="ember spirit" chinese_name="灰烬之灵" id="106">
     <alias>火猫</alias>
   </hero>
   <hero name="techies" chinese_name="工程师" id="105">
     <alias>炸弹</alias>
     <alias>炸弹人</alias>
   </hero>
-  <hero name="legion_commander" chinese_name="军团指挥官" id="104">
+  <hero name="legion commander" chinese_name="军团指挥官" id="104">
     <alias>军团</alias>
   </hero>
-  <hero name="elder_titan" chinese_name="上古巨神" id="103">
+  <hero name="elder titan" chinese_name="上古巨神" id="103">
   </hero>
   <hero name="abaddon" chinese_name="亚巴顿" id="102">
   </hero>
-  <hero name="skywrath_mage" chinese_name="天怒法师" id="101">
+  <hero name="skywrath mage" chinese_name="天怒法师" id="101">
     <alias>天怒</alias>
   </hero>
   <hero name="tusk" chinese_name="巨牙海民" id="100">
@@ -44,7 +44,7 @@
   <hero name="centaur" chinese_name="半人马战行者" id="96">
     <alias>半人马</alias>
   </hero>
-  <hero name="troll_warlord" chinese_name="巨魔战将" id="95">
+  <hero name="troll warlord" chinese_name="巨魔战将" id="95">
     <alias>巨魔</alias>
   </hero>
   <hero name="medusa" chinese_name="美杜莎" id="94">
@@ -58,14 +58,14 @@
   <hero name="wisp" chinese_name="艾欧" id="91">
     <alias>小精灵</alias>
   </hero>
-  <hero name="keeper_of_the_light" chinese_name="光之守卫" id="90">
+  <hero name="keeper of the light" chinese_name="光之守卫" id="90">
     <alias>光法</alias>
   </hero>
-  <hero name="naga_siren" chinese_name="娜迦海妖" id="89">
+  <hero name="naga siren" chinese_name="娜迦海妖" id="89">
     <alias>娜迦</alias>
     <alias>小娜迦</alias>
   </hero>
-  <hero name="nyx_assassin" chinese_name="司夜刺客" id="88">
+  <hero name="nyx assassin" chinese_name="司夜刺客" id="88">
     <alias>小强</alias>
     <alias>地穴刺客</alias>
   </hero>
@@ -78,7 +78,7 @@
   <hero name="undying" chinese_name="不朽尸王" id="85">
     <alias>尸王</alias>
   </hero>
-  <hero name="ogre_magi" chinese_name="食人魔魔法师" id="84">
+  <hero name="ogre magi" chinese_name="食人魔魔法师" id="84">
     <alias>蓝胖</alias>
   </hero>
   <hero name="treant" chinese_name="树精卫士" id="83">
@@ -87,13 +87,13 @@
   <hero name="meepo" chinese_name="米波" id="82">
     <alias>地卜师</alias>
   </hero>
-  <hero name="chaos_knight" chinese_name="混沌骑士" id="81">
+  <hero name="chaos knight" chinese_name="混沌骑士" id="81">
     <alias>混沌</alias>
     <alias>ck</alias>
   </hero>
-  <hero name="lone_druid" chinese_name="德鲁伊" id="80">
+  <hero name="lone druid" chinese_name="德鲁伊" id="80">
   </hero>
-  <hero name="shadow_demon" chinese_name="暗影恶魔" id="79">
+  <hero name="shadow demon" chinese_name="暗影恶魔" id="79">
     <alias>毒狗</alias>
   </hero>
   <hero name="brewmaster" chinese_name="酒仙" id="78">
@@ -101,7 +101,7 @@
   </hero>
   <hero name="lycan" chinese_name="狼人" id="77">
   </hero>
-  <hero name="obsidian_destroyer" chinese_name="殁境神蚀者" id="76">
+  <hero name="obsidian destroyer" chinese_name="殁境神蚀者" id="76">
     <alias>黑鸟</alias>
   </hero>
   <hero name="silencer" chinese_name="沉默术士" id="75">
@@ -118,7 +118,7 @@
   <hero name="gyrocopter" chinese_name="矮人直升机" id="72">
     <alias>飞机</alias>
   </hero>
-  <hero name="spirit_breaker" chinese_name="裂魂人" id="71">
+  <hero name="spirit breaker" chinese_name="裂魂人" id="71">
     <alias>白牛</alias>
     <alias>sb</alias>
   </hero>
@@ -126,10 +126,10 @@
     <alias>拍拍</alias>
     <alias>拍拍熊</alias>
   </hero>
-  <hero name="doom_bringer" chinese_name="末日使者" id="69">
+  <hero name="doom bringer" chinese_name="末日使者" id="69">
     <alias>末日</alias>
   </hero>
-  <hero name="ancient_apparition" chinese_name="远古冰魄" id="68">
+  <hero name="ancient apparition" chinese_name="远古冰魄" id="68">
     <alias>冰魂</alias>
     <alias>aa</alias>
   </hero>
@@ -148,13 +148,13 @@
   <hero name="weaver" chinese_name="编织者" id="63">
     <alias>蚂蚁</alias>
   </hero>
-  <hero name="bounty_hunter" chinese_name="赏金猎人" id="62">
+  <hero name="bounty hunter" chinese_name="赏金猎人" id="62">
     <alias>赏金</alias>
   </hero>
   <hero name="broodmother" chinese_name="育母蜘蛛" id="61">
     <alias>蜘蛛</alias>
   </hero>
-  <hero name="night_stalker" chinese_name="暗夜魔王" id="60">
+  <hero name="night stalker" chinese_name="暗夜魔王" id="60">
     <alias>夜魔</alias>
   </hero>
   <hero name="huskar" chinese_name="哈斯卡" id="59">
@@ -170,12 +170,12 @@
     <alias>小骷髅</alias>
     <alias>骨弓</alias>
   </hero>
-  <hero name="dark_seer" chinese_name="黑暗贤者" id="55">
+  <hero name="dark seer" chinese_name="黑暗贤者" id="55">
     <alias>黑贤</alias>
     <alias>兔子</alias>
     <alias>ds</alias>
   </hero>
-  <hero name="life_stealer" chinese_name="噬魂鬼" id="54">
+  <hero name="life stealer" chinese_name="噬魂鬼" id="54">
     <alias>小狗</alias>
   </hero>
   <hero name="furion" chinese_name="先知" id="53">
@@ -189,7 +189,7 @@
   <hero name="dazzle" chinese_name="戴泽" id="50">
     <alias>暗牧</alias>
   </hero>
-  <hero name="dragon_knight" chinese_name="龙骑士" id="49">
+  <hero name="dragon knight" chinese_name="龙骑士" id="49">
     <alias>龙骑</alias>
   </hero>
   <hero name="luna" chinese_name="露娜" id="48">
@@ -197,22 +197,22 @@
   <hero name="viper" chinese_name="冥界亚龙" id="47">
     <alias>毒龙</alias>
   </hero>
-  <hero name="templar_assassin" chinese_name="圣堂刺客" id="46">
+  <hero name="templar assassin" chinese_name="圣堂刺客" id="46">
     <alias>圣堂</alias>
   </hero>
   <hero name="pugna" chinese_name="帕格纳" id="45">
     <alias>骨法</alias>
   </hero>
-  <hero name="phantom_assassin" chinese_name="幻影刺客" id="44">
+  <hero name="phantom assassin" chinese_name="幻影刺客" id="44">
     <alias>幻刺</alias>
   </hero>
-  <hero name="death_prophet" chinese_name="死亡先知" id="43">
+  <hero name="death prophet" chinese_name="死亡先知" id="43">
     <alias>dp</alias>
   </hero>
-  <hero name="skeleton_king" chinese_name="冥魂大帝" id="42">
+  <hero name="skeleton king" chinese_name="冥魂大帝" id="42">
     <alias>骷髅王</alias>
   </hero>
-  <hero name="faceless_void" chinese_name="虚空假面" id="41">
+  <hero name="faceless void" chinese_name="虚空假面" id="41">
     <alias>虚空</alias>
     <alias>jb脸</alias>
   </hero>
@@ -244,7 +244,7 @@
   </hero>
   <hero name="lich" chinese_name="巫妖" id="31">
   </hero>
-  <hero name="witch_doctor" chinese_name="巫医" id="30">
+  <hero name="witch doctor" chinese_name="巫医" id="30">
   </hero>
   <hero name="tidehunter" chinese_name="潮汐猎人" id="29">
     <alias>潮汐</alias>
@@ -252,7 +252,7 @@
   <hero name="slardar" chinese_name="斯拉达" id="28">
     <alias>大鱼人</alias>
   </hero>
-  <hero name="shadow_shaman" chinese_name="暗影萨满" id="27">
+  <hero name="shadow shaman" chinese_name="暗影萨满" id="27">
     <alias>小y</alias>
   </hero>
   <hero name="lion" chinese_name="莱恩" id="26">
@@ -282,10 +282,10 @@
     <alias>流浪</alias>
     <alias>流浪剑客</alias>
   </hero>
-  <hero name="storm_spirit" chinese_name="风暴之灵" id="17">
+  <hero name="storm spirit" chinese_name="风暴之灵" id="17">
     <alias>蓝猫</alias>
   </hero>
-  <hero name="sand_king" chinese_name="沙王" id="16">
+  <hero name="sand king" chinese_name="沙王" id="16">
   </hero>
   <hero name="razor" chinese_name="剃刀" id="15">
     <alias>电棍</alias>
@@ -297,10 +297,10 @@
   <hero name="puck" chinese_name="帕克" id="13">
     <alias>精灵龙</alias>
   </hero>
-  <hero name="phantom_lancer" chinese_name="幻影长矛手" id="12">
+  <hero name="phantom lancer" chinese_name="幻影长矛手" id="12">
     <alias>猴子</alias>
   </hero>
-  <hero name="nevermore" chinese_name="影魔" id="11">
+  <hero name="shadow fiend" chinese_name="影魔" id="11" dotamax="nevermore">
     <alias>sf</alias>
   </hero>
   <hero name="morphling" chinese_name="变体精灵" id="10">
@@ -317,11 +317,11 @@
     <alias>小牛</alias>
     <alias>大牛</alias>
   </hero>
-  <hero name="drow_ranger" chinese_name="卓尔游侠" id="6">
+  <hero name="drow ranger" chinese_name="卓尔游侠" id="6">
     <alias>小黑</alias>
     <alias>黑弓</alias>
   </hero>
-  <hero name="crystal_maiden" chinese_name="水晶室女" id="5">
+  <hero name="crystal maiden" chinese_name="水晶室女" id="5">
     <alias>冰女</alias>
   </hero>
   <hero name="bloodseeker" chinese_name="嗜血狂魔" id="4">
@@ -332,7 +332,7 @@
   </hero>
   <hero name="axe" chinese_name="斧王" id="2">
   </hero>
-  <hero name="antimage" chinese_name="敌法师" id="1">
+  <hero name="antimage" chinese_name="敌法师" id="1" dotabuff="anti-mage">
     <alias>敌法</alias>
   </hero>
 </heroes>
