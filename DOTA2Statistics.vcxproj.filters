@@ -45,6 +45,9 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Other Files">
+      <UniqueIdentifier>{dcd23589-727c-47ee-93a8-364723898d08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dataconfig.cpp">
@@ -165,5 +168,13 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="dota2statistics.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="heroes.xml">
+      <Filter>Other Files</Filter>
+    </Xml>
+    <Xml Include="items.xml">
+      <Filter>Other Files</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@ class MainWindow;
 }
 class HeroItems;
 class StatusBarSeter;
+class QCompleter;
 
 class MainWindow : public QMainWindow
 {
@@ -44,12 +45,14 @@ private:
 	WebDataSourceManager m_webdatasourcemanager;
  	StatusBarSeter *m_statusbarsetter;
 	bool m_table_sortorder;
+	QCompleter *m_completer;
 
 	void initStatusBar();
 	void initConfigPanel();
     void showItemsX2(const HeroItems &items);
     void updateConfigPanel();
     void setTableWidgetHead();
+	void setHeroNmaeCompleter();
 };
 
 #endif // MAINWINDOW_H

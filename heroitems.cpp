@@ -22,7 +22,6 @@ HeroItems::HeroItems(const QString &name)
 	{
 		std::for_each(m_list.begin(), m_list.end(), func);
 	};
-
 }
 
 HeroItems::~HeroItems()

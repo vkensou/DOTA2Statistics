@@ -229,6 +229,10 @@ endlocal
   <ItemGroup>
     <ResourceCompile Include="dota2statistics.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="heroes.xml" />
+    <Xml Include="items.xml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
   <ProjectExtensions>

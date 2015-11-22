@@ -13,6 +13,7 @@
 #include "version.h"
 #include "statusbarsetter.h"
 #include "iwebdatasource.h"
+#include <QCompleter>
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -20,7 +21,8 @@ const QString key = "387B6D180AD105C6CD289B0556C7A846";
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    m_table_sortorder(true)
+    m_table_sortorder(true),
+	m_completer(nullptr)
 {
     ui->setupUi(this);
 
@@ -42,6 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
     m_databasemanager.opendb();
 
     m_herolist.load();
+
+	setHeroNmaeCompleter();
 }
 
 MainWindow::~MainWindow()
@@ -50,6 +54,7 @@ MainWindow::~MainWindow()
     DataConfig::saveCurrent("datastatistics.ini");
     delete ui;
 	delete m_statusbarsetter;
+	delete m_completer;
 }
 
 void MainWindow::initStatusBar()
@@ -123,6 +128,25 @@ void MainWindow::setTableWidgetHead()
     ui->table_items->setHorizontalHeaderLabels(header);
 }
 
+void MainWindow::setHeroNmaeCompleter()
+{
+	QStringList namelist;
+
+	auto &herolist = HeroList::getInstance().getHeroList();
+	for each (auto & hero in herolist)
+	{
+		for each (auto & alias in hero.aliases)
+		{
+			namelist << alias;
+		}
+	}
+
+	m_completer = new QCompleter(namelist);
+	m_completer->setCaseSensitivity(Qt::CaseSensitive);
+	m_completer->setCompletionMode(QCompleter::PopupCompletion);
+	ui->edt_heroname->setCompleter(m_completer);
+}
+
 void MainWindow::setStatusBarText(const QString &text)
 {
 	ui->statusBar->showMessage(text);
@@ -154,8 +178,9 @@ void MainWindow::on_btn_calc_clicked()
     if(ui->edt_heroname->text().isEmpty())
         return;
 
-    auto chinese_name = ui->edt_heroname->text();
-    auto name = m_herolist.getNameByChineseName(chinese_name);
+    auto alias = ui->edt_heroname->text();
+	alias = alias.toLower();
+	auto name = m_herolist.getNameByAlias(alias);
     if(name.isEmpty())
 	{
 		QMessageBox::warning(NULL, windowTitle(), "没有这个英雄");
