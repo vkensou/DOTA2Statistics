@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QtNetwork>
+#include <algorithm>
 
 QString downloadWebPage(const QUrl &url);
 int sepNumStrtoInt(const QString &str);
@@ -19,5 +20,13 @@ T sign(T num)
     else
         return 0;
 }
+
+template<class T>
+void pointerContainerDeleteAndClear(T &container)
+{
+	std::for_each(container.begin(), container.end(), [](T::mapped_type p){delete p; });
+	container.clear();
+}
+
 
 #endif // UTILITY_H

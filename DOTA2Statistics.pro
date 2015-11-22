@@ -30,7 +30,7 @@ HEADERS  += mainwindow.h \
     herolist.h \
     dataconfig.h \
     datamanager.h \
-    Singleton.h \
+    singleton.h \
     heroesusedandrate.h \
     heroitemsmanager.h \
     heroesusedandratemanager.h

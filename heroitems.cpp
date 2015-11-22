@@ -1,71 +1,72 @@
+﻿#pragma execution_character_set("utf-8")
+
 #include "heroitems.h"
 #include "utility.h"
 #include <QRegExp>
 #include <QDomDocument>
 #include <QtMath>
 #include "dataconfig.h"
-#include "datamanager.h"
-
-const QString heroitemsfmt = "http://dotamax.com/hero/detail/hero_items/%1/?";
+#include "databasemanager.h"
+#include "heroesusedandratemanager.h"
+#include "herolist.h"
+#include "statusbarsetter.h"
+#include "webdatadownloader.h"
+#include <QDebug>
 
 HeroItems::HeroItems(const QString &name)
     :m_name(name)
+    ,m_chinese_name(HeroList::getInstance().getChineseNameByName(m_name))
 {
+	using namespace std::placeholders;
+	m_addItem_callback = std::bind(&HeroItems::addItem, this, _1, _2, _3, _4);
+	m_enumList = [this](std::function<void(const ItemRateAndUsed *)> &func)->void
+	{
+		std::for_each(m_list.begin(), m_list.end(), func);
+	};
+}
+
+HeroItems::~HeroItems()
+{
+	pointerContainerDeleteAndClear(m_list);
 }
 
 void HeroItems::download()
 {
-    list.clear();
-
-    auto config = DataConfig::getCurrentConfig();
-    QUrl url = heroitemsfmt.arg(m_name) + config.getUrlParams();
-    auto page = downloadWebPage(url);
-
-    static QRegExp rx("<tbody>.*</tbody>");
-    rx.indexIn(page);
-    page = rx.cap(0);
-
-    parseWebPageData(page);
+	WebDataDownloader::getInstance().downloadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig());
 }
 
 void HeroItems::load(bool force_download)
 {
-    if(force_download || !DataManager::getInstance().loadHeroItems(*this, DataConfig::getCurrentConfig()))
-    {
-        download();
-        save();
-    }
+	if (force_download || (m_list.empty() && !DataBaseManager::getInstance().loadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig())))
+	{
+		m_list.clear();
+		download();
+		HeroesUsedAndRate &hru = HeroesUsedAndRateManager::getInstance().getHeroesUsedAndRate(force_download);
+		calcX2(hru.getUsed(m_chinese_name), hru.getRate(m_chinese_name));
+		save();
+	}
 }
 
 void HeroItems::save()
 {
-    DataManager::getInstance().saveHeroItems(*this, DataConfig::getCurrentConfig());
+	DataBaseManager::getInstance().saveHeroItems(m_name, m_enumList, DataConfig::getCurrentConfig());
 }
 
-
-void HeroItems::calcX2(int heroused, float herorate)
+void HeroItems::saveasxml()
 {
-    auto func1 = [this, heroused, herorate](ItemRateAndUsed &item)
-    {
-        item.x2 = getX2(heroused, herorate, item.name);
-    };
-
-    std::for_each(list.begin(), list.end(), func1);
-
-
     QDomDocument doc;
     auto root = doc.createElement("X2");
     doc.appendChild(root);
 
-    auto func2 = [&doc, &root](const ItemRateAndUsed &hru)
+	std::function<void(const ItemRateAndUsed *)> func = [&doc, &root](const ItemRateAndUsed *hru)
     {
         auto node = doc.createElement("item");
-        node.setAttribute("name", hru.name);
-        node.setAttribute("x2", hru.x2);
+        node.setAttribute("name", hru->name);
+        node.setAttribute("x2", hru->x2);
 
         root.appendChild(node);
     };
-    std::for_each(list.begin(), list.end(), func2);
+    for_each_items(func);
 
     QString filename = getHeroItemsX2Filename();
     QFile file(filename);
@@ -76,17 +77,32 @@ void HeroItems::calcX2(int heroused, float herorate)
     doc.save(ts, 4);
 }
 
-double HeroItems::getX2(int heroused, double herorate, const QString &name)
+int HeroItems::getItemsCount() const
 {
-    auto i = list.find(name);
-    if(i != list.end())
-    {
-        ItemRateAndUsed &item = *i;
+    return m_list.count();
+}
 
-        return getX2(heroused, herorate, item.used, item.rate);
-    }
-    else
-        return 0;
+void HeroItems::for_each_items(std::function<void(ItemRateAndUsed *)> &func)
+{
+    std::for_each(m_list.begin(), m_list.end(), func);
+}
+
+void HeroItems::for_each_items(std::function<void (const ItemRateAndUsed * )> &func) const
+{
+    std::for_each(m_list.constBegin(), m_list.constEnd(), func);
+}
+
+void HeroItems::calcX2(int heroused, float herorate)
+{
+	StatusBarSeter::setStatusBar("Calculating X2...");
+
+	std::function<void(ItemRateAndUsed *)> func1 = [this, heroused, herorate](ItemRateAndUsed *item)
+    {
+        item->x2 = getX2(heroused, herorate, item->used, item->rate);
+    };
+    for_each_items(func1);
+
+	StatusBarSeter::setStatusBar("Calculate complete");
 }
 
 double HeroItems::getX2(int heroused, double herorate, int itemused, double itemrate)
@@ -101,39 +117,17 @@ double HeroItems::getX2(int heroused, double herorate, int itemused, double item
     return independenttest(a, b, c, d);
 }
 
-void HeroItems::parseWebPageData(const QString &data)
-{
-    QDomDocument doc;
-    doc.setContent(data);
-
-    auto root = doc.documentElement();
-
-    for(auto node = root.firstChildElement("tr"); !node.isNull(); node = node.nextSiblingElement())
-    {
-        QString name;
-        float rate;
-        int used;
-
-        auto tdnode = node.firstChildElement();
-        name = tdnode.firstChildElement("a").text();
-        name.replace(" ", "");
-        name.replace("\n", "");
-
-        tdnode = tdnode.nextSiblingElement();
-        used = sepNumStrtoInt(tdnode.firstChildElement("div").text());
-
-        tdnode = tdnode.nextSiblingElement();
-        rate = percentagetoFloat(tdnode.firstChildElement("div").text());
-
-        addItem(name, used, rate);
-    }
-}
-
-void HeroItems::addItem(const QString &name, int used, double rate)
+void HeroItems::addItem(const QString &name, int used, double rate, double x2)
 {
     if(name == "真视宝石" || name == "不朽之守护")
         return;
-    list.insert(name, {name, used, rate});
+
+	if (m_list.find(name) != m_list.end())
+		qDebug() << name << used << rate;
+	else
+	{
+		m_list.insert(name, new  ItemRateAndUsed(name, used, rate, x2));
+	}
 }
 
 QString HeroItems::getHeroItemsFilename()

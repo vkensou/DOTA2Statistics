@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DOTA2统计学V1.0</string>
+   <string>DOTA2统计学V1.2</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_3">
@@ -341,13 +341,20 @@
     <property name="title">
      <string>菜单</string>
     </property>
+    <addaction name="action_set_datasource"/>
     <addaction name="action_about"/>
    </widget>
    <addaction name="menu"/>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <action name="action_about">
    <property name="text">
     <string>关于</string>
+   </property>
+  </action>
+  <action name="action_set_datasource">
+   <property name="text">
+    <string>设置数据源</string>
    </property>
   </action>
  </widget>

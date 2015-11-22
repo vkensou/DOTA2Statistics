@@ -39,56 +39,6 @@ float percentagetoFloat(const QString &str)
         return 0;
 }
 
-float NormalPx(float x)
-{
-    float f;
-    f=1.0/sqrt(2.0*M_PI)*exp(-x*x/2.0);
-    return f;
-}
-
-float NormalFx(float x)
-{
-    float prob,t,temp;
-    int i,n,flag;
-    temp=x;
-    if(x<0)
-        x=-x;
-    n=30;
-    if(x>=0&&x<=3.0)
-    {
-        t=0.0;
-        for(i=n;i>=1;i--)
-        {
-            if(i%2==1) flag=-1;
-            else flag=1;
-            t=flag*i*x*x/(2.0*i+1.0+t);
-        }
-        prob=0.5+NormalPx(x)*x/(1.0+t);
-    }
-    else if(x>3.0)
-    {t=0.0;
-        for(i=n;i>=1;i--)
-            t=1.0*i/(x+t);
-        prob=1-NormalPx(x)/(x+t);
-    }
-    x=temp;
-    if(x<0)
-        prob=1.0-prob;
-    return prob;
-}
-
-float ChisquareFx(float x,int Freedom)
-{
-    float f,h,prob;
-
-    f=exp(-x/2.0)/sqrt(2*M_PI*x);
-    h=2.0*NormalFx(sqrt(x))-1.0;
-
-    prob=1-h;
-
-    return prob;
-}
-
 double independenttest(double a, double b, double c, double d)
 {
     double s = a * d - b * c;

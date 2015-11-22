@@ -4,12 +4,35 @@
 #include <QString>
 #include <QUrl>
 #include <QHash>
+#include <functional>
 
-class DataManager;
+class DataBaseManager;
+class WebDataDownloader;
+
+class HeroRateAndUsed
+{
+public:
+	HeroRateAndUsed(const QString &name, int used, double rate);
+	HeroRateAndUsed(const HeroRateAndUsed&) = delete;
+	~HeroRateAndUsed();
+
+	QString name;
+	int used;
+	double rate;
+
+	bool operator < (const HeroRateAndUsed &a) const
+	{
+		return a.name < name;
+	}
+};
 
 class HeroesUsedAndRate
 {
 public:
+	HeroesUsedAndRate();
+	~HeroesUsedAndRate();
+	HeroesUsedAndRate(const HeroesUsedAndRate&) = delete;
+
     void download();
     void load(bool force_download = false);
     void save();
@@ -18,30 +41,13 @@ public:
     int getUsed(const QString &chinese_name);
 
 private:
-    void parseWebPageData(const QString &data);
-    struct HeroRateAndUsed
-    {
-        HeroRateAndUsed(const QString &name, int used, double rate)
-            :name(name), used(used), rate(rate)
-        {
-        }
+	QHash<QString, HeroRateAndUsed *> m_list;
+	std::function<void(const QString &, int, double)> m_addHero_callback;
+	std::function<void(std::function<void(const HeroRateAndUsed *)>)> m_enumList;
 
-        QString name;
-        int used;
-        double rate;
-
-        bool operator < (const HeroRateAndUsed &a) const
-        {
-            return a.name < name;
-        }
-    };
-    QHash<QString, HeroRateAndUsed> list;
-
-    QUrl getHeroesUsedAndRateUrl();
     QString getHeroesUsedAndRateFilename();
     void addHero(const QString &name, int used, double rate);
-
-    friend DataManager;
+	HeroRateAndUsed * getHero(const QString &chinese_name);
 };
 
 #endif // HEROESRATE_H

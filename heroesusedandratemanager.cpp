@@ -1,19 +1,26 @@
 #include "heroesusedandratemanager.h"
+#include "utility.h"
 
 HeroesUsedAndRateManager::HeroesUsedAndRateManager()
 {
 }
 
-HeroesUsedAndRate &HeroesUsedAndRateManager::getHeroesUsedAndRate(const DataConfig &config)
+HeroesUsedAndRateManager::~HeroesUsedAndRateManager()
+{
+	pointerContainerDeleteAndClear(m_list);
+}
+
+HeroesUsedAndRate &HeroesUsedAndRateManager::getHeroesUsedAndRate(bool force_download, const DataConfig &config)
 {
     static QString keyfmt = "heroesusedandrate%1";
     QString key = keyfmt.arg(config.getFileParams());
 
-    auto i = list.find(key);
-    if(i == list.end())
+    auto i = m_list.find(key);
+	if (i == m_list.end())
     {
-        i = list.insert(key, {});
-        (*i).load();
+		i = m_list.insert(key, new HeroesUsedAndRate);
     }
-    return *i;
+	HeroesUsedAndRate * data = i.value();
+	data->load(force_download);
+    return *data;
 }

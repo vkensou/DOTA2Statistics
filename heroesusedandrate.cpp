@@ -6,84 +6,56 @@
 #include <functional>
 #include <algorithm>
 #include "dataconfig.h"
-#include "datamanager.h"
+#include "databasemanager.h"
+#include "statusbarsetter.h"
+#include "webdatadownloader.h"
+#include <QDebug>
+
+HeroesUsedAndRate::HeroesUsedAndRate()
+{
+	using namespace std::placeholders;
+	m_addHero_callback = std::bind(&HeroesUsedAndRate::addHero, this, _1, _2, _3);
+	m_enumList = [this](std::function<void(const HeroRateAndUsed *)> &func)->void
+	{
+		std::for_each(m_list.begin(), m_list.end(), func);
+	};
+}
+
+HeroesUsedAndRate::~HeroesUsedAndRate()
+{
+	pointerContainerDeleteAndClear(m_list);
+}
 
 void HeroesUsedAndRate::download()
 {
-    list.clear();
-
-    QUrl url = getHeroesUsedAndRateUrl();
-    auto page = downloadWebPage(url);
-
-    static QRegExp rx("<tbody>.*</tbody>");
-    rx.indexIn(page);
-    page = rx.cap(0);
-
-    parseWebPageData(page);
+	WebDataDownloader::getInstance().downloadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig());
 }
 
 void HeroesUsedAndRate::load(bool force_download)
 {
-    if(force_download || !DataManager::getInstance().loadHeroesUsedAndRate(*this, DataConfig::getCurrentConfig()))
-    {
-        download();
-        save();
-    }
+	if (force_download || (m_list.empty() && !DataBaseManager::getInstance().loadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig())))
+	{
+		m_list.clear();
+		download();
+		save();
+	}
 }
 
 void HeroesUsedAndRate::save()
 {
-    DataManager::getInstance().saveHeroesUsedAndRate(*this, DataConfig::getCurrentConfig());
+	DataBaseManager::getInstance().saveHeroesUsedAndRate(m_enumList, DataConfig::getCurrentConfig());
 }
 
 float HeroesUsedAndRate::getRate(const QString &chinese_name)
 {
-    auto f = list.find(chinese_name);
-    if(f != list.end())
-        return (*f).rate;
-    else
-        return 0.f;
+	auto data = getHero(chinese_name);
+	return data->rate;
 }
 
 int HeroesUsedAndRate::getUsed(const QString &chinese_name)
 {
-    auto f = list.find(chinese_name);
-    if(f != list.end())
-        return (*f).used;
-    else
-        return 0;
-}
-
-void HeroesUsedAndRate::parseWebPageData(const QString &data)
-{
-    QDomDocument doc;
-    doc.setContent(data);
-
-    auto root = doc.documentElement();
-
-    for(auto node = root.firstChildElement("tr"); !node.isNull(); node = node.nextSiblingElement())
-    {
-        QString name;
-        float rate;
-        int used;
-
-        auto tdnode = node.firstChildElement();
-        name = tdnode.firstChildElement("span").text();
-
-        tdnode = tdnode.nextSiblingElement();
-        rate = percentagetoFloat(tdnode.firstChildElement("div").text());
-
-        tdnode = tdnode.nextSiblingElement();
-        used = sepNumStrtoInt(tdnode.firstChildElement("div").text());
-
-        addHero(name, used, rate);
-    }
-}
-
-QUrl HeroesUsedAndRate::getHeroesUsedAndRateUrl()
-{
-    static const QString urlfmt = "http://dotamax.com/hero/rate/?";
-    return urlfmt + DataConfig::getUrlParamsCurrent();
+	auto data = getHero(chinese_name);
+	return data->used;
 }
 
 QString HeroesUsedAndRate::getHeroesUsedAndRateFilename()
@@ -94,6 +66,30 @@ QString HeroesUsedAndRate::getHeroesUsedAndRateFilename()
 
 void HeroesUsedAndRate::addHero(const QString &name, int used, double rate)
 {
-    list.insert(name, {name, used, rate});
+	if (m_list.find(name) != m_list.end())
+		qDebug() << name;
+	else
+		m_list.insert(name, new HeroRateAndUsed{ name, used, rate });
 }
 
+HeroRateAndUsed * HeroesUsedAndRate::getHero(const QString &chinese_name)
+{
+	auto f = m_list.find(chinese_name);
+	if (f != m_list.end())
+		return f.value();
+	else
+		return nullptr;
+
+}
+
+HeroRateAndUsed::HeroRateAndUsed(const QString &name, int used, double rate) :name(name), used(used), rate(rate)
+{
+	int a = 0;
+	a = 1 + 3;
+}
+
+HeroRateAndUsed::~HeroRateAndUsed()
+{
+	int a = 0;
+	a = 1 + 3;
+}

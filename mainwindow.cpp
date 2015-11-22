@@ -1,3 +1,5 @@
+﻿#pragma execution_character_set("utf-8")
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "utility.h"
@@ -8,52 +10,109 @@
 #include <QValidator>
 #include "heroitemsmanager.h"
 #include <QMessageBox>
+#include "version.h"
+#include "statusbarsetter.h"
+#include "iwebdatasource.h"
+#include <QCompleter>
+#include "setdatasourcedialog.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    m_table_sortorder(true),
+	m_completer(nullptr)
 {
     ui->setupUi(this);
 
+	initStatusBar();
+
+	setWindowTitle("DOTA2统计学 V"PRODUCT_VERSION_STR);
+
+    connect(ui->table_items->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(on_table_sort(int)));
+
     DataConfig::loadCurrent("datastatistics.ini");
+
+	m_webdatasourcemanager.setCurrentSource(WebDataSourceManager::WebDataSource(DataConfig::getCurrentConfig().webdatasource));
+
+	initConfigPanel();
 
     setTableWidgetHead();
 
     updateConfigPanel();
 
-    datamanager.opendb();
+    m_databasemanager.opendb();
 
     m_herolist.load();
+
+	setHeroNmaeCompleter();
 }
 
 MainWindow::~MainWindow()
 {
-    datamanager.closedb();
+    m_databasemanager.closedb();
     DataConfig::saveCurrent("datastatistics.ini");
     delete ui;
+	delete m_statusbarsetter;
+	delete m_completer;
+}
+
+void MainWindow::initStatusBar()
+{
+	m_statusbarsetter = new StatusBarSeter;
+	connect(StatusBarSeter::getInstancePtr(), SIGNAL(setStatusBar_impl(QString)), this, SLOT(setStatusBarText(QString)));
+	setStatusBarText("Ready");
+}
+
+void MainWindow::initConfigPanel()
+{
+	m_initing = true;
+	ui->cbb_time->clear();
+	ui->cbb_server->clear();
+	ui->cbb_matchtype->clear();
+	ui->cbb_skill->clear();
+
+	auto source = WebDataSourceManager::getInstance().getWebDataSourceCurrent();
+
+	ui->cbb_time->setEnabled(source->isSupportSetTime());
+	ui->cbb_server->setEnabled(source->isSupportSetServer());
+	ui->cbb_matchtype->setEnabled(source->isSupportSetMatchType());
+	ui->cbb_skill->setEnabled(source->isSupportSetSkill());
+
+	ui->cbb_time->addItems(source->getTimeSetterTextList());
+	ui->cbb_server->addItems(source->getServerSetterTextList());
+	ui->cbb_matchtype->addItems(source->getMatchTypeSetterTextList());
+	ui->cbb_skill->addItems(source->getSkillSetterTextList());
+	m_initing = false;
+
+	updateConfigPanel();
 }
 
 void MainWindow::showItemsX2(const HeroItems &items)
 {
+	setStatusBarText("Table updating...");
+
     ui->table_items->clear();
     setTableWidgetHead();
-    ui->table_items->setRowCount(items.list.count());
+    ui->table_items->setRowCount(items.getItemsCount());
     int i = 0;
-    auto func = [this, &i](const HeroItems::ItemRateAndUsed &item)
+	std::function<void(const ItemRateAndUsed *)> func = [this, &i](const ItemRateAndUsed * item)
     {
-        ui->table_items->setItem(i, 0, new QTableWidgetItem(item.name));
+        ui->table_items->setItem(i, 0, new QTableWidgetItem(item->name));
         QTableWidgetItem* wgt_x2 = new QTableWidgetItem();
-        wgt_x2->setData(Qt::DisplayRole, (int)item.x2);
+		wgt_x2->setData(Qt::DisplayRole, (int)item->x2);
         wgt_x2->setTextAlignment(Qt::AlignRight);
         ui->table_items->setItem(i, 1, wgt_x2);
         ++i;
     };
-    std::for_each(items.list.begin(), items.list.end(), func);
+    items.for_each_items(func);
 
+    m_table_sortorder = true;
     ui->table_items->sortByColumn(1, Qt::DescendingOrder);
+
+	setStatusBarText("Table update complete");
 }
 
 void MainWindow::updateConfigPanel()
@@ -73,24 +132,53 @@ void MainWindow::setTableWidgetHead()
     ui->table_items->setHorizontalHeaderLabels(header);
 }
 
+void MainWindow::setHeroNmaeCompleter()
+{
+	QStringList namelist;
+
+	auto &herolist = HeroList::getInstance().getHeroList();
+	for each (auto & hero in herolist)
+	{
+		for each (auto & alias in hero.aliases)
+		{
+			namelist << alias;
+		}
+	}
+
+	m_completer = new QCompleter(namelist);
+	m_completer->setCaseSensitivity(Qt::CaseSensitive);
+	m_completer->setCompletionMode(QCompleter::PopupCompletion);
+	ui->edt_heroname->setCompleter(m_completer);
+}
+
+void MainWindow::setStatusBarText(const QString &text)
+{
+	ui->statusBar->showMessage(text);
+	//ui->statusBar->messageChanged(text);
+}
+
 void MainWindow::on_cbb_time_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().time = (DataConfig::Time)index;
+	if (!m_initing)
+		DataConfig::getCurrentConfig().time = index;
 }
 
 void MainWindow::on_cbb_server_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().server = (DataConfig::Server)index;
+	if (!m_initing)
+		DataConfig::getCurrentConfig().server = index;
 }
 
 void MainWindow::on_cbb_skill_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().skill = (DataConfig::Skill)index;
+	if (!m_initing)
+		DataConfig::getCurrentConfig().skill = index;
 }
 
 void MainWindow::on_cbb_matchtype_currentIndexChanged(int index)
 {
-    DataConfig::getCurrentConfig().matchtype = (DataConfig::MatchType)index;
+	if (!m_initing)
+		DataConfig::getCurrentConfig().matchtype = index;
 }
 
 void MainWindow::on_btn_calc_clicked()
@@ -98,26 +186,55 @@ void MainWindow::on_btn_calc_clicked()
     if(ui->edt_heroname->text().isEmpty())
         return;
 
-    auto chinese_name = ui->edt_heroname->text();
-    auto name = m_herolist.getNameByChineseName(chinese_name);
+    auto alias = ui->edt_heroname->text();
+	alias = alias.toLower();
+	auto name = m_herolist.getNameByAlias(alias);
     if(name.isEmpty())
-        return;
+	{
+		QMessageBox::warning(NULL, windowTitle(), "没有这个英雄");
+		return;
+	}
 
     bool force_download = ui->ckb_force_download->isChecked();
 
-    HeroesUsedAndRate &hru = m_hrumanager.getHeroesUsedAndRate();
-
-    HeroItems &hero = heroitemsmanager.getHeroItems(name);
+    HeroItems &hero = m_heroitemsmanager.getHeroItems(name);
     hero.load(force_download);
-    hero.calcX2(hru.getUsed(chinese_name), hru.getRate(chinese_name));
 
     showItemsX2(hero);
+
+	setStatusBarText("Ready");
 }
 
 void MainWindow::on_action_about_triggered()
 {
     QString title = "关于";
-    QString text = "版本：1.0\r\nDeveloped by vkensou\r\nPowered by QT";
+	QString text = "版本："PRODUCT_VERSION_STR"\r\nDeveloped by vkensou\r\nPowered by QT";
 
     QMessageBox::about(NULL, title, text);
+}
+
+void MainWindow::on_action_set_datasource_triggered()
+{
+	SetDataSourceDlg dlg;
+	if (dlg.exec())
+	{
+		auto n = dlg.getSelected();
+		m_webdatasourcemanager.setCurrentSource(n);
+		DataConfig::getCurrentConfig().webdatasource = (int)n;
+		DataConfig::getCurrentConfig().reset();
+
+		initConfigPanel();
+	}
+}
+
+void MainWindow::on_table_sort(int column)
+{
+    if(column == 1)
+    {
+        m_table_sortorder = !m_table_sortorder;
+        if(m_table_sortorder)
+            ui->table_items->sortByColumn(1, Qt::DescendingOrder);
+        else
+            ui->table_items->sortByColumn(1, Qt::AscendingOrder);
+    }
 }
