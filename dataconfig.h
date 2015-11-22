@@ -22,12 +22,6 @@ public:
 	unsigned char skill;
 	unsigned char time;
 	unsigned char server;
-
-private:
-	const char * getMatchTypeStr(unsigned char matchtype) const;
-	const char * getSkillStr(unsigned char skill) const;
-	const char * getTimeStr(unsigned char time) const;
-	const char * getServerStr(unsigned char server) const;
 };
 
 #endif // DATACONFIG_H

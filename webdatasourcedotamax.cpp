@@ -41,7 +41,7 @@ QUrl WebDataSource_DotaMax::getHeroItemsUrl(const QString &heroname, const DataC
 
 const QStringList & WebDataSource_DotaMax::getTimeSetterTextList()
 {
-	static const QStringList list = { "全部", "本月", "本周", "6.84", "6.83" ,"6.82"};
+	static const QStringList list = { "全部", "本月", "本周", "6.85", "6.84", "6.83" };
 	return list;
 }
 
@@ -95,9 +95,9 @@ const char * WebDataSource_DotaMax::getTimeStr(unsigned char time) const
 		"all",
 		"month",
 		"week",
+		"v685",
 		"v684",
 		"v683",
-		"v682"
 	};
 	return str[time];
 }
