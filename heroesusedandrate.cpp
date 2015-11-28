@@ -33,12 +33,18 @@ void HeroesUsedAndRate::download()
 
 void HeroesUsedAndRate::load(bool force_download)
 {
-	if (force_download || (m_list.empty() && !DataBaseManager::getInstance().loadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig())))
+	if (!force_download)
 	{
-		m_list.clear();
-		download();
-		save();
+		if (!m_list.empty())
+			return;
+
+		if (DataBaseManager::getInstance().loadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig()))
+			return;
 	}
+
+	pointerContainerDeleteAndClear(m_list);
+	download();
+	save();
 }
 
 void HeroesUsedAndRate::save()
