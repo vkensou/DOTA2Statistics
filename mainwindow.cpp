@@ -11,9 +11,6 @@
 #include "playermatchhistoryview.h"
 #include <QtGlobal>
 
-const QString key = "387B6D180AD105C6CD289B0556C7A846";
-
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)

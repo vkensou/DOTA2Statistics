@@ -137,6 +137,9 @@
     <ClCompile Include="GeneratedFiles\Release\moc_playermatchhistoryview.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="matchdetailview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataconfig.h">
@@ -199,6 +202,12 @@
     <ClInclude Include="GeneratedFiles\ui_view_playermatchhistory.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="matchdetailview.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_view_matchdetail.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.ui">
@@ -226,6 +235,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="view_playermatchhistory.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view_matchdetail.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>

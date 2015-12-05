@@ -1,11 +1,15 @@
 #pragma once
 
 #include "idataview.h"
+#include <QUrl>
+#include <vector>
 
 namespace Ui
 {
 	class View_PlayerMatchHistory;
 }
+class QListWidgetItem;
+
 class PlayerMatchHistoryView
 	:public IDataView
 {
@@ -22,8 +26,16 @@ public:
 
 public slots:
 	void on_ShowHistory_clicked();
+	void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
+
+signals:
+	void matchDblClicked(int matchid);
+
+private:
+	QUrl getMatchHistoryURL(int playerid = 0, int startmatch = 0);
+	void parseHistoryData(QString &data);
 
 private:
 	Ui::View_PlayerMatchHistory *ui;
-
+	std::vector<int> m_matchhistory;
 };

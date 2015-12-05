@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>View_MatchDetail</class>
+ <widget class="QWidget" name="View_MatchDetail">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>966</width>
+    <height>683</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="id">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>40</y>
+     <width>108</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>比赛ID：1980198898</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="starttime">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>40</y>
+     <width>60</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>比赛时间：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="matchtime">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>40</y>
+     <width>60</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>持续时间：</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="skill">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>40</y>
+     <width>96</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>比赛水平：Normal</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="gamemode">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>40</y>
+     <width>108</width>
+     <height>12</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>比赛模式：天梯比赛</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
