@@ -7,7 +7,6 @@ class QString;
 
 class StatusBarSeter
 	:public QObject, public Singleton<StatusBarSeter>
-	//:public 
 {
 	Q_OBJECT
 public:
