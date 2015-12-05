@@ -32,6 +32,8 @@ private:
 	void setHeroNmaeCompleter();
 	void updateConfig();
 
+	virtual void on_DataSource_Changed() override;
+
 
 private:
 	Ui::View_HeroItems *ui;

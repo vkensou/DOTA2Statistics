@@ -33,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	for (int i = 0; i < IDataView::Count; ++i)
 	{
-		m_viewwindows[i] = nullptr;
+		m_dataviews[i] = nullptr;
 	}
 
 	tableAddTab(IDataView::View_HeroItems);
@@ -56,7 +56,7 @@ void MainWindow::initStatusBar()
 
 IDataView * MainWindow::getDataView(IDataView::ViewType type)
 {
-	IDataView *view = m_viewwindows[type];
+	IDataView *view = m_dataviews[type];
 	if (view)
 		return view;
 
@@ -65,13 +65,13 @@ IDataView * MainWindow::getDataView(IDataView::ViewType type)
 	case IDataView::View_HeroItems:
 		view = new View_HeroItems;
 	}
-	m_viewwindows[type] = view;
+	m_dataviews[type] = view;
 	return view;
 }
 
 void MainWindow::tableAddTab(IDataView::ViewType type)
 {
-	if (m_viewwindows[type])
+	if (m_dataviews[type])
 		return;
 
 	auto view = getDataView(type);
@@ -91,7 +91,7 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 
 	Q_ASSERT(widget);
 
-	m_viewwindows[widget->getType()] = 0;
+	m_dataviews[widget->getType()] = 0;
 	ui->tabWidget->removeTab(index);
 }
 
@@ -113,7 +113,11 @@ void MainWindow::on_action_set_datasource_triggered()
 		DataConfig::getCurrentConfig().webdatasource = (int)n;
 		DataConfig::getCurrentConfig().reset();
 
-		//initConfigPanel();
+		for (int i = 0; i < IDataView::Count; ++i)
+		{
+			if (m_dataviews[i])
+				m_dataviews[i]->on_DataSource_Changed();
+		}
 	}
 }
 

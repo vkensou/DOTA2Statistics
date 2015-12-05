@@ -50,7 +50,7 @@ private:
 	WebDataSourceManager m_webdatasourcemanager;
  	StatusBarSeter *m_statusbarsetter;
 
-	IDataView *m_viewwindows[1];
+	IDataView *m_dataviews[1];
 };
 
 #endif // MAINWINDOW_H

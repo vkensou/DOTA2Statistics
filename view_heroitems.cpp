@@ -25,7 +25,8 @@ View_HeroItems::View_HeroItems(QWidget *parent /*= nullptr*/)
     connect(ui->table_items->horizontalHeader(), SIGNAL(sectionClicked(int)), this, SLOT(on_table_sort(int)));
 
 	setTableWidgetHead();
-
+	setHeroNmaeCompleter();
+	initConfigPanel();
 }
 
 View_HeroItems::~View_HeroItems()
@@ -85,6 +86,12 @@ void View_HeroItems::updateConfig()
 	config.matchtype = ui->cbb_matchtype->currentIndex();
 }
 
+void View_HeroItems::on_DataSource_Changed()
+{
+	initConfigPanel();
+	updateConfigPanel();
+}
+
 int View_HeroItems::getType()
 {
 	return 0;
@@ -110,6 +117,7 @@ void View_HeroItems::on_btn_calc_clicked()
 {
 	if (ui->edt_heroname->text().isEmpty())
 		return;
+	updateConfig();
 
 	auto alias = ui->edt_heroname->text();
 	alias = alias.toLower();

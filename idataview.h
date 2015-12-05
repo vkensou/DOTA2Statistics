@@ -22,4 +22,6 @@ public:
 
 	virtual int getType() = 0;
 	virtual const QString & getViewName() = 0;
+
+	virtual void on_DataSource_Changed() = 0;
 };
