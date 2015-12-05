@@ -37,14 +37,20 @@ void HeroItems::download()
 
 void HeroItems::load(bool force_download)
 {
-	if (force_download || (m_list.empty() && !DataBaseManager::getInstance().loadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig())))
+	if (!force_download)
 	{
-		m_list.clear();
-		download();
-		HeroesUsedAndRate &hru = HeroesUsedAndRateManager::getInstance().getHeroesUsedAndRate(force_download);
-		calcX2(hru.getUsed(m_chinese_name), hru.getRate(m_chinese_name));
-		save();
+		if (!m_list.empty())
+			return;
+
+		if (DataBaseManager::getInstance().loadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig()))
+			return;
 	}
+
+	pointerContainerDeleteAndClear(m_list);
+	download();
+	HeroesUsedAndRate &hru = HeroesUsedAndRateManager::getInstance().getHeroesUsedAndRate(force_download);
+	calcX2(hru.getUsed(m_chinese_name), hru.getRate(m_chinese_name));
+	save();
 }
 
 void HeroItems::save()
