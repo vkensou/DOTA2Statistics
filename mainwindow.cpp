@@ -7,7 +7,8 @@
 #include "statusbarsetter.h"
 #include <QMessageBox>
 #include "setdatasourcedialog.h"
-#include "view_heroitems.h"
+#include "heroitemsview.h"
+#include "playermatchhistoryview.h"
 #include <QtGlobal>
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
@@ -18,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
 	initStatusBar();
 
 	setWindowTitle("DOTA2统计学 V"PRODUCT_VERSION_STR);
@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
 		m_dataviews[i] = nullptr;
 	}
 
-	tableAddTab(IDataView::View_HeroItems);
+	tableAddTab(IDataView::View_PlayerMatchHistory);
 }
 
 MainWindow::~MainWindow()
@@ -63,7 +63,11 @@ IDataView * MainWindow::getDataView(IDataView::ViewType type)
 	switch (type)
 	{
 	case IDataView::View_HeroItems:
-		view = new View_HeroItems;
+		view = new HeroItemsView;
+		break;
+	case IDataView::View_PlayerMatchHistory:
+		view = new PlayerMatchHistoryView;
+		break;
 	}
 	m_dataviews[type] = view;
 	return view;
@@ -71,12 +75,24 @@ IDataView * MainWindow::getDataView(IDataView::ViewType type)
 
 void MainWindow::tableAddTab(IDataView::ViewType type)
 {
-	if (m_dataviews[type])
-		return;
-
-	auto view = getDataView(type);
-
-	ui->tabWidget->addTab(view, view->getViewName());
+	int index;
+	if (!m_dataviews[type])
+	{
+		auto view = getDataView(type);
+		index = ui->tabWidget->insertTab(type, view, view->getViewName());
+	}
+	else
+	{
+		for (int i = 0; i < ui->tabWidget->count(); ++i)
+		{
+			if (ui->tabWidget->widget(i) == m_dataviews[type])
+			{
+				index = i;
+				break;
+			}
+		}
+	}
+		ui->tabWidget->setCurrentIndex(index);
 }
 
 void MainWindow::setStatusBarText(const QString &text)
@@ -124,5 +140,10 @@ void MainWindow::on_action_set_datasource_triggered()
 void MainWindow::on_action_view_heroitems_triggered()
 {
 	tableAddTab(IDataView::View_HeroItems);
+}
+
+void MainWindow::on_action_view_playermatchhistory_triggered()
+{
+	tableAddTab(IDataView::View_PlayerMatchHistory);
 }
 

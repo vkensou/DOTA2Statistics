@@ -1,6 +1,6 @@
 #pragma execution_character_set("utf-8")
 
-#include "View_HeroItems.h"
+#include "heroitemsview.h"
 
 #include "ui_view_heroitems.h"
 #include "webdatasourcemanager.h"
@@ -14,7 +14,7 @@
 #include "statusbarsetter.h"
 #include <QCompleter>
 
-View_HeroItems::View_HeroItems(QWidget *parent /*= nullptr*/)
+HeroItemsView::HeroItemsView(QWidget *parent /*= nullptr*/)
 	: IDataView(parent)
 	, m_table_sortorder(true)
 	, ui(new Ui::View_HeroItems)
@@ -29,13 +29,13 @@ View_HeroItems::View_HeroItems(QWidget *parent /*= nullptr*/)
 	initConfigPanel();
 }
 
-View_HeroItems::~View_HeroItems()
+HeroItemsView::~HeroItemsView()
 {
 	delete ui;
 	delete m_completer;
 }
 
-void View_HeroItems::initConfigPanel()
+void HeroItemsView::initConfigPanel()
 {
 	ui->cbb_time->clear();
 	ui->cbb_server->clear();
@@ -57,7 +57,7 @@ void View_HeroItems::initConfigPanel()
 	updateConfigPanel();
 }
 
-void View_HeroItems::setHeroNmaeCompleter()
+void HeroItemsView::setHeroNmaeCompleter()
 {
 	QStringList namelist;
 
@@ -76,7 +76,7 @@ void View_HeroItems::setHeroNmaeCompleter()
 	ui->edt_heroname->setCompleter(m_completer);
 }
 
-void View_HeroItems::updateConfig()
+void HeroItemsView::updateConfig()
 {
 	DataConfig &config = DataConfig::getCurrentConfig();
 
@@ -86,24 +86,24 @@ void View_HeroItems::updateConfig()
 	config.matchtype = ui->cbb_matchtype->currentIndex();
 }
 
-void View_HeroItems::on_DataSource_Changed()
+void HeroItemsView::on_DataSource_Changed()
 {
 	initConfigPanel();
 	updateConfigPanel();
 }
 
-int View_HeroItems::getType()
+int HeroItemsView::getType()
 {
 	return 0;
 }
 
-const QString & View_HeroItems::getViewName()
+const QString & HeroItemsView::getViewName()
 {
 	static QString name = "英雄装备重要度";
 	return name;
 }
 
-void View_HeroItems::updateConfigPanel()
+void HeroItemsView::updateConfigPanel()
 {
 	DataConfig &config = DataConfig::getCurrentConfig();
 
@@ -113,7 +113,7 @@ void View_HeroItems::updateConfigPanel()
 	ui->cbb_server->setCurrentIndex((int)config.server);
 }
 
-void View_HeroItems::on_btn_calc_clicked()
+void HeroItemsView::on_btn_calc_clicked()
 {
 	if (ui->edt_heroname->text().isEmpty())
 		return;
@@ -140,7 +140,7 @@ void View_HeroItems::on_btn_calc_clicked()
 	StatusBarSeter::getInstance().setStatusBar("Ready");
 }
 
-void View_HeroItems::showItemsX2(const HeroItems &items)
+void HeroItemsView::showItemsX2(const HeroItems &items)
 {
 	StatusBarSeter::getInstance().setStatusBar("Table updating...");
 
@@ -165,14 +165,14 @@ void View_HeroItems::showItemsX2(const HeroItems &items)
 	StatusBarSeter::getInstance().setStatusBar("Table update complete");
 }
 
-void View_HeroItems::setTableWidgetHead()
+void HeroItemsView::setTableWidgetHead()
 {
 	QStringList header;
 	header << "物品" << "X2";
 	ui->table_items->setHorizontalHeaderLabels(header);
 }
 
-void View_HeroItems::on_table_sort(int column)
+void HeroItemsView::on_table_sort(int column)
 {
     if(column == 1)
     {

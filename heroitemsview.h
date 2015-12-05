@@ -9,13 +9,13 @@ namespace Ui {
 class HeroItems;
 class QCompleter;
 
-class View_HeroItems
+class HeroItemsView
 	:public IDataView
 {
 	Q_OBJECT
 public:
-	View_HeroItems(QWidget *parent = nullptr);
-	~View_HeroItems();
+	HeroItemsView(QWidget *parent = nullptr);
+	~HeroItemsView();
 
 	virtual int getType() override;
 	virtual const QString & getViewName() override;

@@ -54,6 +54,7 @@
      <string>视图</string>
     </property>
     <addaction name="action_view_heroitems"/>
+    <addaction name="action_view_playermatchhistory"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -72,6 +73,11 @@
   <action name="action_view_heroitems">
    <property name="text">
     <string>英雄装备重要度</string>
+   </property>
+  </action>
+  <action name="action_view_playermatchhistory">
+   <property name="text">
+    <string>玩家游戏记录</string>
    </property>
   </action>
  </widget>

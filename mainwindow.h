@@ -32,6 +32,7 @@ private slots:
     void on_action_about_triggered();
 	void on_action_set_datasource_triggered();
 	void on_action_view_heroitems_triggered();
+	void on_action_view_playermatchhistory_triggered();
 	void setStatusBarText(const QString &text);
 	void on_tabWidget_tabCloseRequested(int index);
 
@@ -50,7 +51,7 @@ private:
 	WebDataSourceManager m_webdatasourcemanager;
  	StatusBarSeter *m_statusbarsetter;
 
-	IDataView *m_dataviews[1];
+	IDataView *m_dataviews[IDataView::Count];
 };
 
 #endif // MAINWINDOW_H

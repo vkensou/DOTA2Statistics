@@ -17,6 +17,7 @@ public:
 	enum ViewType
 	{
 		View_HeroItems = 0,
+		View_PlayerMatchHistory,
 		Count
 	};
 
