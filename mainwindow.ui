@@ -55,6 +55,7 @@
     </property>
     <addaction name="action_view_heroitems"/>
     <addaction name="action_view_playermatchhistory"/>
+    <addaction name="action_view_matchdetail"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -78,6 +79,11 @@
   <action name="action_view_playermatchhistory">
    <property name="text">
     <string>玩家游戏记录</string>
+   </property>
+  </action>
+  <action name="action_view_matchdetail">
+   <property name="text">
+    <string>比赛详情</string>
    </property>
   </action>
  </widget>

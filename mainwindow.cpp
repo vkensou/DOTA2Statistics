@@ -9,6 +9,7 @@
 #include "setdatasourcedialog.h"
 #include "heroitemsview.h"
 #include "playermatchhistoryview.h"
+#include "matchdetailview.h"
 #include <QtGlobal>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -64,6 +65,9 @@ IDataView * MainWindow::getDataView(IDataView::ViewType type)
 		break;
 	case IDataView::View_PlayerMatchHistory:
 		view = new PlayerMatchHistoryView;
+		break;
+	case IDataView::View_MatchDetail:
+		view = new MatchDetailView;
 		break;
 	}
 	m_dataviews[type] = view;
@@ -142,5 +146,10 @@ void MainWindow::on_action_view_heroitems_triggered()
 void MainWindow::on_action_view_playermatchhistory_triggered()
 {
 	tableAddTab(IDataView::View_PlayerMatchHistory);
+}
+
+void MainWindow::on_action_view_matchdetail_triggered()
+{
+	tableAddTab(IDataView::View_MatchDetail);
 }
 
