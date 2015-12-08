@@ -7,6 +7,7 @@
 #include <QDomDocument>
 #include <QTime>
 #include <QDateTime>
+#include "herolist.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -251,11 +252,12 @@ void MatchDetailView::showData()
 
 	ui->PositiveVotes->setText(QString("ÔÞ£º%1").arg(m_match.positivevotes));
 	ui->NegativeVotes->setText(QString("²È£º%1").arg(m_match.negativevotes));
+	HeroList &herolist = HeroList::getInstance();
 
 	for (int i = 0; i < 5; ++i)
 	{
 		ui->RadiantHeroList->setItem(i, 0, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].accountid)));
-		ui->RadiantHeroList->setItem(i, 1, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].heroid)));
+		ui->RadiantHeroList->setItem(i, 1, new QTableWidgetItem(herolist.getChineseNameByID(m_match.radiantplayers[i].heroid)));
 		ui->RadiantHeroList->setItem(i, 2, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].level)));
 		ui->RadiantHeroList->setItem(i, 3, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].kilss)));
 		ui->RadiantHeroList->setItem(i, 4, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].deaths)));
@@ -272,7 +274,7 @@ void MatchDetailView::showData()
 	for (int i = 0; i < 5; ++i)
 	{
 		ui->DireHeroList->setItem(i, 0, new QTableWidgetItem(QString::number(m_match.direplayers[i].accountid)));
-		ui->DireHeroList->setItem(i, 1, new QTableWidgetItem(QString::number(m_match.direplayers[i].heroid)));
+		ui->DireHeroList->setItem(i, 1, new QTableWidgetItem(herolist.getChineseNameByID(m_match.direplayers[i].heroid)));
 		ui->DireHeroList->setItem(i, 2, new QTableWidgetItem(QString::number(m_match.direplayers[i].level)));
 		ui->DireHeroList->setItem(i, 3, new QTableWidgetItem(QString::number(m_match.direplayers[i].kilss)));
 		ui->DireHeroList->setItem(i, 4, new QTableWidgetItem(QString::number(m_match.direplayers[i].deaths)));

@@ -71,6 +71,17 @@ HeroList::Hero * HeroList::getHeroByName(const QString &name)
 
 }
 
+QString HeroList::getChineseNameByID(int id)
+{
+	auto i = std::find_if(m_list.begin(), m_list.end(), [&id](const Hero &hero){
+		return hero.id == id;
+	});
+	if (i != m_list.end())
+		return (*i).chinese_name;
+	else
+		return "";
+}
+
 QString HeroList::getNameByChineseName(const QString &chinesname)
 {
     auto i = std::find_if(m_list.begin(), m_list.end(), [&chinesname](const Hero &hero){

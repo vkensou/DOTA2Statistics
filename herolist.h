@@ -33,6 +33,7 @@ public:
 public:
     void load();
 	Hero * getHeroByName(const QString &name);
+	QString getChineseNameByID(int id);
     QString getNameByChineseName(const QString &chinesname);
 	QString getNameByAlias(const QString &alias);
 	QString getDotaMaxName(const QString &name);
