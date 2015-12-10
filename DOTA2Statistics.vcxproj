@@ -206,6 +206,7 @@
     <ClCompile Include="itemimagedelegate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="matchdetail.cpp" />
     <ClCompile Include="matchdetailmanager.cpp" />
     <ClCompile Include="matchdetailview.cpp" />
     <ClCompile Include="setdatasourcedialog.cpp" />

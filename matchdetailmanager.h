@@ -7,5 +7,6 @@
 class MatchDetailManager
 	:public Singleton<MatchDetailManager>, public DataManagerBase<MatchDetail>
 {
+public:
 	MatchDetail &getMatchDetail(int matchid);
 };

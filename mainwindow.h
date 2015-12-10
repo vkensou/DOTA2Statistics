@@ -11,6 +11,7 @@
 #include "webdatasourcemanager.h"
 #include "idataview.h"
 #include "abilitieslist.h"
+#include "matchdetailmanager.h"
 
 namespace Ui {
 class MainWindow;
@@ -50,6 +51,7 @@ private:
 	WebDataSourceManager m_webdatasourcemanager;
  	StatusBarSeter *m_statusbarsetter;
 	AbilitiesList m_abilities;
+	MatchDetailManager m_matchdetailmanager;
 
 	IDataView *m_dataviews[IDataView::Count];
 };
