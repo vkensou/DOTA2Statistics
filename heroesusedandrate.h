@@ -5,6 +5,7 @@
 #include <QUrl>
 #include <QHash>
 #include <functional>
+#include "dataneedcache.h"
 
 class DataBaseManager;
 class WebDataDownloader;
@@ -14,7 +15,6 @@ class HeroRateAndUsed
 public:
 	HeroRateAndUsed(const QString &name, int used, double rate);
 	HeroRateAndUsed(const HeroRateAndUsed&) = delete;
-	~HeroRateAndUsed();
 
 	QString name;
 	int used;
@@ -27,27 +27,27 @@ public:
 };
 
 class HeroesUsedAndRate
+	:public DataNeedCache<QHash<QString, HeroRateAndUsed *>>
 {
 public:
 	HeroesUsedAndRate();
-	~HeroesUsedAndRate();
 	HeroesUsedAndRate(const HeroesUsedAndRate&) = delete;
-
-    void download();
-    void load(bool force_download = false);
-    void save();
 
     float getRate(const QString &chinese_name);
     int getUsed(const QString &chinese_name);
 
 private:
-	QHash<QString, HeroRateAndUsed *> m_list;
 	std::function<void(const QString &, int, double)> m_addHero_callback;
 	std::function<void(std::function<void(const HeroRateAndUsed *)>)> m_enumList;
 
     QString getHeroesUsedAndRateFilename();
     void addHero(const QString &name, int used, double rate);
 	HeroRateAndUsed * getHero(const QString &chinese_name);
+
+	virtual bool loadFromDataBase() override;
+	virtual void download() override;
+	virtual void save() override;
+
 };
 
 #endif // HEROESRATE_H

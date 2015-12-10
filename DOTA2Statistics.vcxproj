@@ -220,6 +220,7 @@
     <ClInclude Include="abilitieslist.h" />
     <ClInclude Include="dataconfig.h" />
     <ClInclude Include="databasemanager.h" />
+    <ClInclude Include="dataneedcache.h" />
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
     <ClInclude Include="GeneratedFiles\ui_setdatasource.h" />
     <ClInclude Include="GeneratedFiles\ui_view_heroitems.h" />
