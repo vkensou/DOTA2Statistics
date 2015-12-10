@@ -141,6 +141,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="abilitieslist.cpp" />
     <ClCompile Include="dataconfig.cpp" />
     <ClCompile Include="databasemanager.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_heroitemsview.cpp">
@@ -216,6 +217,7 @@
     <ClCompile Include="heroitemsview.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="abilitieslist.h" />
     <ClInclude Include="dataconfig.h" />
     <ClInclude Include="databasemanager.h" />
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
@@ -342,7 +344,10 @@ endlocal
     <ResourceCompile Include="dota2statistics.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="heroes.xml" />
+    <Xml Include="abilities.xml" />
+    <Xml Include="heroes.xml">
+      <SubType>Designer</SubType>
+    </Xml>
     <Xml Include="items.xml">
       <SubType>Designer</SubType>
     </Xml>

@@ -163,6 +163,9 @@
     <ClCompile Include="GeneratedFiles\qrc_resource.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="abilitieslist.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataconfig.h">
@@ -228,6 +231,9 @@
     <ClInclude Include="GeneratedFiles\ui_view_matchdetail.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="abilitieslist.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.ui">
@@ -278,6 +284,9 @@
       <Filter>Other Files</Filter>
     </Xml>
     <Xml Include="items.xml">
+      <Filter>Other Files</Filter>
+    </Xml>
+    <Xml Include="abilities.xml">
       <Filter>Other Files</Filter>
     </Xml>
   </ItemGroup>

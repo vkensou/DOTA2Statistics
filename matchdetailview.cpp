@@ -9,6 +9,7 @@
 #include <QDateTime>
 #include "herolist.h"
 #include "ItemImageDelegate.h"
+#include "abilitieslist.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -215,7 +216,7 @@ void MatchDetailView::parseMatchDetailData(QString &data)
 					else if (anode.tagName() == "item_5")
 						player->item5 = anode.text().toInt();
 					else if (anode.tagName() == "kills")
-						player->kilss = anode.text().toInt();
+						player->kills = anode.text().toInt();
 					else if (anode.tagName() == "deaths")
 						player->deaths = anode.text().toInt();
 					else if (anode.tagName() == "assists")
@@ -244,11 +245,38 @@ void MatchDetailView::parseMatchDetailData(QString &data)
 						player->level = anode.text().toInt();
 					else if (anode.tagName() == "ability_upgrades")
 					{
-
+						for (auto abilitynode = anode.firstChildElement("ability"); !abilitynode.isNull(); abilitynode = abilitynode.nextSiblingElement("ability"))
+						{
+							int ability, level, time;
+							ability = abilitynode.firstChildElement("ability").text().toInt();
+							time = abilitynode.firstChildElement("time").text().toInt();
+							level = abilitynode.firstChildElement("level").text().toInt();
+							player->abilityupgrades[level - 1].ability = ability;
+							player->abilityupgrades[level - 1].level = level;
+							player->abilityupgrades[level - 1].time = time;
+						}
 					}
 					else if (anode.tagName() == "additional_units")
 					{
-
+						for (auto cnode = anode.firstChildElement(); !cnode.isNull(); cnode = cnode.nextSiblingElement())
+						{
+							if (cnode.tagName() == "unitname")
+							{
+								player->unitname = cnode.text();
+							}
+							else if (anode.tagName() == "item_0")
+								player->aitem0 = cnode.text().toInt();
+							else if (anode.tagName() == "item_1")
+								player->aitem1 = cnode.text().toInt();
+							else if (anode.tagName() == "item_2")
+								player->aitem2 = cnode.text().toInt();
+							else if (anode.tagName() == "item_3")
+								player->aitem3 = cnode.text().toInt();
+							else if (anode.tagName() == "item_4")
+								player->aitem4 = cnode.text().toInt();
+							else if (anode.tagName() == "item_5")
+								player->aitem5 = cnode.text().toInt();
+						}
 					}
 					else
 					{
@@ -296,13 +324,13 @@ void MatchDetailView::showData()
 	ui->PositiveVotes->setText(QString("ÔÞ£º%1").arg(m_match.positivevotes));
 	ui->NegativeVotes->setText(QString("²È£º%1").arg(m_match.negativevotes));
 	HeroList &herolist = HeroList::getInstance();
-
+	AbilitiesList &abilitieslist = AbilitiesList::getInstance();
 	for (int i = 0; i < 5; ++i)
 	{
 		ui->RadiantHeroList->setItem(i, 0, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].accountid)));
 		ui->RadiantHeroList->setItem(i, 1, new QTableWidgetItem(herolist.getChineseNameByID(m_match.radiantplayers[i].heroid)));
 		ui->RadiantHeroList->setItem(i, 2, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].level)));
-		ui->RadiantHeroList->setItem(i, 3, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].kilss)));
+		ui->RadiantHeroList->setItem(i, 3, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].kills)));
 		ui->RadiantHeroList->setItem(i, 4, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].deaths)));
 		ui->RadiantHeroList->setItem(i, 5, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].assists)));
 		ui->RadiantHeroList->setItem(i, 6, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].lasthits)));
@@ -315,7 +343,17 @@ void MatchDetailView::showData()
 		QTableWidgetItem *heroitems = new QTableWidgetItem;
 		heroitems->setData(0, QVariant::fromValue(ItemList(m_match.radiantplayers[i].item0, m_match.radiantplayers[i].item1, m_match.radiantplayers[i].item2, m_match.radiantplayers[i].item3, m_match.radiantplayers[i].item4, m_match.radiantplayers[i].item5)));
 		ui->RadiantHeroList->setItem(i, 13, heroitems);
-		ui->RadiantHeroList->setItem(i, 14, new QTableWidgetItem(QString("13131413324222+4+++++++++")));
+
+		QString str = "";
+		for (int j = 0; j < 25; ++j)
+		{
+			int id = m_match.radiantplayers[i].abilityupgrades[j].ability;
+			if (id == 0)
+				break;
+			str += abilitieslist.getIndexByID(id);
+		}
+
+		ui->RadiantHeroList->setItem(i, 14, new QTableWidgetItem(str));
 	}
 
 	for (int i = 0; i < 5; ++i)
@@ -323,7 +361,7 @@ void MatchDetailView::showData()
 		ui->DireHeroList->setItem(i, 0, new QTableWidgetItem(QString::number(m_match.direplayers[i].accountid)));
 		ui->DireHeroList->setItem(i, 1, new QTableWidgetItem(herolist.getChineseNameByID(m_match.direplayers[i].heroid)));
 		ui->DireHeroList->setItem(i, 2, new QTableWidgetItem(QString::number(m_match.direplayers[i].level)));
-		ui->DireHeroList->setItem(i, 3, new QTableWidgetItem(QString::number(m_match.direplayers[i].kilss)));
+		ui->DireHeroList->setItem(i, 3, new QTableWidgetItem(QString::number(m_match.direplayers[i].kills)));
 		ui->DireHeroList->setItem(i, 4, new QTableWidgetItem(QString::number(m_match.direplayers[i].deaths)));
 		ui->DireHeroList->setItem(i, 5, new QTableWidgetItem(QString::number(m_match.direplayers[i].assists)));
 		ui->DireHeroList->setItem(i, 6, new QTableWidgetItem(QString::number(m_match.direplayers[i].lasthits)));
@@ -336,7 +374,17 @@ void MatchDetailView::showData()
 		QTableWidgetItem *heroitems = new QTableWidgetItem;
 		heroitems->setData(0, QVariant::fromValue(ItemList(m_match.direplayers[i].item0, m_match.direplayers[i].item1, m_match.direplayers[i].item2, m_match.direplayers[i].item3, m_match.direplayers[i].item4, m_match.direplayers[i].item5)));
 		ui->DireHeroList->setItem(i, 13, heroitems);
-		ui->DireHeroList->setItem(i, 14, new QTableWidgetItem(QString("13131413324222+4+++++++++")));
+
+		QString str = "";
+		for (int j = 0; j < 25; ++j)
+		{
+			int id = m_match.direplayers[i].abilityupgrades[j].ability;
+			if (id == 0)
+				break;
+			str += abilitieslist.getIndexByID(id);
+		}
+
+		ui->DireHeroList->setItem(i, 14, new QTableWidgetItem(str));
 	}
 }
  

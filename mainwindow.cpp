@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_herolist.load();
 
+	m_abilities.load();
+
 	for (int i = 0; i < IDataView::Count; ++i)
 	{
 		m_dataviews[i] = nullptr;

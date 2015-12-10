@@ -10,6 +10,7 @@
 #include "heroitemsmanager.h"
 #include "webdatasourcemanager.h"
 #include "idataview.h"
+#include "abilitieslist.h"
 
 namespace Ui {
 class MainWindow;
@@ -51,6 +52,7 @@ private:
     HeroItemsManager m_heroitemsmanager;
 	WebDataSourceManager m_webdatasourcemanager;
  	StatusBarSeter *m_statusbarsetter;
+	AbilitiesList m_abilities;
 
 	IDataView *m_dataviews[IDataView::Count];
 };

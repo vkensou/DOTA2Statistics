@@ -61,7 +61,9 @@ private:
 			int accountid{ 0 };
 			int heroid{ 0 };
 			int item0{ 0 }, item1{ 0 }, item2{ 0 }, item3{ 0 }, item4{ 0 }, item5{ 0 };
-			int kilss{ 0 }, deaths{ 0 }, assists{ 0 };
+			QString unitname;
+			int aitem0{ 0 }, aitem1{ 0 }, aitem2{ 0 }, aitem3{ 0 }, aitem4{ 0 }, aitem5{ 0 };
+			int kills{ 0 }, deaths{ 0 }, assists{ 0 };
 			int level{ 0 };
 			int gold{ 0 };
 			int lasthits{ 0 }, denies{ 0 };
