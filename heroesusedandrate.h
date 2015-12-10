@@ -5,7 +5,7 @@
 #include <QUrl>
 #include <QHash>
 #include <functional>
-#include "dataneedcache.h"
+#include "hashdataneedcache.h"
 
 class DataBaseManager;
 class WebDataDownloader;
@@ -27,7 +27,7 @@ public:
 };
 
 class HeroesUsedAndRate
-	:public DataNeedCache<QHash<QString, HeroRateAndUsed *>>
+	:public HashDataNeedCache<HeroRateAndUsed>
 {
 public:
 	HeroesUsedAndRate();

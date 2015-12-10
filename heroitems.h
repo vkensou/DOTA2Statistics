@@ -4,7 +4,7 @@
 #include <QString>
 #include <QHash>
 #include <functional>
-#include "dataneedcache.h"
+#include "hashdataneedcache.h"
 #include "utility.h"
 
 class ItemRateAndUsed
@@ -36,7 +36,7 @@ public:
 
 //hero winning rate with item
 class HeroItems
-	:public DataNeedCache<QHash<QString, ItemRateAndUsed *>>
+	:public HashDataNeedCache<ItemRateAndUsed>
 {
 public:
     const QString & getName() const{return m_name;}
@@ -66,6 +66,7 @@ private:
 
 	std::function<void(const QString &, int, double, double)> m_addItem_callback;
 	std::function<void(std::function<void(const ItemRateAndUsed *)>)> m_enumList;
+
 };
 
 #endif // HEROITEMS_H

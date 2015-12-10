@@ -26,9 +26,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-signals:
-	void on_datasouce_changed();
-
 private slots:
     void on_action_about_triggered();
 	void on_action_set_datasource_triggered();

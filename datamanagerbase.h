@@ -2,8 +2,9 @@
 
 #include "utility.h"
 #include <functional>
+#include <QHash>
 
-template<class T1, class T2>
+template<class T1>
 class DataManagerBase
 {
 public:
@@ -13,18 +14,18 @@ public:
 	}
 
 protected:
-	T2 & getDatum(const QString &key, std::function<T2*()> &factory)
+	T1 & getDatum(const QString &key, std::function<T1*()> &factory)
 	{
 		auto i = m_list.find(key);
 		if (i == m_list.end())
 		{
 			i = m_list.insert(key, factory());
 		}
-		T2 * data = i.value();
+		T1 *data = i.value();
 		return *data;
 	}
 
 private:
-	T1 m_list;
+	QHash<QString, T1 *> m_list;
 
 };

@@ -163,8 +163,11 @@
     <ClCompile Include="GeneratedFiles\qrc_resource.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="matchdetailmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="abilitieslist.cpp">
-      <Filter>Generated Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +241,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="datamanagerbase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matchdetail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matchdetailmanager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hashdataneedcache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

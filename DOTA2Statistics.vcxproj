@@ -206,6 +206,7 @@
     <ClCompile Include="itemimagedelegate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="matchdetailmanager.cpp" />
     <ClCompile Include="matchdetailview.cpp" />
     <ClCompile Include="setdatasourcedialog.cpp" />
     <ClCompile Include="utility.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="GeneratedFiles\ui_view_heroitems.h" />
     <ClInclude Include="GeneratedFiles\ui_view_matchdetail.h" />
     <ClInclude Include="GeneratedFiles\ui_view_playermatchhistory.h" />
+    <ClInclude Include="hashdataneedcache.h" />
     <ClInclude Include="heroesusedandrate.h" />
     <ClInclude Include="heroesusedandratemanager.h" />
     <ClInclude Include="heroitems.h" />
@@ -293,6 +295,8 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -DQT_DLL "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2013" "-I.\GeneratedFiles" "-ID:\pgtools\Visual Leak Detector\include"</Command>
     </CustomBuild>
+    <ClInclude Include="matchdetail.h" />
+    <ClInclude Include="matchdetailmanager.h" />
     <ClInclude Include="webdatadownloader.h" />
     <ClInclude Include="webdatasourcedotabuff.h" />
     <ClInclude Include="webdatasourcedotamax.h" />

@@ -9,7 +9,7 @@
 #include "datamanagerbase.h"
 
 class HeroesUsedAndRateManager
-	:public Singleton<HeroesUsedAndRateManager>, public DataManagerBase<QHash<QString, HeroesUsedAndRate *>, HeroesUsedAndRate>
+	:public Singleton<HeroesUsedAndRateManager>, public DataManagerBase<HeroesUsedAndRate>
 {
 public:
     HeroesUsedAndRate & getHeroesUsedAndRate(bool force_download = false, const DataConfig &config = DataConfig::getCurrentConfig());
