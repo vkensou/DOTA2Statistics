@@ -8,6 +8,8 @@ namespace Ui
 	class View_MatchDetail;
 }
 
+class QStyledItemDelegate;
+
 class MatchDetailView
 	:public IDataView
 {
@@ -33,6 +35,7 @@ private:
 
 private:
 	Ui::View_MatchDetail *ui;
+	QStyledItemDelegate *itemimagedelegate;
 	struct MatchDetail
 	{
 		int victoryparty{ 0 };
@@ -78,3 +81,4 @@ private:
 		PlayerDetail direplayers[5];
 	}m_match;
 };
+

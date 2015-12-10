@@ -48,6 +48,11 @@
     <Filter Include="Other Files">
       <UniqueIdentifier>{dcd23589-727c-47ee-93a8-364723898d08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dataconfig.cpp">
@@ -145,6 +150,18 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_matchdetailview.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="itemimagedelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_itemimagedelegate.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_itemimagedelegate.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_resource.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +262,12 @@
     </CustomBuild>
     <CustomBuild Include="matchdetailview.h">
       <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="itemimagedelegate.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="resource.qrc">
+      <Filter>Other Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

@@ -8,18 +8,61 @@
 #include <QTime>
 #include <QDateTime>
 #include "herolist.h"
+#include "ItemImageDelegate.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
 MatchDetailView::MatchDetailView()
 	:ui(new Ui::View_MatchDetail)
+	, itemimagedelegate(new ItemImageDelegate)
 {
 	ui->setupUi(this);
+	ui->RadiantHeroList->setItemDelegateForColumn(13, itemimagedelegate);
+	ui->RadiantHeroList->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+	ui->RadiantHeroList->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+
+	ui->RadiantHeroList->setColumnWidth(0, 70);
+	ui->RadiantHeroList->setColumnWidth(1, 67);
+	ui->RadiantHeroList->setColumnWidth(2, 32);
+	ui->RadiantHeroList->setColumnWidth(3, 32);
+	ui->RadiantHeroList->setColumnWidth(4, 32);
+	ui->RadiantHeroList->setColumnWidth(5, 32);
+	ui->RadiantHeroList->setColumnWidth(6, 32);
+	ui->RadiantHeroList->setColumnWidth(7, 32);
+	ui->RadiantHeroList->setColumnWidth(8, 68);
+	ui->RadiantHeroList->setColumnWidth(9, 68);
+	ui->RadiantHeroList->setColumnWidth(10, 56);
+	ui->RadiantHeroList->setColumnWidth(11, 56);
+	ui->RadiantHeroList->setColumnWidth(12, 56);
+	ui->RadiantHeroList->setColumnWidth(13, 205);
+	ui->RadiantHeroList->setColumnWidth(14, 202);
+
+	ui->DireHeroList->setItemDelegateForColumn(13, itemimagedelegate);
+	ui->DireHeroList->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+	ui->DireHeroList->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+
+	ui->DireHeroList->setColumnWidth(0, 70);
+	ui->DireHeroList->setColumnWidth(1, 67);
+	ui->DireHeroList->setColumnWidth(2, 32);
+	ui->DireHeroList->setColumnWidth(3, 32);
+	ui->DireHeroList->setColumnWidth(4, 32);
+	ui->DireHeroList->setColumnWidth(5, 32);
+	ui->DireHeroList->setColumnWidth(6, 32);
+	ui->DireHeroList->setColumnWidth(7, 32);
+	ui->DireHeroList->setColumnWidth(8, 68);
+	ui->DireHeroList->setColumnWidth(9, 68);
+	ui->DireHeroList->setColumnWidth(10, 56);
+	ui->DireHeroList->setColumnWidth(11, 56);
+	ui->DireHeroList->setColumnWidth(12, 56);
+	ui->DireHeroList->setColumnWidth(13, 205);
+	ui->DireHeroList->setColumnWidth(14, 202);
+
 }
 
 MatchDetailView::~MatchDetailView()
 {
 	delete ui;
+	delete itemimagedelegate;
 }
 
 void MatchDetailView::showMatchDetail(int matchid)
@@ -269,6 +312,10 @@ void MatchDetailView::showData()
 		ui->RadiantHeroList->setItem(i, 10, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].herodamage)));
 		ui->RadiantHeroList->setItem(i, 11, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].towerdamage)));
 		ui->RadiantHeroList->setItem(i, 12, new QTableWidgetItem(QString::number(m_match.radiantplayers[i].herohealing)));
+		QTableWidgetItem *heroitems = new QTableWidgetItem;
+		heroitems->setData(0, QVariant::fromValue(ItemList(m_match.radiantplayers[i].item0, m_match.radiantplayers[i].item1, m_match.radiantplayers[i].item2, m_match.radiantplayers[i].item3, m_match.radiantplayers[i].item4, m_match.radiantplayers[i].item5)));
+		ui->RadiantHeroList->setItem(i, 13, heroitems);
+		ui->RadiantHeroList->setItem(i, 14, new QTableWidgetItem(QString("13131413324222+4+++++++++")));
 	}
 
 	for (int i = 0; i < 5; ++i)
@@ -286,6 +333,10 @@ void MatchDetailView::showData()
 		ui->DireHeroList->setItem(i, 10, new QTableWidgetItem(QString::number(m_match.direplayers[i].herodamage)));
 		ui->DireHeroList->setItem(i, 11, new QTableWidgetItem(QString::number(m_match.direplayers[i].towerdamage)));
 		ui->DireHeroList->setItem(i, 12, new QTableWidgetItem(QString::number(m_match.direplayers[i].herohealing)));
+		QTableWidgetItem *heroitems = new QTableWidgetItem;
+		heroitems->setData(0, QVariant::fromValue(ItemList(m_match.direplayers[i].item0, m_match.direplayers[i].item1, m_match.direplayers[i].item2, m_match.direplayers[i].item3, m_match.direplayers[i].item4, m_match.direplayers[i].item5)));
+		ui->DireHeroList->setItem(i, 13, heroitems);
+		ui->DireHeroList->setItem(i, 14, new QTableWidgetItem(QString("13131413324222+4+++++++++")));
 	}
 }
  

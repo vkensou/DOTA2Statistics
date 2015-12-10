@@ -42,9 +42,21 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
      <property name="rowCount">
       <number>5</number>
      </property>
+     <attribute name="verticalHeaderCascadingSectionResizes">
+      <bool>false</bool>
+     </attribute>
+     <attribute name="verticalHeaderDefaultSectionSize">
+      <number>26</number>
+     </attribute>
+     <attribute name="verticalHeaderMinimumSectionSize">
+      <number>26</number>
+     </attribute>
      <row/>
      <row/>
      <row/>
@@ -135,9 +147,18 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
      <property name="rowCount">
       <number>5</number>
      </property>
+     <attribute name="verticalHeaderDefaultSectionSize">
+      <number>26</number>
+     </attribute>
+     <attribute name="verticalHeaderMinimumSectionSize">
+      <number>26</number>
+     </attribute>
      <row/>
      <row/>
      <row/>
@@ -527,6 +548,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="text">
+        <string>1990510114</string>
        </property>
       </widget>
      </item>

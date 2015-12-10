@@ -301,7 +301,6 @@
         <part chinese_name="锁子甲"/>
         <part chinese_name="铁树枝干"/>
     </item>
-    </item>
     <item id="84" name="flying_courier" chinese_name="飞行信使"/>
     <item id="81" name="vladmir" chinese_name="弗拉迪米尔的祭品">
         <part chinese_name="吸血面具"/>
