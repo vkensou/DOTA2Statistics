@@ -6,17 +6,13 @@
 #include "heroitems.h"
 #include "dataconfig.h"
 #include "Singleton.h"
-
+#include "datamanagerbase.h"
 class HeroItemsManager
-        :public Singleton<HeroItemsManager>
+	:public Singleton<HeroItemsManager>, public DataManagerBase<QHash<QString, HeroItems *>, HeroItems>
 {
 public:
-    HeroItemsManager();
-	~HeroItemsManager();
-
     HeroItems & getHeroItems(const QString &name, const DataConfig &config = DataConfig::getCurrentConfig());
-private:
-    QHash<QString, HeroItems *> m_list;
+
 };
 
 #endif // HEROITEMSMANAGER_H
