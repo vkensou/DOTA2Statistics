@@ -27,6 +27,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+signals:
+	void matchDblClicked(int matchid);
+
 private slots:
     void on_action_about_triggered();
 	void on_action_set_datasource_triggered();
@@ -35,6 +38,7 @@ private slots:
 	void on_action_view_matchdetail_triggered();
 	void setStatusBarText(const QString &text);
 	void on_tabWidget_tabCloseRequested(int index);
+	void on_MatchDblClicked(int matchid);
 
 private:
 	void initStatusBar();

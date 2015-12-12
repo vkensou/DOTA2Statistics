@@ -66,11 +66,19 @@ IDataView * MainWindow::getDataView(IDataView::ViewType type)
 		view = new HeroItemsView;
 		break;
 	case IDataView::View_PlayerMatchHistory:
-		view = new PlayerMatchHistoryView;
+	{
+		auto sview = new PlayerMatchHistoryView;
+		view = sview;
+		connect(sview, SIGNAL(matchDblClicked(int)), this, SLOT(on_MatchDblClicked(int)));
 		break;
+	}
 	case IDataView::View_MatchDetail:
-		view = new MatchDetailView;
+	{
+		auto sview = new MatchDetailView;
+		view = sview;
+		connect(this, SIGNAL(matchDblClicked(int)), sview, SLOT(showMatchDetail(int)));
 		break;
+	}
 	}
 	m_dataviews[type] = view;
 	return view;
@@ -95,7 +103,7 @@ void MainWindow::tableAddTab(IDataView::ViewType type)
 			}
 		}
 	}
-		ui->tabWidget->setCurrentIndex(index);
+	ui->tabWidget->setCurrentIndex(index);
 }
 
 void MainWindow::setStatusBarText(const QString &text)
@@ -112,6 +120,12 @@ void MainWindow::on_tabWidget_tabCloseRequested(int index)
 
 	m_dataviews[widget->getType()] = 0;
 	ui->tabWidget->removeTab(index);
+}
+
+void MainWindow::on_MatchDblClicked(int matchid)
+{
+	tableAddTab(IDataView::View_MatchDetail);
+	matchDblClicked(matchid);
 }
 
 void MainWindow::on_action_about_triggered()

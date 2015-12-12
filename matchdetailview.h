@@ -19,7 +19,6 @@ public:
 	MatchDetailView();
 	~MatchDetailView();
 
-	void showMatchDetail(int matchid);
 
 	virtual int getType() override;
 
@@ -27,6 +26,7 @@ public:
 
 	virtual void on_DataSource_Changed() override;
 public slots:
+	void showMatchDetail(int matchid);
 	void on_ShowMatchDetail_clicked();
 
 private:
