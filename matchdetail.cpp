@@ -26,6 +26,7 @@ void MatchDetail::download()
 	auto url = getMatchDetailURL(matchid);
 	auto data = downloadWebPage(url);
 	parseMatchDetailData(data);
+	handleData();
 
 	m_init = true;
 }
@@ -61,7 +62,7 @@ void MatchDetail::parseMatchDetailData(QString &data)
 	{
 		if (node.tagName() == "radiant_win")
 		{
-			victoryparty = node.text() == "true";
+			victoryparty = node.text() == "true" ? 1 : 0;
 		}
 		else if (node.tagName() == "duration")
 		{
@@ -240,5 +241,28 @@ void MatchDetail::parseMatchDetailData(QString &data)
 				pickbanlist[order].team = pbnode.firstChildElement("team").text().toInt();
 			}
 		}
+	}
+}
+
+void MatchDetail::handleData()
+{
+	radiantgpm = radiantxpm = radiantherodamage = radianttowerdamage = radiantherohealing = 0;
+	for (int i = 0; i < 5; ++i)
+	{
+		radiantgpm += radiantplayers[i].goldpermin;
+		radiantxpm += radiantplayers[i].xppermin;
+		radiantherodamage += radiantplayers[i].herodamage;
+		radianttowerdamage += radiantplayers[i].towerdamage;
+		radiantherohealing += radiantplayers[i].herohealing;
+	}
+
+	diregpm = direxpm = direherodamage = diretowerdamage = direherohealing = 0;
+	for (int i = 0; i < 5; ++i)
+	{
+		diregpm += direplayers[i].goldpermin;
+		direxpm += direplayers[i].xppermin;
+		direherodamage += direplayers[i].herodamage;
+		diretowerdamage += direplayers[i].towerdamage;
+		direherohealing += direplayers[i].herohealing;
 	}
 }

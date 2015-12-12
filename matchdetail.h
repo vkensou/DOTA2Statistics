@@ -19,6 +19,7 @@ private:
 
 	QUrl getMatchDetailURL(int matchid);
 	void parseMatchDetailData(QString &data);
+	void handleData();
 	void showData();
 
 public:
@@ -40,6 +41,8 @@ public:
 	int negativevotes{ 0 };
 	int gamemode{ 0 };
 	int engine{ 0 };
+	int radiantgpm{ 0 }, radiantxpm{ 0 }, radiantherodamage{ 0 }, radianttowerdamage{ 0 }, radiantherohealing{ 0 };
+	int diregpm{ 0 }, direxpm{ 0 }, direherodamage{ 0 }, diretowerdamage{ 0 }, direherohealing{ 0 };
 	struct PlayerDetail
 	{
 		int accountid{ 0 };

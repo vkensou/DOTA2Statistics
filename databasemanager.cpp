@@ -143,10 +143,6 @@ bool DataBaseManager::loadMatchDetail(MatchDetail& matchdetail)
 		matchdetail.victoryparty = record.value("victoryparty").toInt();
 		matchdetail.duration = record.value("duration").toInt();
 		matchdetail.matchseqnum = record.value("seqnum").toInt();
-		matchdetail.radianttower = record.value("radianttower").toInt();
-		matchdetail.diretower = record.value("diretower").toInt();
-		matchdetail.radiantbarracks = record.value("radiantbarracks").toInt();
-		matchdetail.direbarracks = record.value("direbarracks").toInt();
 		matchdetail.cluster = record.value("cluster").toInt();
 		matchdetail.firstbloodtime = record.value("firstbloodtime").toInt();
 		matchdetail.lobbytype = record.value("lobbytype").toInt();
@@ -158,6 +154,9 @@ bool DataBaseManager::loadMatchDetail(MatchDetail& matchdetail)
 		matchdetail.engine = record.value("engine").toInt();
 		matchdetail.starttime = record.value("starttime").toInt();
 	}
+
+	if (!loadMatchDetailSide(matchdetail))
+		return false;
 
 	if (matchdetail.lobbytype == 2 && !loadMatchDetailPickBanList(matchdetail))
 		return false;
@@ -173,10 +172,6 @@ void DataBaseManager::saveMatchDetail(MatchDetail &matchdetail)
 		"victoryparty  INTEGER NOT NULL,"
 		"duration  INTEGER NOT NULL,"
 		"seqnum  INTEGER NOT NULL,"
-		"radianttower  INTEGER NOT NULL,"
-		"diretower  INTEGER NOT NULL,"
-		"radiantbarracks  INTEGER NOT NULL,"
-		"direbarracks  INTEGER NOT NULL,"
 		"cluster  INTEGER NOT NULL,"
 		"firstbloodtime  INTEGER NOT NULL,"
 		"lobbytype  INTEGER NOT NULL,"
@@ -190,6 +185,7 @@ void DataBaseManager::saveMatchDetail(MatchDetail &matchdetail)
 		"PRIMARY KEY(matchid)); ";
 
 	db.exec(sqlcreate.arg(tablename));
+	auto e1 = db.lastError().text();
 
 	QSqlTableModel model(0, db);
 	model.setTable(tablename);
@@ -199,12 +195,17 @@ void DataBaseManager::saveMatchDetail(MatchDetail &matchdetail)
 	if (model.rowCount() != 0)
 		return;
 
-	static QString sqlinsert = "INSERT INTO matchdetail(matchid, victoryparty, duration, seqnum, radianttower, diretower, radiantbarracks, direbarracks, cluster, firstbloodtime, lobbytype, humanplayer, leagueid, positivevotes, negativevotes, gamemode, engine, starttime) "
-		"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14, %15, %16, %17, %18);";
+	static QString sqlinsert = "INSERT INTO matchdetail(matchid, victoryparty, duration, seqnum, cluster, firstbloodtime, lobbytype, humanplayer, leagueid, "
+		"positivevotes, negativevotes, gamemode, engine, starttime) "
+		"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14);";
 
-	db.exec(sqlinsert.arg(matchdetail.matchid).arg(matchdetail.victoryparty).arg(matchdetail.duration).arg(matchdetail.matchseqnum).arg(matchdetail.radianttower).arg(matchdetail.diretower)
-		.arg(matchdetail.radiantbarracks).arg(matchdetail.direbarracks).arg(matchdetail.cluster).arg(matchdetail.firstbloodtime).arg(matchdetail.lobbytype).arg(matchdetail.humanplayer)
-		.arg(matchdetail.leagueid).arg(matchdetail.positivevotes).arg(matchdetail.negativevotes).arg(matchdetail.gamemode).arg(matchdetail.engine).arg(matchdetail.starttime));
+	db.exec(sqlinsert.arg(matchdetail.matchid).arg(matchdetail.victoryparty).arg(matchdetail.duration).arg(matchdetail.matchseqnum).arg(matchdetail.cluster)
+		.arg(matchdetail.firstbloodtime).arg(matchdetail.lobbytype).arg(matchdetail.humanplayer).arg(matchdetail.leagueid).arg(matchdetail.positivevotes)
+		.arg(matchdetail.negativevotes).arg(matchdetail.gamemode).arg(matchdetail.engine).arg(matchdetail.starttime)
+		);
+	auto e2 = db.lastError().text();
+
+	saveMatchDetailSide(matchdetail);
 
 	if (matchdetail.gamemode == 2)
 		saveMatchDetailPickBanList(matchdetail);
@@ -225,6 +226,52 @@ QString DataBaseManager::getTable_HeroItems_Name(const QString &heroname, const 
 	tablename.replace(" ", "");
 	tablename.replace(".", "");
 	return tablename;
+}
+
+bool DataBaseManager::loadMatchDetailSide(MatchDetail &matchdetail)
+{
+	static QString tablename = "matchdetail_side";
+
+	QSqlTableModel model(0, db);
+	model.setTable(tablename);
+	model.setFilter(QString("matchid=%1").arg(matchdetail.matchid));
+	model.select();
+
+	if (model.rowCount() != 2)
+		return false;
+	else
+	{
+		for (int i = 0; i < 2; ++i)
+		{
+			QSqlRecord record;
+			int side;
+
+			record = model.record(0);
+			side = record.value("side").toInt();
+			if (side == 1)
+			{
+				matchdetail.radianttower = record.value("tower").toInt();
+				matchdetail.radiantbarracks = record.value("barrack").toInt();
+				matchdetail.radiantgpm = record.value("gpm").toInt();
+				matchdetail.radiantxpm = record.value("xpm").toInt();
+				matchdetail.radiantherodamage = record.value("herodamage").toInt();
+				matchdetail.radianttowerdamage = record.value("towerdamage").toInt();
+				matchdetail.radiantherohealing = record.value("herohealing").toInt();
+			}
+			else
+			{
+				matchdetail.diretower = record.value("tower").toInt();
+				matchdetail.direbarracks = record.value("barrack").toInt();
+				matchdetail.diregpm = record.value("gpm").toInt();
+				matchdetail.direxpm = record.value("xpm").toInt();
+				matchdetail.direherodamage = record.value("herodamage").toInt();
+				matchdetail.diretowerdamage = record.value("towerdamage").toInt();
+				matchdetail.direherohealing = record.value("herohealing").toInt();
+			}
+		}
+	}
+
+	return true;
 }
 
 bool DataBaseManager::loadMatchDetailPickBanList(MatchDetail &matchdetail)
@@ -344,6 +391,41 @@ bool DataBaseManager::loadMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchd
 	}
 
 	return true;
+}
+
+void DataBaseManager::saveMatchDetailSide(MatchDetail &matchdetail)
+{
+	static QString tablename = "matchdetail_side";
+	static QString sqlcreate = "CREATE TABLE IF NOT EXISTS matchdetail_side("
+		"matchid  INTEGER NOT NULL,"
+		"side  INTEGER NOT NULL,"
+		"win  INTEGER NOT NULL,"
+		"tower  INTEGER NOT NULL,"
+		"barrack  INTEGER NOT NULL,"
+		"gpm  INTEGER NOT NULL,"
+		"xpm  INTEGER NOT NULL,"
+		"herodamage  INTEGER NOT NULL,"
+		"towerdamage  INTEGER NOT NULL,"
+		"herohealing  INTEGER NOT NULL,"
+		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid)"
+		");";
+
+	db.exec(sqlcreate);
+	auto e1 = db.lastError().text();
+	QSqlTableModel model(0, db);
+	model.setTable(tablename);
+	model.setFilter(QString("matchid=%1").arg(matchdetail.matchid));
+	model.select();
+
+	if (model.rowCount() != 0)
+		return;
+
+	db.transaction();
+	static QString sqlinsert = "INSERT INTO matchdetail_side(matchid, side, win, tower, barrack, gpm, xpm, herodamage, towerdamage, herohealing) VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10);";
+	db.exec(sqlinsert.arg(matchdetail.matchid).arg(1).arg(matchdetail.victoryparty == 1 ? 1 : 0).arg(matchdetail.radianttower).arg(matchdetail.radiantbarracks).arg(matchdetail.radiantgpm).arg(matchdetail.radiantxpm).arg(matchdetail.radiantherodamage).arg(matchdetail.radianttowerdamage).arg(matchdetail.radiantherohealing));
+	db.exec(sqlinsert.arg(matchdetail.matchid).arg(0).arg(matchdetail.victoryparty == 0 ? 1 : 0).arg(matchdetail.diretower).arg(matchdetail.direbarracks).arg(matchdetail.diregpm).arg(matchdetail.direxpm).arg(matchdetail.direherodamage).arg(matchdetail.diretowerdamage).arg(matchdetail.direherohealing));
+	db.commit();
+	auto e2 = db.lastError().text();
 }
 
 void DataBaseManager::saveMatchDetailPickBanList(MatchDetail& matchdetail)
