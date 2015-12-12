@@ -25,11 +25,13 @@
 	<ability>
 		<name>witch_doctor_voodoo_restoration</name>
 		<id>5139</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>bloodseeker_blood_bath</name>
 		<id>5016</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>backdoor_protection_in_base</name>
 		<id>5351</id>
@@ -37,7 +39,7 @@
 	<ability>
 		<name>broodmother_spawn_spiderite</name>
 		<id>5283</id>
-	</ability>
+  </ability>
 	<ability>
 		<name>spirit_breaker_charge_of_darkness</name>
 		<id>5353</id>
@@ -46,7 +48,8 @@
 	<ability>
 		<name>chaos_knight_reality_rift</name>
 		<id>5427</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>lina_laguna_blade</name>
 		<id>5043</id>
@@ -55,7 +58,8 @@
 	<ability>
 		<name>riki_backstab</name>
 		<id>5144</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>forest_troll_high_priest_heal</name>
 		<id>5318</id>
@@ -63,7 +67,8 @@
 	<ability>
 		<name>warlock_upheaval</name>
 		<id>5164</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>ogre_magi_frost_armor</name>
 		<id>5304</id>
@@ -89,7 +94,8 @@
 	<ability>
 		<name>warlock_rain_of_chaos</name>
 		<id>5165</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>sven_warcry</name>
 		<id>5096</id>
@@ -98,19 +104,23 @@
 	<ability>
 		<name>templar_assassin_meld</name>
 		<id>5195</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>enchantress_impetus</name>
 		<id>5270</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>earthshaker_enchant_totem</name>
 		<id>5024</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>lone_druid_synergy</name>
 		<id>5414</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>invoker_forge_spirit</name>
 		<id>5387</id>
@@ -118,7 +128,8 @@
 	<ability>
 		<name>chaos_knight_phantasm</name>
 		<id>5429</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>satyr_hellcaller_unholy_aura</name>
 		<id>5317</id>
@@ -126,11 +137,13 @@
 	<ability>
 		<name>shadow_shaman_shackles</name>
 		<id>5080</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>ogre_magi_bloodlust</name>
 		<id>5440</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>shadow_demon_shadow_poison_release</name>
 		<id>5424</id>
@@ -161,15 +174,18 @@
 	<ability>
 		<name>bounty_hunter_track</name>
 		<id>5288</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>bloodseeker_bloodrage</name>
 		<id>5015</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>obsidian_destroyer_astral_imprisonment</name>
 		<id>5392</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>lich_dark_ritual</name>
 		<id>5136</id>
@@ -183,19 +199,23 @@
 	<ability>
 		<name>enchantress_natures_attendants</name>
 		<id>5269</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>broodmother_incapacitating_bite</name>
 		<id>5281</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>undying_flesh_golem</name>
 		<id>5447</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>lone_druid_rabid</name>
 		<id>5413</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>slardar_sprint</name>
 		<id>5114</id>
@@ -204,7 +224,8 @@
 	<ability>
 		<name>sandking_caustic_finale</name>
 		<id>5104</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>nevermore_dark_lord</name>
 		<id>5063</id>
@@ -217,15 +238,18 @@
 	<ability>
 		<name>life_stealer_infest</name>
 		<id>5252</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>lycan_feral_impulse</name>
 		<id>5397</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>ursa_overpower</name>
 		<id>5358</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>enraged_wildkin_toughness_aura</name>
 		<id>5313</id>
@@ -233,35 +257,43 @@
 	<ability>
 		<name>pudge_flesh_heap</name>
 		<id>5074</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>witch_doctor_maledict</name>
 		<id>5140</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>vengefulspirit_nether_swap</name>
 		<id>5125</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>weaver_shukuchi</name>
 		<id>5290</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>weaver_the_swarm</name>
 		<id>5289</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>alchemist_acid_spray</name>
 		<id>5365</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>phantom_assassin_stifling_dagger</name>
 		<id>5190</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>sandking_epicenter</name>
 		<id>5105</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>tornado_tempest</name>
 		<id>5310</id>
@@ -269,19 +301,23 @@
 	<ability>
 		<name>jakiro_liquid_fire</name>
 		<id>5299</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>chen_hand_of_god</name>
 		<id>5331</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>batrider_flaming_lasso</name>
 		<id>5323</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>lone_druid_true_form</name>
 		<id>5416</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>spirit_breaker_nether_strike</name>
 		<id>5356</id>
@@ -295,7 +331,8 @@
 	<ability>
 		<name>alchemist_chemical_rage</name>
 		<id>5369</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>silencer_last_word</name>
 		<id>5379</id>
@@ -304,15 +341,18 @@
 	<ability>
 		<name>tinker_rearm</name>
 		<id>5153</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>rattletrap_rocket_flare</name>
 		<id>5239</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>omniknight_guardian_angel</name>
 		<id>5266</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>leshrac_diabolic_edict</name>
 		<id>5242</id>
@@ -335,43 +375,53 @@
 	<ability>
 		<name>brewmaster_drunken_haze</name>
 		<id>5401</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>batrider_flamebreak</name>
 		<id>5321</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>dark_seer_ion_shell</name>
 		<id>5256</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>queenofpain_scream_of_pain</name>
 		<id>5175</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>phantom_assassin_blur</name>
 		<id>5192</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>phantom_lancer_juxtapose</name>
 		<id>5067</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>tidehunter_anchor_smash</name>
 		<id>5120</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>axe_battle_hunger</name>
 		<id>5008</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>pugna_life_drain</name>
 		<id>5189</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>batrider_firefly</name>
 		<id>5322</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>beastmaster_primal_roar</name>
 		<id>5177</id>
@@ -380,15 +430,18 @@
 	<ability>
 		<name>shadow_shaman_mass_serpent_ward</name>
 		<id>5081</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>treant_leech_seed</name>
 		<id>5435</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>chen_holy_persuasion</name>
 		<id>5330</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>courier_burst</name>
 		<id>5210</id>
@@ -396,7 +449,8 @@
 	<ability>
 		<name>luna_lucent_beam</name>
 		<id>5222</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>morphling_morph_replicate</name>
 		<id>5058</id>
@@ -404,7 +458,8 @@
 	<ability>
 		<name>venomancer_poison_sting</name>
 		<id>5179</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>roshan_bash</name>
 		<id>5214</id>
@@ -412,7 +467,8 @@
 	<ability>
 		<name>tinker_march_of_the_machines</name>
 		<id>5152</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>lone_druid_spirit_bear_demolish</name>
 		<id>5420</id>
@@ -420,7 +476,8 @@
 	<ability>
 		<name>mirana_leap</name>
 		<id>5050</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>brewmaster_storm_wind_walk</name>
 		<id>5410</id>
@@ -428,7 +485,8 @@
 	<ability>
 		<name>skeleton_king_reincarnation</name>
 		<id>5089</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>beastmaster_call_of_the_wild</name>
 		<id>5169</id>
@@ -437,7 +495,8 @@
 	<ability>
 		<name>riki_permanent_invisibility</name>
 		<id>5145</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>courier_shield</name>
 		<id>5209</id>
@@ -445,11 +504,13 @@
 	<ability>
 		<name>clinkz_searing_arrows</name>
 		<id>5260</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>puck_illusory_orb</name>
 		<id>5069</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>forged_spirit_melting_strike</name>
 		<id>5388</id>
@@ -457,11 +518,13 @@
 	<ability>
 		<name>viper_viper_strike</name>
 		<id>5221</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>furion_wrath_of_nature</name>
 		<id>5248</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>silencer_curse_of_the_silent</name>
 		<id>5377</id>
@@ -475,7 +538,8 @@
 	<ability>
 		<name>doom_bringer_doom</name>
 		<id>5342</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>warlock_golem_flaming_fists</name>
 		<id>5166</id>
@@ -502,11 +566,13 @@
 	<ability>
 		<name>meepo_geostrike</name>
 		<id>5432</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>ogre_magi_multicast</name>
 		<id>5441</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>crystal_maiden_frostbite</name>
 		<id>5127</id>
@@ -529,15 +595,18 @@
 	<ability>
 		<name>dragon_knight_breathe_fire</name>
 		<id>5226</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>earthshaker_fissure</name>
 		<id>5023</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>witch_doctor_paralyzing_cask</name>
 		<id>5138</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>centaur_khan_endurance_aura</name>
 		<id>5294</id>
@@ -545,11 +614,13 @@
 	<ability>
 		<name>gyrocopter_homing_missile</name>
 		<id>5362</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>death_prophet_silence</name>
 		<id>5091</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>beastmaster_wild_axes</name>
 		<id>5168</id>
@@ -558,11 +629,13 @@
 	<ability>
 		<name>doom_bringer_lvl_death</name>
 		<id>5341</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>queenofpain_shadow_strike</name>
 		<id>5173</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>tiny_avalanche</name>
 		<id>5106</id>
@@ -590,7 +663,8 @@
 	<ability>
 		<name>riki_smoke_screen</name>
 		<id>5142</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>roshan_spell_block</name>
 		<id>5213</id>
@@ -607,11 +681,13 @@
 	<ability>
 		<name>obsidian_destroyer_arcane_orb</name>
 		<id>5391</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>earthshaker_aftershock</name>
 		<id>5025</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>satyr_trickster_purge</name>
 		<id>5314</id>
@@ -644,7 +720,8 @@
 	<ability>
 		<name>treant_living_armor</name>
 		<id>5436</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>spectre_desolate</name>
 		<id>5335</id>
@@ -653,11 +730,13 @@
 	<ability>
 		<name>weaver_time_lapse</name>
 		<id>5292</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>ancient_apparition_chilling_touch</name>
 		<id>5347</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>brewmaster_storm_cyclone</name>
 		<id>5409</id>
@@ -665,23 +744,28 @@
 	<ability>
 		<name>vengefulspirit_command_aura</name>
 		<id>5123</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>broodmother_spawn_spiderlings</name>
 		<id>5279</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>bane_fiends_grip</name>
 		<id>5013</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>gyrocopter_flak_cannon</name>
 		<id>5363</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>sniper_take_aim</name>
 		<id>5156</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>sven_great_cleave</name>
 		<id>5095</id>
@@ -690,27 +774,33 @@
 	<ability>
 		<name>death_prophet_exorcism</name>
 		<id>5093</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>mirana_arrow</name>
 		<id>5048</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>bounty_hunter_jinada</name>
 		<id>5286</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>pudge_rot</name>
 		<id>5076</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>chen_test_of_faith</name>
 		<id>5329</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>jakiro_ice_path</name>
 		<id>5298</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>enraged_wildkin_tornado</name>
 		<id>5312</id>
@@ -718,7 +808,8 @@
 	<ability>
 		<name>pugna_decrepify</name>
 		<id>5187</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>dark_troll_warlord_raise_dead</name>
 		<id>5306</id>
@@ -731,11 +822,13 @@
 	<ability>
 		<name>vengefulspirit_wave_of_terror</name>
 		<id>5124</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>bounty_hunter_wind_walk</name>
 		<id>5287</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>nevermore_requiem</name>
 		<id>5064</id>
@@ -748,7 +841,8 @@
 	<ability>
 		<name>viper_poison_attack</name>
 		<id>5218</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>brewmaster_fire_permanent_immolation</name>
 		<id>5411</id>
@@ -756,11 +850,13 @@
 	<ability>
 		<name>alchemist_unstable_concoction</name>
 		<id>5366</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>undying_soul_rip</name>
 		<id>5443</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>roshan_devotion</name>
 		<id>5217</id>
@@ -768,19 +864,23 @@
 	<ability>
 		<name>zuus_thundergods_wrath</name>
 		<id>5113</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>broodmother_spin_web</name>
 		<id>5280</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>jakiro_dual_breath</name>
 		<id>5297</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>luna_moon_glaive</name>
 		<id>5223</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>roshan_slam</name>
 		<id>5215</id>
@@ -788,11 +888,13 @@
 	<ability>
 		<name>queenofpain_sonic_wave</name>
 		<id>5176</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>sniper_assassinate</name>
 		<id>5157</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>invoker_tornado</name>
 		<id>5382</id>
@@ -808,47 +910,58 @@
 	<ability>
 		<name>batrider_sticky_napalm</name>
 		<id>5320</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>ancient_apparition_ice_vortex</name>
 		<id>5346</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>windrunner_shackleshot</name>
 		<id>5130</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>lion_voodoo</name>
 		<id>5045</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>undying_decay</name>
 		<id>5442</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>tinker_heat_seeking_missile</name>
 		<id>5151</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>lion_mana_drain</name>
 		<id>5046</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>lone_druid_spirit_bear</name>
 		<id>5412</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>shadow_shaman_voodoo</name>
 		<id>5079</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>brewmaster_thunder_clap</name>
 		<id>5400</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>meepo_divided_we_stand</name>
 		<id>5433</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>big_thunder_lizard_frenzy</name>
 		<id>5333</id>
@@ -856,11 +969,13 @@
 	<ability>
 		<name>luna_eclipse</name>
 		<id>5225</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>sandking_sand_storm</name>
 		<id>5103</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>giant_wolf_critical_strike</name>
 		<id>5307</id>
@@ -885,11 +1000,13 @@
 	<ability>
 		<name>clinkz_wind_walk</name>
 		<id>5261</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>lone_druid_true_form</name>
 		<id>5415</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>undying_tombstone_zombie_deathstrike</name>
 		<id>5446</id>
@@ -897,7 +1014,8 @@
 	<ability>
 		<name>queenofpain_blink</name>
 		<id>5174</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>roshan_illusion_protection</name>
 		<id>5216</id>
@@ -909,23 +1027,28 @@
 	<ability>
 		<name>witch_doctor_death_ward</name>
 		<id>5141</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>enchantress_untouchable</name>
 		<id>5267</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>night_stalker_void</name>
 		<id>5275</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>faceless_void_time_lock</name>
 		<id>5184</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>faceless_void_backtrack</name>
 		<id>5183</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>polar_furbolg_ursa_warrior_thunder_clap</name>
 		<id>5302</id>
@@ -938,11 +1061,13 @@
 	<ability>
 		<name>omniknight_repel</name>
 		<id>5264</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>huskar_life_break</name>
 		<id>5274</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>spirit_breaker_greater_bash</name>
 		<id>5355</id>
@@ -955,15 +1080,18 @@
 	<ability>
 		<name>tidehunter_gush</name>
 		<id>5118</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>tidehunter_ravage</name>
 		<id>5121</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>lycan_summon_wolves</name>
 		<id>5395</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>drow_ranger_frost_arrows</name>
 		<id>5019</id>
@@ -972,15 +1100,18 @@
 	<ability>
 		<name>rattletrap_power_cogs</name>
 		<id>5238</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>chen_penitence</name>
 		<id>5328</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>skeleton_king_mortal_strike</name>
 		<id>5088</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>dazzle_shadow_wave</name>
 		<id>5235</id>
@@ -989,7 +1120,8 @@
 	<ability>
 		<name>sniper_headshot</name>
 		<id>5155</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>life_stealer_consume</name>
 		<id>5253</id>
@@ -997,23 +1129,28 @@
 	<ability>
 		<name>kunkka_x_marks_the_spot</name>
 		<id>5033</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>furion_teleportation</name>
 		<id>5246</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>brewmaster_drunken_brawler</name>
 		<id>5402</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>morphling_waveform</name>
 		<id>5052</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>morphling_replicate</name>
 		<id>5057</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>storm_spirit_static_remnant</name>
 		<id>5098</id>
@@ -1027,15 +1164,18 @@
 	<ability>
 		<name>night_stalker_darkness</name>
 		<id>5278</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>windrunner_powershot</name>
 		<id>5131</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>venomancer_plague_ward</name>
 		<id>5180</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>invoker_sun_strike</name>
 		<id>5386</id>
@@ -1043,35 +1183,43 @@
 	<ability>
 		<name>riki_blink_strike</name>
 		<id>5143</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>zuus_static_field</name>
 		<id>5112</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>pudge_meat_hook</name>
 		<id>5075</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>pugna_nether_ward</name>
 		<id>5188</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>treant_overgrowth</name>
 		<id>5437</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>zuus_lightning_bolt</name>
 		<id>5111</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>luna_lunar_blessing</name>
 		<id>5224</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>brewmaster_primal_split</name>
 		<id>5403</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>invoker_chaos_meteor</name>
 		<id>5385</id>
@@ -1079,15 +1227,18 @@
 	<ability>
 		<name>ogre_magi_fireblast</name>
 		<id>5438</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>tidehunter_kraken_shell</name>
 		<id>5119</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>ursa_enrage</name>
 		<id>5360</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>lich_chain_frost</name>
 		<id>5137</id>
@@ -1101,7 +1252,8 @@
 	<ability>
 		<name>ursa_fury_swipes</name>
 		<id>5359</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>juggernaut_omni_slash</name>
 		<id>5030</id>
@@ -1110,19 +1262,23 @@
 	<ability>
 		<name>obsidian_destroyer_essence_aura</name>
 		<id>5393</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>warlock_shadow_word</name>
 		<id>5163</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>axe_berserkers_call</name>
 		<id>5007</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>dark_seer_wall_of_replica</name>
 		<id>5258</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>razor_unstable_current</name>
 		<id>5084</id>
@@ -1131,23 +1287,28 @@
 	<ability>
 		<name>necrolyte_death_pulse</name>
 		<id>5158</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>necrolyte_reapers_scythe</name>
 		<id>5161</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>broodmother_insatiable_hunger</name>
 		<id>5282</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>templar_assassin_psi_blades</name>
 		<id>5196</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>pugna_nether_blast</name>
 		<id>5186</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>leshrac_pulse_nova</name>
 		<id>5244</id>
@@ -1156,7 +1317,8 @@
 	<ability>
 		<name>doom_bringer_scorched_earth</name>
 		<id>5340</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>warlock_golem_permanent_immolation</name>
 		<id>5167</id>
@@ -1164,23 +1326,28 @@
 	<ability>
 		<name>bloodseeker_thirst</name>
 		<id>5017</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>mirana_starfall</name>
 		<id>5051</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>viper_corrosive_skin</name>
 		<id>5220</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>kunkka_ghostship</name>
 		<id>5035</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>dark_seer_surge</name>
 		<id>5257</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>lone_druid_spirit_bear_return</name>
 		<id>5418</id>
@@ -1188,7 +1355,8 @@
 	<ability>
 		<name>meepo_poof</name>
 		<id>5431</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>black_dragon_splash_attack</name>
 		<id>5324</id>
@@ -1196,7 +1364,8 @@
 	<ability>
 		<name>rattletrap_battery_assault</name>
 		<id>5237</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>drow_ranger_silence</name>
 		<id>5020</id>
@@ -1210,7 +1379,8 @@
 	<ability>
 		<name>jakiro_macropyre</name>
 		<id>5300</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>lone_druid_spirit_bear_entangle</name>
 		<id>5419</id>
@@ -1218,7 +1388,8 @@
 	<ability>
 		<name>treant_natures_guise</name>
 		<id>5434</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>beastmaster_greater_boar_poison</name>
 		<id>5352</id>
@@ -1227,23 +1398,28 @@
 	<ability>
 		<name>tinker_laser</name>
 		<id>5150</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>clinkz_death_pact</name>
 		<id>5262</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>morphling_morph</name>
 		<id>5054</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>morphling_adaptive_strike</name>
 		<id>5053</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>mirana_invis</name>
 		<id>5049</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>enigma_malefice</name>
 		<id>5146</id>
@@ -1252,7 +1428,8 @@
 	<ability>
 		<name>skeleton_king_hellfire_blast</name>
 		<id>5086</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>silencer_global_silence</name>
 		<id>5380</id>
@@ -1261,35 +1438,43 @@
 	<ability>
 		<name>phantom_assassin_phantom_strike</name>
 		<id>5191</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>lycan_shapeshift</name>
 		<id>5398</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>templar_assassin_refraction</name>
 		<id>5194</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>warlock_fatal_bonds</name>
 		<id>5162</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>death_prophet_carrion_swarm</name>
 		<id>5090</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>lion_finger_of_death</name>
 		<id>5047</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>ursa_earthshock</name>
 		<id>5357</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>life_stealer_open_wounds</name>
 		<id>5251</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>blue_dragonspawn_overseer_evasion</name>
 		<id>5326</id>
@@ -1331,7 +1516,8 @@
 	<ability>
 		<name>life_stealer_rage</name>
 		<id>5249</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>spectre_reality</name>
 		<id>5338</id>
@@ -1344,11 +1530,13 @@
 	<ability>
 		<name>sniper_shrapnel</name>
 		<id>5154</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>rattletrap_hookshot</name>
 		<id>5240</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>invoker_cold_snap</name>
 		<id>5376</id>
@@ -1361,11 +1549,13 @@
 	<ability>
 		<name>bloodseeker_rupture</name>
 		<id>5018</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>kunkka_tidebringer</name>
 		<id>5032</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>invoker_alacrity</name>
 		<id>5384</id>
@@ -1373,11 +1563,13 @@
 	<ability>
 		<name>huskar_inner_vitality</name>
 		<id>5271</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>axe_counter_helix</name>
 		<id>5009</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>spectre_spectral_dagger</name>
 		<id>5334</id>
@@ -1386,7 +1578,8 @@
 	<ability>
 		<name>furion_force_of_nature</name>
 		<id>5247</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>brewmaster_earth_hurl_boulder</name>
 		<id>5404</id>
@@ -1394,11 +1587,13 @@
 	<ability>
 		<name>alchemist_goblins_greed</name>
 		<id>5368</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>windrunner_windrun</name>
 		<id>5132</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>kunkka_return</name>
 		<id>5034</id>
@@ -1410,15 +1605,18 @@
 	<ability>
 		<name>dragon_knight_dragon_blood</name>
 		<id>5228</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>vengefulspirit_magic_missile</name>
 		<id>5122</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>phantom_lancer_spirit_lance</name>
 		<id>5065</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>nevermore_shadowraze1</name>
 		<id>5059</id>
@@ -1441,7 +1639,8 @@
 	<ability>
 		<name>weaver_geminate_attack</name>
 		<id>5291</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>alpha_wolf_command_aura</name>
 		<id>5309</id>
@@ -1449,11 +1648,13 @@
 	<ability>
 		<name>ancient_apparition_ice_blast</name>
 		<id>5348</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>ogre_magi_ignite</name>
 		<id>5439</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>harpy_storm_chain_lightning</name>
 		<id>5319</id>
@@ -1461,11 +1662,13 @@
 	<ability>
 		<name>omniknight_degen_aura</name>
 		<id>5265</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>enchantress_enchant</name>
 		<id>5268</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>leshrac_split_earth</name>
 		<id>5241</id>
@@ -1474,43 +1677,53 @@
 	<ability>
 		<name>death_prophet_witchcraft</name>
 		<id>5092</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>viper_nethertoxin</name>
 		<id>5219</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>necrolyte_sadist</name>
 		<id>5160</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>phantom_assassin_coup_de_grace</name>
 		<id>5193</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>ancient_apparition_cold_feet</name>
 		<id>5345</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>puck_dream_coil</name>
 		<id>5073</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>venomancer_poison_nova</name>
 		<id>5181</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>chaos_knight_chaos_bolt</name>
 		<id>5426</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>doom_bringer_devour</name>
 		<id>5339</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>bounty_hunter_shuriken_toss</name>
 		<id>5285</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>blue_dragonspawn_overseer_devotion_aura</name>
 		<id>5327</id>
@@ -1518,7 +1731,8 @@
 	<ability>
 		<name>earthshaker_echo_slam</name>
 		<id>5026</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>necronomicon_warrior_sight</name>
 		<id>5201</id>
@@ -1526,15 +1740,18 @@
 	<ability>
 		<name>huskar_berserkers_blood</name>
 		<id>5273</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>templar_assassin_psionic_trap</name>
 		<id>5197</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>night_stalker_crippling_fear</name>
 		<id>5276</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>storm_spirit_overload</name>
 		<id>5100</id>
@@ -1547,7 +1764,8 @@
 	<ability>
 		<name>morphling_morph_str</name>
 		<id>5056</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>doom_bringer_empty</name>
 		<id>5343</id>
@@ -1559,7 +1777,8 @@
 	<ability>
 		<name>lycan_howl</name>
 		<id>5396</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>beastmaster_hawk_invisibility</name>
 		<id>5170</id>
@@ -1573,7 +1792,8 @@
 	<ability>
 		<name>omniknight_purification</name>
 		<id>5263</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>shadow_demon_shadow_poison</name>
 		<id>5423</id>
@@ -1582,7 +1802,8 @@
 	<ability>
 		<name>dragon_knight_elder_dragon_form</name>
 		<id>5229</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>juggernaut_blade_dance</name>
 		<id>5027</id>
@@ -1596,7 +1817,8 @@
 	<ability>
 		<name>venomancer_venomous_gale</name>
 		<id>5178</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>gnoll_assassin_envenomed_weapon</name>
 		<id>5296</id>
@@ -1608,19 +1830,23 @@
 	<ability>
 		<name>shadow_shaman_ether_shock</name>
 		<id>5078</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>night_stalker_hunter_in_the_night</name>
 		<id>5277</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>dragon_knight_dragon_tail</name>
 		<id>5227</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>gyrocopter_call_down</name>
 		<id>5364</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>beastmaster_inner_beast</name>
 		<id>5172</id>
@@ -1629,11 +1855,13 @@
 	<ability>
 		<name>pudge_dismember</name>
 		<id>5077</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>windrunner_focusfire</name>
 		<id>5133</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>ghost_frost_attack</name>
 		<id>5301</id>
@@ -1641,35 +1869,43 @@
 	<ability>
 		<name>bane_brain_sap</name>
 		<id>5011</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>necrolyte_heartstopper_aura</name>
 		<id>5159</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>chaos_knight_chaos_strike</name>
 		<id>5428</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>skeleton_king_vampiric_aura</name>
 		<id>5087</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>clinkz_strafe</name>
 		<id>5259</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>life_stealer_feast</name>
 		<id>5250</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>faceless_void_chronosphere</name>
 		<id>5185</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>lion_impale</name>
 		<id>5044</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>necronomicon_archer_mana_burn</name>
 		<id>5203</id>
@@ -1677,11 +1913,13 @@
 	<ability>
 		<name>axe_culling_blade</name>
 		<id>5010</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>huskar_burning_spear</name>
 		<id>5272</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>brewmaster_earth_pulverize</name>
 		<id>5406</id>
@@ -1701,7 +1939,8 @@
 	<ability>
 		<name>furion_sprout</name>
 		<id>5245</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>invoker_empty2</name>
 		<id>5374</id>
@@ -1717,23 +1956,28 @@
 	<ability>
 		<name>kunkka_torrent</name>
 		<id>5031</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>phantom_lancer_doppelwalk</name>
 		<id>5066</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>undying_tombstone</name>
 		<id>5444</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>bane_nightmare</name>
 		<id>5014</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>zuus_arc_lightning</name>
 		<id>5110</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>undying_tombstone_zombie_aura</name>
 		<id>5445</id>
@@ -1746,7 +1990,8 @@
 	<ability>
 		<name>bane_enfeeble</name>
 		<id>5012</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>satyr_soulstealer_mana_burn</name>
 		<id>5315</id>
@@ -1754,7 +1999,8 @@
 	<ability>
 		<name>gyrocopter_rocket_barrage</name>
 		<id>5361</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>dragon_knight_frost_breath</name>
 		<id>5232</id>
@@ -1790,23 +2036,28 @@
 	<ability>
 		<name>meepo_earthbind</name>
 		<id>5430</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>phantom_lancer_phantom_edge</name>
 		<id>5068</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>puck_phase_shift</name>
 		<id>5072</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>faceless_void_time_walk</name>
 		<id>5182</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>puck_waning_rift</name>
 		<id>5071</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>lich_frost_armor</name>
 		<id>5135</id>
@@ -1815,15 +2066,18 @@
 	<ability>
 		<name>sandking_burrowstrike</name>
 		<id>5102</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>dark_seer_vacuum</name>
 		<id>5255</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>obsidian_destroyer_sanity_eclipse</name>
 		<id>5394</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>enigma_black_hole</name>
 		<id>5149</id>
@@ -1848,71 +2102,88 @@
 	<ability>
 		<name>nyx_assassin_impale</name>
 		<id>5462</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>nyx_assassin_mana_burn</name>
 		<id>5463</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>nyx_assassin_spiked_carapace</name>
 		<id>5464</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>nyx_assassin_vendetta</name>
 		<id>5465</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>slark_dark_pact</name>
 		<id>5494</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>slark_pounce</name>
 		<id>5495</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>slark_essence_shift</name>
 		<id>5496</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>slark_shadow_dance</name>
 		<id>5497</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>medusa_split_shot</name>
 		<id>5504</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>medusa_mystic_snake</name>
 		<id>5505</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>medusa_mana_shield</name>
 		<id>5506</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>medusa_stone_gaze</name>
 		<id>5507</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>troll_warlord_berserkers_rage</name>
 		<id>5508</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>troll_warlord_whirling_axes_ranged</name>
 		<id>5509</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>troll_warlord_whirling_axes_melee</name>
 		<id>5510</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>troll_warlord_fervor</name>
 		<id>5511</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>troll_warlord_battle_trance</name>
 		<id>5512</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>centaur_hoof_stomp</name>
 		<id>5514</id>
@@ -1932,35 +2203,43 @@
 	<ability>
 		<name>magnataur_shockwave</name>
 		<id>5518</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>magnataur_empower</name>
 		<id>5519</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>magnataur_skewer</name>
 		<id>5520</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>magnataur_reverse_polarity</name>
 		<id>5521</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>shredder_whirling_death</name>
 		<id>5524</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>shredder_timber_chain</name>
 		<id>5525</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>shredder_reactive_armor</name>
 		<id>5526</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>shredder_chakram</name>
 		<id>5527</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>shredder_return_chakram</name>
 		<id>5528</id>
@@ -1976,19 +2255,23 @@
 	<ability>
 		<name>keeper_of_the_light_illuminate</name>
 		<id>5471</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>keeper_of_the_light_mana_leak</name>
 		<id>5472</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>keeper_of_the_light_chakra_magic</name>
 		<id>5473</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>keeper_of_the_light_spirit_form</name>
 		<id>5474</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>keeper_of_the_light_recall</name>
 		<id>5475</id>
@@ -2012,19 +2295,23 @@
 	<ability>
 		<name>rubick_telekinesis</name>
 		<id>5448</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>rubick_fade_bolt</name>
 		<id>5450</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>rubick_null_field</name>
 		<id>5451</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>rubick_spell_steal</name>
 		<id>5452</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>disruptor_thunder_strike</name>
 		<id>5458</id>
@@ -2044,51 +2331,63 @@
 	<ability>
 		<name>naga_siren_mirror_image</name>
 		<id>5467</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>naga_siren_ensnare</name>
 		<id>5468</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>naga_siren_rip_tide</name>
 		<id>5469</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>naga_siren_song_of_the_siren</name>
 		<id>5470</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>visage_grave_chill</name>
 		<id>5480</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>visage_soul_assumption</name>
 		<id>5481</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>visage_gravekeepers_cloak</name>
 		<id>5482</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>visage_summon_familiars</name>
 		<id>5483</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>wisp_tether</name>
 		<id>5485</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>wisp_spirits</name>
 		<id>5486</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>wisp_overcharge</name>
 		<id>5487</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>wisp_relocate</name>
 		<id>5488</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>wisp_tether_break</name>
 		<id>5489</id>
@@ -2104,35 +2403,43 @@
 	<ability>
 		<name>bristleback_viscous_nasal_goo</name>
 		<id>5548</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>bristleback_quill_spray</name>
 		<id>5549</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>bristleback_bristleback</name>
 		<id>5550</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>bristleback_warpath</name>
 		<id>5551</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>tusk_ice_shards</name>
 		<id>5565</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>tusk_snowball</name>
 		<id>5566</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>tusk_frozen_sigil</name>
 		<id>5567</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>tusk_walrus_punch</name>
 		<id>5568</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>skywrath_mage_arcane_bolt</name>
 		<id>5581</id>
@@ -2168,19 +2475,23 @@
 	<ability>
 		<name>elder_titan_echo_stomp</name>
 		<id>5589</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>elder_titan_ancestral_spirit</name>
 		<id>5591</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>elder_titan_natural_order</name>
 		<id>5593</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>elder_titan_earth_splitter</name>
 		<id>5594</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>legion_commander_overwhelming_odds</name>
 		<id>5595</id>
@@ -2200,19 +2511,23 @@
 	<ability>
 		<name>techies_land_mines</name>
 		<id>5599</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>techies_stasis_trap</name>
 		<id>5600</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>techies_suicide_squad_attack</name>
 		<id>5601</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>techies_remote_mines</name>
 		<id>5602</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>techies_focused_detonate</name>
 		<id>5635</id>
@@ -2228,19 +2543,23 @@
 	<ability>
 		<name>ember_spirit_searing_chains</name>
 		<id>5603</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>ember_spirit_sleight_of_fist</name>
 		<id>5604</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>ember_spirit_flame_guard</name>
 		<id>5605</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>ember_spirit_fire_remnant</name>
 		<id>5606</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>ember_spirit_activate_fire_remnant</name>
 		<id>5607</id>
@@ -2248,15 +2567,18 @@
 	<ability>
 		<name>earth_spirit_boulder_smash</name>
 		<id>5608</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>earth_spirit_rolling_boulder</name>
 		<id>5609</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>earth_spirit_geomagnetic_grip</name>
 		<id>5610</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>earth_spirit_stone_caller</name>
 		<id>5611</id>
@@ -2264,7 +2586,8 @@
 	<ability>
 		<name>earth_spirit_magnetize</name>
 		<id>5612</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>abyssal_underlord_firestorm</name>
 		<id>5613</id>
@@ -2300,19 +2623,23 @@
 	<ability>
 		<name>phoenix_icarus_dive</name>
 		<id>5623</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>phoenix_fire_spirits</name>
 		<id>5625</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>phoenix_sun_ray</name>
 		<id>5626</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>phoenix_supernova</name>
 		<id>5630</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>drow_ranger_wave_of_silence</name>
 		<id>5632</id>
@@ -2342,33 +2669,41 @@
 	<ability>
 		<name>oracle_fortunes_end</name>
 		<id>5637</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>oracle_fates_edict</name>
 		<id>5638</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>oracle_purifying_flames</name>
 		<id>5639</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>oracle_false_promise</name>
 		<id>5640</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>winter_wyvern_arctic_burn</name>
 		<id>5651</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>winter_wyvern_splinter_blast</name>
 		<id>5652</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>winter_wyvern_cold_embrace</name>
 		<id>5653</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>winter_wyvern_winters_curse</name>
 		<id>5654</id>
-	</ability>
+    <index>4</index>
+  </ability>
 </abilities>	
