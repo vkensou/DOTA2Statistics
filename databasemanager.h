@@ -8,6 +8,7 @@
 class HeroRateAndUsed;
 class ItemRateAndUsed;
 class DataConfig;
+class MatchDetail;
 
 class DataBaseManager
         :public Singleton<DataBaseManager>
@@ -24,9 +25,20 @@ public:
 	bool loadHeroItems(const QString &heroname, std::function<void(const QString &, int, double, double)> &callback, const DataConfig &config);
 	void saveHeroItems(const QString &heroname, std::function<void(std::function<void(const ItemRateAndUsed *)>)> &callback, const DataConfig &config);
 
+	bool loadMatchDetail(MatchDetail& matchdetail);
+	void saveMatchDetail(MatchDetail& matchdetail);
+
 private:
 	QString getTable_HeroesUsedAndRate_Name(const DataConfig &config);
 	QString getTable_HeroItems_Name(const QString &heroname, const DataConfig &config);
+
+	bool loadMatchDetailPickBanList(MatchDetail &matchdetail);
+	bool loadMatchDetailPlayerInfo(MatchDetail &matchdetail);
+	bool loadMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchdetail);
+
+	void saveMatchDetailPickBanList(MatchDetail &matchdetail);
+	void saveMatchDetailPlayerInfo(MatchDetail &matchdetail);
+	void saveMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchdetail);
 
 private:
     QSqlDatabase db;

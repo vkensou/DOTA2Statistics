@@ -8,10 +8,7 @@ class MatchDetail
 	:public DataNeedCache
 {
 public:
-	MatchDetail(int matchid)
-		:matchid(matchid)
-	{
-	}
+	MatchDetail(int matchid);
 
 private:
 	virtual bool loaded() override;
@@ -37,7 +34,7 @@ public:
 	int cluster{ 0 };
 	int firstbloodtime{ 0 };
 	int lobbytype{ 0 };
-	int humanplaer{ 0 };
+	int humanplayer{ 0 };
 	int leagueid{ 0 };
 	int positivevotes{ 0 };
 	int negativevotes{ 0 };
@@ -63,7 +60,6 @@ public:
 		{
 			int ability{ 0 };
 			int time{ 0 };
-			int level{ 0 };
 		}abilityupgrades[25];
 	};
 	PlayerDetail radiantplayers[5];

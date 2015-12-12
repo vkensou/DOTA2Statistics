@@ -1,8 +1,15 @@
 #include "matchdetail.h"
 #include "utility.h"
 #include <QDomDocument>
+#include "databasemanager.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
+
+MatchDetail::MatchDetail(int matchid) 
+	:matchid(matchid)
+{
+
+}
 
 bool MatchDetail::loaded()
 {
@@ -11,7 +18,7 @@ bool MatchDetail::loaded()
 
 bool MatchDetail::loadFromDataBase()
 {
-	return false;
+	return DataBaseManager::getInstance().loadMatchDetail(*this);
 }
 
 void MatchDetail::download()
@@ -25,6 +32,7 @@ void MatchDetail::download()
 
 void MatchDetail::save()
 {
+	DataBaseManager::getInstance().saveMatchDetail(*this);
 }
 
 void MatchDetail::clear()
@@ -101,7 +109,7 @@ void MatchDetail::parseMatchDetailData(QString &data)
 		}
 		else if (node.tagName() == "human_players")
 		{
-			humanplaer = node.text().toInt();
+			humanplayer = node.text().toInt();
 		}
 		else if (node.tagName() == "leagueid")
 		{
@@ -190,7 +198,6 @@ void MatchDetail::parseMatchDetailData(QString &data)
 							time = abilitynode.firstChildElement("time").text().toInt();
 							level = abilitynode.firstChildElement("level").text().toInt();
 							player->abilityupgrades[level - 1].ability = ability;
-							player->abilityupgrades[level - 1].level = level;
 							player->abilityupgrades[level - 1].time = time;
 						}
 					}
