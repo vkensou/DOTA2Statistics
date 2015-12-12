@@ -68,7 +68,12 @@ public:
 	};
 	PlayerDetail radiantplayers[5];
 	PlayerDetail direplayers[5];
-
+	struct PicksAndBans
+	{
+		bool ispick;	//pick == true, ban == false
+		int heroid;
+		int team;
+	}pickbanlist[20];
 private:
 	bool m_init{ false };
 };

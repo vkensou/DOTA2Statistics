@@ -223,5 +223,15 @@ void MatchDetail::parseMatchDetailData(QString &data)
 				}
 			}
 		}
+		else if (node.tagName() == "picks_bans")
+		{
+			for (auto pbnode = node.firstChildElement("pick_ban"); !pbnode.isNull(); pbnode = pbnode.nextSiblingElement("pick_ban"))
+			{
+				int order = pbnode.firstChildElement("order").text().toInt();
+				pickbanlist[order].ispick = pbnode.firstChildElement("is_pick").text() == "true";
+				pickbanlist[order].heroid = pbnode.firstChildElement("hero_id").text().toInt();
+				pickbanlist[order].team = pbnode.firstChildElement("team").text().toInt();
+			}
+		}
 	}
 }
