@@ -25,32 +25,9 @@ HeroItems::HeroItems(const QString &name)
 	};
 }
 
-HeroItems::~HeroItems()
-{
-	pointerContainerDeleteAndClear(m_list);
-}
-
 void HeroItems::download()
 {
 	WebDataDownloader::getInstance().downloadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig());
-}
-
-void HeroItems::load(bool force_download)
-{
-	if (!force_download)
-	{
-		if (!m_list.empty())
-			return;
-
-		if (DataBaseManager::getInstance().loadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig()))
-			return;
-	}
-
-	pointerContainerDeleteAndClear(m_list);
-	download();
-	HeroesUsedAndRate &hru = HeroesUsedAndRateManager::getInstance().getHeroesUsedAndRate(force_download);
-	calcX2(hru.getUsed(m_chinese_name), hru.getRate(m_chinese_name));
-	save();
 }
 
 void HeroItems::save()
@@ -146,5 +123,16 @@ QString HeroItems::getHeroItemsX2Filename()
 {
     static const QString filenamefmt("%1_items_X2%2.xml");
     return filenamefmt.arg(m_name).arg(DataConfig::getFileParamsCurrent());
+}
+
+bool HeroItems::loadFromDataBase()
+{
+	return DataBaseManager::getInstance().loadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig());
+}
+
+void HeroItems::handleData(bool force_download)
+{
+	HeroesUsedAndRate &hru = HeroesUsedAndRateManager::getInstance().getHeroesUsedAndRate(force_download);
+	calcX2(hru.getUsed(m_chinese_name), hru.getRate(m_chinese_name));
 }
 

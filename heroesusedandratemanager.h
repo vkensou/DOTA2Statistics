@@ -6,17 +6,14 @@
 #include "heroesusedandrate.h"
 #include "dataconfig.h"
 #include "Singleton.h"
+#include "datamanagerbase.h"
 
 class HeroesUsedAndRateManager
-        :public Singleton<HeroesUsedAndRateManager>
+	:public Singleton<HeroesUsedAndRateManager>, public DataManagerBase<HeroesUsedAndRate>
 {
 public:
-    HeroesUsedAndRateManager();
-	~HeroesUsedAndRateManager();
-
     HeroesUsedAndRate & getHeroesUsedAndRate(bool force_download = false, const DataConfig &config = DataConfig::getCurrentConfig());
-private:
-	QHash<QString, HeroesUsedAndRate *> m_list;
+
 };
 
 

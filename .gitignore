@@ -34,3 +34,6 @@ Makefile*
 *.qmlproject.user.*
 *.obj
 *.tlog
+/release
+/Win32
+/debug

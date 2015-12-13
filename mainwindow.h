@@ -9,11 +9,13 @@
 #include "webdatadownloader.h"
 #include "heroitemsmanager.h"
 #include "webdatasourcemanager.h"
+#include "idataview.h"
+#include "abilitieslist.h"
+#include "matchdetailmanager.h"
 
 namespace Ui {
 class MainWindow;
 }
-class HeroItems;
 class StatusBarSeter;
 class QCompleter;
 
@@ -25,16 +27,24 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+signals:
+	void matchDblClicked(int matchid);
+
 private slots:
-    void on_cbb_time_currentIndexChanged(int index);
-    void on_cbb_server_currentIndexChanged(int index);
-    void on_cbb_skill_currentIndexChanged(int index);
-    void on_cbb_matchtype_currentIndexChanged(int index);
-    void on_btn_calc_clicked();
     void on_action_about_triggered();
 	void on_action_set_datasource_triggered();
-    void on_table_sort(int);
+	void on_action_joinDatabase_triggered();
+	void on_action_view_heroitems_triggered();
+	void on_action_view_playermatchhistory_triggered();
+	void on_action_view_matchdetail_triggered();
 	void setStatusBarText(const QString &text);
+	void on_tabWidget_tabCloseRequested(int index);
+	void on_MatchDblClicked(int matchid);
+
+private:
+	void initStatusBar();
+	IDataView *getDataView(IDataView::ViewType type);
+	void tableAddTab(IDataView::ViewType type);
 
 private:
     Ui::MainWindow *ui;
@@ -45,16 +55,10 @@ private:
     HeroItemsManager m_heroitemsmanager;
 	WebDataSourceManager m_webdatasourcemanager;
  	StatusBarSeter *m_statusbarsetter;
-	bool m_table_sortorder;
-	QCompleter *m_completer;
-	bool m_initing;
+	AbilitiesList m_abilities;
+	MatchDetailManager m_matchdetailmanager;
 
-	void initStatusBar();
-	void initConfigPanel();
-    void showItemsX2(const HeroItems &items);
-    void updateConfigPanel();
-    void setTableWidgetHead();
-	void setHeroNmaeCompleter();
+	IDataView *m_dataviews[IDataView::Count];
 };
 
 #endif // MAINWINDOW_H

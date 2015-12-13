@@ -4,6 +4,8 @@
 #include <QString>
 #include <QHash>
 #include <functional>
+#include "hashdataneedcache.h"
+#include "utility.h"
 
 class ItemRateAndUsed
 {
@@ -31,20 +33,17 @@ public:
 	}
 };
 
+
 //hero winning rate with item
 class HeroItems
+	:public HashDataNeedCache<ItemRateAndUsed>
 {
 public:
     const QString & getName() const{return m_name;}
     HeroItems(const QString &name);
-	~HeroItems();
 	HeroItems(const HeroItems &) = delete;
 
-    void download();
-    void load(bool force_download = false);
-    void save();
     void saveasxml();
-
 
     int getItemsCount() const;
     void for_each_items(std::function<void(ItemRateAndUsed *)> &func);
@@ -57,12 +56,17 @@ private:
     QString getHeroItemsFilename();
     QString getHeroItemsX2Filename();
 
+	virtual bool loadFromDataBase() override;
+	virtual void download() override;
+	virtual void save() override;
+	virtual void handleData(bool force_download = false) override;
+
     QString m_name;
     QString m_chinese_name;
 
-	QHash<QString, ItemRateAndUsed *> m_list;
 	std::function<void(const QString &, int, double, double)> m_addItem_callback;
 	std::function<void(std::function<void(const ItemRateAndUsed *)>)> m_enumList;
+
 };
 
 #endif // HEROITEMS_H

@@ -21,30 +21,9 @@ HeroesUsedAndRate::HeroesUsedAndRate()
 	};
 }
 
-HeroesUsedAndRate::~HeroesUsedAndRate()
-{
-	pointerContainerDeleteAndClear(m_list);
-}
-
 void HeroesUsedAndRate::download()
 {
 	WebDataDownloader::getInstance().downloadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig());
-}
-
-void HeroesUsedAndRate::load(bool force_download)
-{
-	if (!force_download)
-	{
-		if (!m_list.empty())
-			return;
-
-		if (DataBaseManager::getInstance().loadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig()))
-			return;
-	}
-
-	pointerContainerDeleteAndClear(m_list);
-	download();
-	save();
 }
 
 void HeroesUsedAndRate::save()
@@ -88,14 +67,12 @@ HeroRateAndUsed * HeroesUsedAndRate::getHero(const QString &chinese_name)
 
 }
 
-HeroRateAndUsed::HeroRateAndUsed(const QString &name, int used, double rate) :name(name), used(used), rate(rate)
+bool HeroesUsedAndRate::loadFromDataBase()
 {
-	int a = 0;
-	a = 1 + 3;
+	return DataBaseManager::getInstance().loadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig());
 }
 
-HeroRateAndUsed::~HeroRateAndUsed()
+HeroRateAndUsed::HeroRateAndUsed(const QString &name, int used, double rate) 
+	:name(name), used(used), rate(rate)
 {
-	int a = 0;
-	a = 1 + 3;
 }
