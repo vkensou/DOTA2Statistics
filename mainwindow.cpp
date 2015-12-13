@@ -11,6 +11,7 @@
 #include "playermatchhistoryview.h"
 #include "matchdetailview.h"
 #include <QtGlobal>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -151,6 +152,15 @@ void MainWindow::on_action_set_datasource_triggered()
 			if (m_dataviews[i])
 				m_dataviews[i]->on_DataSource_Changed();
 		}
+	}
+}
+
+void MainWindow::on_action_joinDatabase_triggered()
+{
+	QString path = QFileDialog::getOpenFileName(this, "合并", ".", "数据库文件(*.db)");
+	if (!path.isEmpty()) 
+	{
+		DataBaseManager::getInstance().joinOtherDatabase(path);
 	}
 }
 

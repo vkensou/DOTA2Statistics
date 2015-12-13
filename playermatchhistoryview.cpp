@@ -63,23 +63,32 @@ void PlayerMatchHistoryView::on_fetchData_clicked()
 	m_fetchstop = false;
 	queuewaitfetchedplayers = new QueueWaitFetchedPlayers;
 
-	int initplayerid = ui->lineEdit->text().toInt();
-	queuewaitfetchedplayers->push(initplayerid);
-
 	const int maxfetch = 100;
 	m_fetchedplayer = m_fetchedmatch = 0;
-	while (!queuewaitfetchedplayers->isEmpty() && m_fetchedplayer++ < maxfetch && !m_fetchstop)
+	while (/*m_fetchedplayer++ < maxfetch && */!m_fetchstop)
 	{
+		if (queuewaitfetchedplayers->isEmpty())
+			initFetchQueue();
+
 		int pid = queuewaitfetchedplayers->pop();
+		if (pid == 0)
+			break;
+
 		DataBaseManager::getInstance().updataPlayerStatus(pid, 1);
-		downloadPlayerAllHistory(pid);
+		StatusBarSeter::setStatusBar(QString("Fetched player match history..."));
+		if (!downloadPlayerAllHistory(pid))
+		{
+			StatusBarSeter::setStatusBar(QString("Download player's match history failed!"));
+			delete queuewaitfetchedplayers;
+			return;
+		}
 		downloadMatchDetail();
 		DataBaseManager::getInstance().updataPlayerStatus(pid, 2);
-		StatusBarSeter::setStatusBar(QString("Fetched player:%1, fetched match:%2").arg(m_fetchedplayer).arg(m_fetchedmatch));
+		StatusBarSeter::setStatusBar(QString("Fetched player:%1, fetched match:%2").arg(++m_fetchedplayer).arg(m_fetchedmatch));
 	}
 
 	delete queuewaitfetchedplayers;
-	StatusBarSeter::setStatusBar(QString("Fetched Over. Fetched player:%1, fetched match:%2").arg(m_fetchedplayer-1).arg(m_fetchedmatch));
+	StatusBarSeter::setStatusBar(QString("Fetched Over. Fetched player:%1, fetched match:%2").arg(m_fetchedplayer).arg(m_fetchedmatch));
 }
 
 void PlayerMatchHistoryView::on_stopFetch_clicked()
@@ -127,7 +136,7 @@ void PlayerMatchHistoryView::parseHistoryData(QString &data, int &remaining, int
 	lastmatch = m_matchhistory.back();
 }
 
-void PlayerMatchHistoryView::downloadPlayerAllHistory(int playerid)
+bool PlayerMatchHistoryView::downloadPlayerAllHistory(int playerid)
 {
 	m_matchhistory.clear();
 
@@ -135,14 +144,18 @@ void PlayerMatchHistoryView::downloadPlayerAllHistory(int playerid)
 	do
 	{
 		auto url = getMatchHistoryURL(playerid, lastmatch);
-		auto data = downloadWebPage(url);
+		int error = 0;
+		auto data = downloadWebPage(url, &error);
+		if (error != 0)
+			return false;
 		parseHistoryData(data, remaining, lastmatch);
 	} while (remaining > 0 && !m_fetchstop);
 
 	std::sort(m_matchhistory.begin(), m_matchhistory.end());
 	auto pos = std::unique(m_matchhistory.begin(), m_matchhistory.end());
 	m_matchhistory.erase(pos, m_matchhistory.end());
-	qDebug() << m_matchhistory.size();
+	qDebug() << "player match history count:" << m_matchhistory.size();
+	return true;
 }
 
 void PlayerMatchHistoryView::downloadMatchDetail()
@@ -157,4 +170,10 @@ void PlayerMatchHistoryView::downloadMatchDetail()
 		match.load();
 		StatusBarSeter::setStatusBar(QString("Fetched player:%1, fetched match:%2").arg(m_fetchedplayer).arg(++m_fetchedmatch));
 	}
+}
+
+void PlayerMatchHistoryView::initFetchQueue()
+{
+	int initplayerid = DataBaseManager::getInstance().getPlayerRandomly();
+	queuewaitfetchedplayers->push(initplayerid);
 }

@@ -9,14 +9,18 @@ QueueWaitFetchedPlayers::QueueWaitFetchedPlayers()
 
 void QueueWaitFetchedPlayers::push(int playerid)
 {
+	if (playerid == 0)
+		return;
+
 	if (m_queue.size() >= MAX_SIZE)
 		return;
 
-	if (DataBaseManager::getInstance().isPlayerSaved(playerid))
-		return;
+	//if (DataBaseManager::getInstance().isPlayerSaved(playerid))
+	//	return;
 
 	m_queue.push(playerid);
 	DataBaseManager::getInstance().insertPlayerInfo(playerid);
+	qDebug() << "push playerid:" << playerid;
 }
 
 int QueueWaitFetchedPlayers::pop()

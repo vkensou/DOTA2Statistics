@@ -2,7 +2,7 @@
 #include <QRegExp>
 #include <QtMath>
 
-QString downloadWebPage(const QUrl &url)
+QString downloadWebPage(const QUrl &url, int *error)
 {
     QNetworkRequest request;
     QSslConfiguration config;
@@ -17,8 +17,17 @@ QString downloadWebPage(const QUrl &url)
     QNetworkReply *reply = manager.get(request);
 
     QEventLoop eventLoop;
+	QObject::connect(reply, (void(QNetworkReply::*)(QNetworkReply::NetworkError))&QNetworkReply::error, [&eventLoop, &error](QNetworkReply::NetworkError replyerror)
+	{
+		if (error)
+		{
+			*error = replyerror;
+		}
+		eventLoop.quit();
+	});
     QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
     eventLoop.exec();       //block until finish
+
     return reply->readAll();
 }
 

@@ -38,8 +38,9 @@ signals:
 private:
 	QUrl getMatchHistoryURL(int playerid = 0, int startmatch = 0);
 	void parseHistoryData(QString &data, int &remaining, int &lastmatch);
-	void downloadPlayerAllHistory(int playerid);
+	bool downloadPlayerAllHistory(int playerid);
 	void downloadMatchDetail();
+	void initFetchQueue();
 
 private:
 	Ui::View_PlayerMatchHistory *ui;

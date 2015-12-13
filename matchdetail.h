@@ -68,9 +68,9 @@ public:
 	PlayerDetail direplayers[5];
 	struct PicksAndBans
 	{
-		bool ispick;	//pick == true, ban == false
-		int heroid;
-		int team;
+		bool ispick{ false };	//pick == true, ban == false
+		int heroid{ 0 };
+		int team{ 0 };
 	}pickbanlist[20];
 private:
 	bool m_init{ false };

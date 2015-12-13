@@ -48,6 +48,7 @@
     </property>
     <addaction name="action_set_datasource"/>
     <addaction name="action_about"/>
+    <addaction name="action_joinDatabase"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
@@ -84,6 +85,11 @@
   <action name="action_view_matchdetail">
    <property name="text">
     <string>比赛详情</string>
+   </property>
+  </action>
+  <action name="action_joinDatabase">
+   <property name="text">
+    <string>合并数据库</string>
    </property>
   </action>
  </widget>

@@ -33,6 +33,10 @@ public:
 	void insertPlayerInfo(int playerid);
 	void updataPlayerStatus(int playerid, int newstatus);
 
+	int getPlayerRandomly();
+
+	bool joinOtherDatabase(const QString &otherdbpath);
+
 private:
 	void initdb();
 	void initMatchDetaildbs();

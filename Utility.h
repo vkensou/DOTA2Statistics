@@ -5,7 +5,7 @@
 #include <QtNetwork>
 #include <algorithm>
 
-QString downloadWebPage(const QUrl &url);
+QString downloadWebPage(const QUrl &url, int *error = nullptr);
 int sepNumStrtoInt(const QString &str);
 float percentagetoFloat(const QString &str);
 float ChisquareFx(float x,int Freedom);
