@@ -63,6 +63,11 @@ void PlayerMatchHistoryView::on_fetchData_clicked()
 	m_fetchstop = false;
 	queuewaitfetchedplayers = new QueueWaitFetchedPlayers;
 
+	if (ui->lineEdit->text().isEmpty())
+		initFetchQueue();
+	else
+		queuewaitfetchedplayers->push(ui->lineEdit->text().toInt());
+
 	const int maxfetch = 100;
 	m_fetchedplayer = m_fetchedmatch = 0;
 	while (/*m_fetchedplayer++ < maxfetch && */!m_fetchstop)
