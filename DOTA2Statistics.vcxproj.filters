@@ -172,6 +172,9 @@
     <ClCompile Include="matchdetail.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="queuewaitfetchedplayers.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataconfig.h">
@@ -253,6 +256,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="hashdataneedcache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="queuewaitfetchedplayers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

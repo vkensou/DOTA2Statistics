@@ -14,13 +14,12 @@ private:
 	virtual bool loaded() override;
 	virtual bool loadFromDataBase() override;
 	virtual void download() override;
+	virtual void handleData(bool) override;
 	virtual void save() override;
 	virtual void clear() override;
 
 	QUrl getMatchDetailURL(int matchid);
 	void parseMatchDetailData(QString &data);
-	void handleData();
-	void showData();
 
 public:
 	int victoryparty{ 0 };

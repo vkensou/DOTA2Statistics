@@ -209,6 +209,7 @@
     <ClCompile Include="matchdetail.cpp" />
     <ClCompile Include="matchdetailmanager.cpp" />
     <ClCompile Include="matchdetailview.cpp" />
+    <ClCompile Include="queuewaitfetchedplayers.cpp" />
     <ClCompile Include="setdatasourcedialog.cpp" />
     <ClCompile Include="utility.cpp" />
     <ClCompile Include="playermatchhistoryview.cpp" />
@@ -298,6 +299,7 @@
     </CustomBuild>
     <ClInclude Include="matchdetail.h" />
     <ClInclude Include="matchdetailmanager.h" />
+    <ClInclude Include="queuewaitfetchedplayers.h" />
     <ClInclude Include="webdatadownloader.h" />
     <ClInclude Include="webdatasourcedotabuff.h" />
     <ClInclude Include="webdatasourcedotamax.h" />

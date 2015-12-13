@@ -63,6 +63,27 @@
       </layout>
      </item>
      <item>
+      <widget class="QPushButton" name="downloadMatches">
+       <property name="text">
+        <string>下载所有比赛记录</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="fetchData">
+       <property name="text">
+        <string>扒取数据</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="stopFetch">
+       <property name="text">
+        <string>停止</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <spacer name="verticalSpacer">
        <property name="orientation">
         <enum>Qt::Vertical</enum>

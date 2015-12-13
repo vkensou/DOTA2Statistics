@@ -28,7 +28,16 @@ public:
 	bool loadMatchDetail(MatchDetail& matchdetail);
 	void saveMatchDetail(MatchDetail& matchdetail);
 
+	bool isMatchSaved(int matchid);
+	bool isPlayerSaved(int playerid);
+	void insertPlayerInfo(int playerid);
+	void updataPlayerStatus(int playerid, int newstatus);
+
 private:
+	void initdb();
+	void initMatchDetaildbs();
+	void initPlayerInfodbs();
+
 	QString getTable_HeroesUsedAndRate_Name(const DataConfig &config);
 	QString getTable_HeroItems_Name(const QString &heroname, const DataConfig &config);
 

@@ -15,7 +15,11 @@ DataBaseManager::DataBaseManager()
 
 bool DataBaseManager::opendb()
 {
-    return db.open();
+	if (!db.open())
+		return false;
+
+	initdb();
+	return true;
 }
 
 void DataBaseManager::closedb()
@@ -168,25 +172,6 @@ void DataBaseManager::saveMatchDetail(MatchDetail &matchdetail)
 {
 	static QString tablename = "matchdetail";
 
-	static QString sqlcreate = "CREATE TABLE IF NOT EXISTS matchdetail(matchid  INTEGER NOT NULL,"
-		"victoryparty  INTEGER NOT NULL,"
-		"duration  INTEGER NOT NULL,"
-		"seqnum  INTEGER NOT NULL,"
-		"cluster  INTEGER NOT NULL,"
-		"firstbloodtime  INTEGER NOT NULL,"
-		"lobbytype  INTEGER NOT NULL,"
-		"humanplayer  INTEGER NOT NULL,"
-		"leagueid  INTEGER NOT NULL DEFAULT 0,"
-		"positivevotes  INTEGER NOT NULL,"
-		"negativevotes  INTEGER NOT NULL,"
-		"gamemode  INTEGER NOT NULL,"
-		"engine  INTEGER NOT NULL,"
-		"starttime  INTEGER NOT NULL,"
-		"PRIMARY KEY(matchid)); ";
-
-	db.exec(sqlcreate.arg(tablename));
-	auto e1 = db.lastError().text();
-
 	QSqlTableModel model(0, db);
 	model.setTable(tablename);
 	model.setFilter(QString("matchid=%1").arg(matchdetail.matchid));
@@ -211,6 +196,163 @@ void DataBaseManager::saveMatchDetail(MatchDetail &matchdetail)
 		saveMatchDetailPickBanList(matchdetail);
 
 	saveMatchDetailPlayerInfo(matchdetail);
+}
+
+bool DataBaseManager::isMatchSaved(int matchid)
+{
+	QSqlTableModel model(0, db);
+	model.setTable("matchdetail");
+	model.setFilter(QString("matchid=%1").arg(matchid));
+	model.select();
+
+	return model.rowCount() != 0;
+}
+
+bool DataBaseManager::isPlayerSaved(int playerid)
+{
+	QSqlTableModel model(0, db);
+	model.setTable("playerinfo");
+	model.setFilter(QString("accountid=%1").arg(playerid));
+	model.select();
+
+	return model.rowCount() != 0;
+}
+
+void DataBaseManager::insertPlayerInfo(int playerid)
+{
+	QSqlTableModel model(0, db);
+	model.setTable("playerinfo");
+	model.setFilter(QString("accountid=%1").arg(playerid));
+	model.select();
+	if (model.rowCount() == 0)
+	{
+		QSqlRecord record = model.record();
+		record.setValue("accountid", playerid);
+		record.setValue("status", 0);
+		model.insertRecord(0, record);
+		model.submit();
+	}
+}
+
+void DataBaseManager::updataPlayerStatus(int playerid, int newstatus)
+{
+	QSqlTableModel model(0, db);
+	model.setTable("playerinfo");
+	model.setFilter(QString("accountid=%1").arg(playerid));
+	model.select();
+	if (model.rowCount() == 1)
+	{
+		QSqlRecord record = model.record(0);
+		record.setValue("status", newstatus);
+		model.submit();
+	}
+}
+
+void DataBaseManager::initdb()
+{
+	initMatchDetaildbs();
+	initPlayerInfodbs();
+}
+
+void DataBaseManager::initMatchDetaildbs()
+{
+	static QString sqlcreatematchdetail = "CREATE TABLE IF NOT EXISTS matchdetail(matchid  INTEGER NOT NULL,"
+		"victoryparty  INTEGER NOT NULL,"
+		"duration  INTEGER NOT NULL,"
+		"seqnum  INTEGER NOT NULL,"
+		"cluster  INTEGER NOT NULL,"
+		"firstbloodtime  INTEGER NOT NULL,"
+		"lobbytype  INTEGER NOT NULL,"
+		"humanplayer  INTEGER NOT NULL,"
+		"leagueid  INTEGER NOT NULL DEFAULT 0,"
+		"positivevotes  INTEGER NOT NULL,"
+		"negativevotes  INTEGER NOT NULL,"
+		"gamemode  INTEGER NOT NULL,"
+		"engine  INTEGER NOT NULL,"
+		"starttime  INTEGER NOT NULL,"
+		"PRIMARY KEY(matchid)); ";
+
+	db.exec(sqlcreatematchdetail);
+
+	static QString sqlcreatematchdetailpickban = "CREATE TABLE IF NOT EXISTS matchdetail_pickban("
+		"matchid  INTEGER NOT NULL,"
+		"ispick  INTEGER NOT NULL,"
+		"heroid  INTEGER NOT NULL,"
+		"team  INTEGER NOT NULL,"
+		"bporder  INTEGER NOT NULL,"
+		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid),"
+		");";
+
+	db.exec(sqlcreatematchdetailpickban);
+
+	static QString sqlindexmatchdetailpickban = "CREATE INDEX IF NOT EXISTS index_matchid ON matchdetail_pickban("
+		"matchid)";
+
+	db.exec(sqlindexmatchdetailpickban);
+
+	static QString sqlcreatematchdetail_playerinfo = "CREATE TABLE IF NOT EXISTS matchdetail_playerinfo("
+		"matchid  INTEGER NOT NULL,"
+		"accountid  INTEGER NOT NULL,"
+		"heroid  INTEGER NOT NULL,"
+		"slot  INTEGER NOT NULL,"
+		"item0  INTEGER NOT NULL,"
+		"item1  INTEGER NOT NULL,"
+		"item2  INTEGER NOT NULL,"
+		"item3  INTEGER NOT NULL,"
+		"item4  INTEGER NOT NULL,"
+		"item5  INTEGER NOT NULL,"
+		"unitname  TEXT NOT NULL,"
+		"aitem0  INTEGER NOT NULL,"
+		"aitem1  INTEGER NOT NULL,"
+		"aitem2  INTEGER NOT NULL,"
+		"aitem3  INTEGER NOT NULL,"
+		"aitem4  INTEGER NOT NULL,"
+		"aitem5  INTEGER NOT NULL,"
+		"kills  INTEGER NOT NULL,"
+		"deaths  INTEGER NOT NULL,"
+		"assists  INTEGER NOT NULL,"
+		"level  INTEGER NOT NULL,"
+		"gold  INTEGER NOT NULL,"
+		"lasthits  INTEGER NOT NULL,"
+		"denies  INTEGER NOT NULL,"
+		"goldpermin  INTEGER NOT NULL,"
+		"xppermin  INTEGER NOT NULL,"
+		"goldspent  INTEGER NOT NULL,"
+		"herodamage  INTEGER NOT NULL,"
+		"towerdamage  INTEGER NOT NULL,"
+		"herohealing  INTEGER NOT NULL,"
+		"leaverstatus  INTEGER NOT NULL,"
+		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid)"
+		"); ";
+
+	db.exec(sqlcreatematchdetail_playerinfo);
+
+	static QString sqlindexmatchdetail_playerinfo = "CREATE INDEX IF NOT EXISTS index_matchid ON matchdetail_playerinfo("
+		"matchid)";
+
+	db.exec(sqlindexmatchdetail_playerinfo);
+
+	static QString sqlcreatematchdetail_abilitiesupgrade = "CREATE TABLE IF NOT EXISTS matchdetail_abilitiesupgrade("
+		"matchid  INTEGER NOT NULL,"
+		"slot  INTEGER NOT NULL,"
+		"ability  INTEGER NOT NULL,"
+		"time  INTEGER NOT NULL,"
+		"level  INTEGER NOT NULL,"
+		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid))";
+
+	db.exec(sqlcreatematchdetail_abilitiesupgrade);
+}
+
+void DataBaseManager::initPlayerInfodbs()
+{
+	static QString sqlcreatematchdetail_playerinfo = "CREATE TABLE IF NOT EXISTS playerinfo("
+		"accountid  INTEGER NOT NULL,"
+		"status  INTEGER NOT NULL DEFAULT 0,"
+		"PRIMARY KEY(accountid)"
+		");";
+
+	db.exec(sqlcreatematchdetail_playerinfo);
+	auto error = db.lastError().text();
 }
 
 QString DataBaseManager::getTable_HeroesUsedAndRate_Name(const DataConfig &config)
@@ -432,22 +574,6 @@ void DataBaseManager::saveMatchDetailPickBanList(MatchDetail& matchdetail)
 {
 	static QString tablename = "matchdetail_pickban";
 
-	static QString sqlcreate = "CREATE TABLE IF NOT EXISTS matchdetail_pickban("
-		"matchid  INTEGER NOT NULL,"
-		"ispick  INTEGER NOT NULL,"
-		"heroid  INTEGER NOT NULL,"
-		"team  INTEGER NOT NULL,"
-		"bporder  INTEGER NOT NULL,"
-		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid),"
-		");";
-
-	db.exec(sqlcreate);
-
-	static QString sqlindex = "CREATE INDEX IF NOT EXISTS index_matchid ON matchdetail_pickban("
-		"matchid)";
-
-	db.exec(sqlindex);
-
 	QSqlTableModel model(0, db);
 	model.setTable(tablename);
 	model.setFilter(QString("matchid=%1").arg(matchdetail.matchid));
@@ -468,48 +594,6 @@ void DataBaseManager::saveMatchDetailPickBanList(MatchDetail& matchdetail)
 void DataBaseManager::saveMatchDetailPlayerInfo(MatchDetail &matchdetail)
 {
 	static QString tablename = "matchdetail_playerinfo";
-
-	static QString sqlcreate = "CREATE TABLE IF NOT EXISTS matchdetail_playerinfo("
-		"matchid  INTEGER NOT NULL,"
-		"accountid  INTEGER NOT NULL,"
-		"heroid  INTEGER NOT NULL,"
-		"slot  INTEGER NOT NULL,"
-		"item0  INTEGER NOT NULL,"
-		"item1  INTEGER NOT NULL,"
-		"item2  INTEGER NOT NULL,"
-		"item3  INTEGER NOT NULL,"
-		"item4  INTEGER NOT NULL,"
-		"item5  INTEGER NOT NULL,"
-		"unitname  TEXT NOT NULL,"
-		"aitem0  INTEGER NOT NULL,"
-		"aitem1  INTEGER NOT NULL,"
-		"aitem2  INTEGER NOT NULL,"
-		"aitem3  INTEGER NOT NULL,"
-		"aitem4  INTEGER NOT NULL,"
-		"aitem5  INTEGER NOT NULL,"
-		"kills  INTEGER NOT NULL,"
-		"deaths  INTEGER NOT NULL,"
-		"assists  INTEGER NOT NULL,"
-		"level  INTEGER NOT NULL,"
-		"gold  INTEGER NOT NULL,"
-		"lasthits  INTEGER NOT NULL,"
-		"denies  INTEGER NOT NULL,"
-		"goldpermin  INTEGER NOT NULL,"
-		"xppermin  INTEGER NOT NULL,"
-		"goldspent  INTEGER NOT NULL,"
-		"herodamage  INTEGER NOT NULL,"
-		"towerdamage  INTEGER NOT NULL,"
-		"herohealing  INTEGER NOT NULL,"
-		"leaverstatus  INTEGER NOT NULL,"
-		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid)"
-		"); ";
-
-	db.exec(sqlcreate);
-
-	static QString sqlindex = "CREATE INDEX IF NOT EXISTS index_matchid ON matchdetail_playerinfo("
-		"matchid)";
-
-	db.exec(sqlindex);
 
 	db.transaction();
 	static QString sqlinsert = "INSERT INTO matchdetail_playerinfo(matchid, accountid, heroid, slot, item0, item1, item2, item3, item4, item5, unitname, aitem0, aitem1, aitem2, aitem3, aitem4, aitem5"
@@ -541,18 +625,6 @@ void DataBaseManager::saveMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchd
 {
 	static QString tablename = "matchdetail_abilitiesupgrade";
 
-	static QString sqlcreate = "CREATE TABLE IF NOT EXISTS matchdetail_abilitiesupgrade("
-		"matchid  INTEGER NOT NULL,"
-		"slot  INTEGER NOT NULL,"
-		"ability  INTEGER NOT NULL,"
-		"time  INTEGER NOT NULL,"
-		"level  INTEGER NOT NULL,"
-		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid))";
-
-	db.exec(sqlcreate);
-	QSqlError error = db.lastError();
-	QString errortext = error.text();
-
 	db.transaction();
 	static QString sqlinsert = "INSERT INTO matchdetail_abilitiesupgrade(matchid, slot, ability, time, level) "
 		"VALUES(%1, %2, %3, %4, %5);";
@@ -580,7 +652,4 @@ void DataBaseManager::saveMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchd
 	}
 
 	db.commit();
-	error = db.lastError();
-	errortext = error.text();
-
 }

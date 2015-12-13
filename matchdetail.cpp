@@ -2,6 +2,7 @@
 #include "utility.h"
 #include <QDomDocument>
 #include "databasemanager.h"
+#include "queuewaitfetchedplayers.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -26,7 +27,6 @@ void MatchDetail::download()
 	auto url = getMatchDetailURL(matchid);
 	auto data = downloadWebPage(url);
 	parseMatchDetailData(data);
-	handleData();
 
 	m_init = true;
 }
@@ -147,7 +147,17 @@ void MatchDetail::parseMatchDetailData(QString &data)
 				for (auto anode = playernode.firstChildElement(); !anode.isNull(); anode = anode.nextSiblingElement())
 				{
 					if (anode.tagName() == "account_id")
+					{
 						player->accountid = anode.text().toInt();
+						if (player->accountid != 0)
+						{
+							auto queue = QueueWaitFetchedPlayers::getInstancePtr();
+							if (queue)
+							{
+								queue->push(player->accountid);
+							}
+						}
+					}
 					else if (anode.tagName() == "hero_id")
 						player->heroid = anode.text().toInt();
 					else if (anode.tagName() == "item_0")
@@ -244,7 +254,7 @@ void MatchDetail::parseMatchDetailData(QString &data)
 	}
 }
 
-void MatchDetail::handleData()
+void MatchDetail::handleData(bool)
 {
 	radiantgpm = radiantxpm = radiantherodamage = radianttowerdamage = radiantherohealing = 0;
 	for (int i = 0; i < 5; ++i)
