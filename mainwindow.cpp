@@ -12,6 +12,7 @@
 #include "matchdetailview.h"
 #include <QtGlobal>
 #include <QFileDialog>
+#include "fetchdataview.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -37,7 +38,10 @@ MainWindow::MainWindow(QWidget *parent) :
 		m_dataviews[i] = nullptr;
 	}
 
+	tableAddTab(IDataView::View_HeroItems);
 	tableAddTab(IDataView::View_PlayerMatchHistory);
+	tableAddTab(IDataView::View_MatchDetail);
+	tableAddTab(IDataView::View_FetchDAta);
 }
 
 MainWindow::~MainWindow()
@@ -78,6 +82,11 @@ IDataView * MainWindow::getDataView(IDataView::ViewType type)
 		auto sview = new MatchDetailView;
 		view = sview;
 		connect(this, SIGNAL(matchDblClicked(int)), sview, SLOT(showMatchDetail(int)));
+		break;
+	}
+	case IDataView::View_FetchDAta:
+	{
+		view = new FetchDataView;
 		break;
 	}
 	}
