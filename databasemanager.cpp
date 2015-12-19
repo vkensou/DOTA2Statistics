@@ -404,19 +404,7 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 
 					player->accountid = record.value("accountid").toInt();
 					player->heroid = record.value("heroid").toInt();
-					player->item0 = record.value("item0").toInt();
-					player->item1 = record.value("item1").toInt();
-					player->item2 = record.value("item2").toInt();
-					player->item3 = record.value("item3").toInt();
-					player->item4 = record.value("item4").toInt();
-					player->item5 = record.value("item5").toInt();
 					player->unitname = record.value("unitname").toString();
-					player->aitem0 = record.value("aitem0").toInt();
-					player->aitem1 = record.value("aitem1").toInt();
-					player->aitem2 = record.value("aitem2").toInt();
-					player->aitem3 = record.value("aitem3").toInt();
-					player->aitem4 = record.value("aitem4").toInt();
-					player->aitem5 = record.value("aitem5").toInt();
 					player->kills = record.value("kills").toInt();
 					player->deaths = record.value("deaths").toInt();
 					player->assists = record.value("assists").toInt();
@@ -482,21 +470,21 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 				db.exec(sqlinsertpickban.arg(matchdetail.matchid).arg(matchdetail.pickbanlist[i].ispick ? 1 : 0).arg(matchdetail.pickbanlist[i].heroid).arg(matchdetail.pickbanlist[i].team).arg(i));
 			}
 
-			static QString sqlinsertplayer = "INSERT INTO matchdetail_playerinfo(matchid, accountid, heroid, slot, item0, item1, item2, item3, item4, item5, unitname, aitem0, aitem1, aitem2, aitem3, aitem4, aitem5"
+			static QString sqlinsertplayer = "INSERT INTO matchdetail_playerinfo(matchid, accountid, heroid, slot, unitname"
 				", kills, deaths, assists, level, gold, lasthits, denies, goldpermin, xppermin, goldspent, herodamage, towerdamage, herohealing, leaverstatus) "
-				"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14, %15, %16, %17, %18, %19, %20, %21, %22, %23, %24, %25, %26, %27, %28, %29, %30, %31);";
+				"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14, %15, %16, %17, %18, %19);";
 			for (int i = 0; i < 5; ++i)
 			{
 				MatchDetail::PlayerDetail &player = matchdetail.radiantplayers[i];
-				db.exec(sqlinsertplayer.arg(matchdetail.matchid).arg(player.accountid).arg(player.heroid).arg(i).arg(player.item0).arg(player.item1).arg(player.item2).arg(player.item3).arg(player.item4).arg(player.item5)
-					.arg("'" + player.unitname + "'").arg(player.aitem0).arg(player.aitem1).arg(player.aitem2).arg(player.aitem3).arg(player.aitem4).arg(player.aitem5).arg(player.kills).arg(player.deaths).arg(player.assists)
+				db.exec(sqlinsertplayer.arg(matchdetail.matchid).arg(player.accountid).arg(player.heroid).arg(i)
+					.arg("'" + player.unitname + "'").arg(player.kills).arg(player.deaths).arg(player.assists)
 					.arg(player.level).arg(player.gold).arg(player.lasthits).arg(player.denies).arg(player.goldpermin).arg(player.xppermin).arg(player.goldspent).arg(player.herodamage).arg(player.towerdamage).arg(player.herohealing).arg(player.leaverstatus));
 			}
 			for (int i = 0; i < 5; ++i)
 			{
 				MatchDetail::PlayerDetail &player = matchdetail.direplayers[i];
-				db.exec(sqlinsertplayer.arg(matchdetail.matchid).arg(player.accountid).arg(player.heroid).arg(i + 128).arg(player.item0).arg(player.item1).arg(player.item2).arg(player.item3).arg(player.item4).arg(player.item5)
-					.arg("'" + player.unitname + "'").arg(player.aitem0).arg(player.aitem1).arg(player.aitem2).arg(player.aitem3).arg(player.aitem4).arg(player.aitem5).arg(player.kills).arg(player.deaths).arg(player.assists)
+				db.exec(sqlinsertplayer.arg(matchdetail.matchid).arg(player.accountid).arg(player.heroid).arg(i + 128)
+					.arg("'" + player.unitname + "'").arg(player.kills).arg(player.deaths).arg(player.assists)
 					.arg(player.level).arg(player.gold).arg(player.lasthits).arg(player.denies).arg(player.goldpermin).arg(player.xppermin).arg(player.goldspent).arg(player.herodamage).arg(player.towerdamage).arg(player.herohealing).arg(player.leaverstatus));
 			}
 
@@ -650,6 +638,17 @@ void DataBaseManager::initMatchDetaildbs()
 
 	db.exec(sqlcreateside);
 
+	static QString sqlcreate_matchdetail_items = "CREATE TABLE IF NOT EXISTS matchdetail_items("
+		"matchid  INTEGER NOT NULL,"
+		"slot  INTEGER NOT NULL,"
+		"isunit  INTEGER NOT NULL,"
+		"itemslot  INTEGER NOT NULL,"
+		"item  INTEGER NOT NULL,"
+		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid)"
+		");";
+
+	db.exec(sqlcreate_matchdetail_items);
+
 }
 
 void DataBaseManager::initPlayerInfodbs()
@@ -777,19 +776,7 @@ bool DataBaseManager::loadMatchDetailPlayerInfo(MatchDetail &matchdetail)
 
 			player->accountid = record.value("accountid").toInt();
 			player->heroid = record.value("heroid").toInt();
-			player->item0 = record.value("item0").toInt();
-			player->item1 = record.value("item1").toInt();
-			player->item2 = record.value("item2").toInt();
-			player->item3 = record.value("item3").toInt();
-			player->item4 = record.value("item4").toInt();
-			player->item5 = record.value("item5").toInt();
 			player->unitname = record.value("unitname").toString();
-			player->aitem0 = record.value("aitem0").toInt();
-			player->aitem1 = record.value("aitem1").toInt();
-			player->aitem2 = record.value("aitem2").toInt();
-			player->aitem3 = record.value("aitem3").toInt();
-			player->aitem4 = record.value("aitem4").toInt();
-			player->aitem5 = record.value("aitem5").toInt();
 			player->kills = record.value("kills").toInt();
 			player->deaths = record.value("deaths").toInt();
 			player->assists = record.value("assists").toInt();
@@ -806,8 +793,9 @@ bool DataBaseManager::loadMatchDetailPlayerInfo(MatchDetail &matchdetail)
 			player->leaverstatus = record.value("leaverstatus").toInt();
 		}
 	}
-
-	return loadMatchDetailPlayerAbilitiesUpgragde(matchdetail);
+	loadMatchDetailPlayerAbilitiesUpgragde(matchdetail);
+	loadMatchDetailPlayerItems(matchdetail);
+	return true;
 }
 
 bool DataBaseManager::loadMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchdetail)
@@ -841,6 +829,32 @@ bool DataBaseManager::loadMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchd
 		}
 	}
 
+	return true;
+}
+
+bool DataBaseManager::loadMatchDetailPlayerItems(MatchDetail &matchdetail)
+{
+	static QString sqlselect = "select * from matchdetail_items where matchid = %1";
+	auto query = db.exec(sqlselect);
+
+	while (query.next())
+	{
+		int slot = query.value("slot").toInt();
+		MatchDetail::PlayerDetail *player;
+		if (slot < 128)
+			player = &matchdetail.radiantplayers[slot];
+		else
+			player = &matchdetail.direplayers[slot - 128];
+
+		int itemslot = query.value("itemslot").toInt();
+		MatchDetail::PlayerDetail::ItemInfo *iteminfo;
+		if (query.value("isunit").toInt() == 1)
+			iteminfo = &player->uitem[itemslot];
+		else
+			iteminfo = &player->item[itemslot];
+
+		iteminfo->id = query.value("item").toInt();
+	}
 	return true;
 }
 
@@ -890,21 +904,21 @@ void DataBaseManager::saveMatchDetailPlayerInfo(MatchDetail &matchdetail)
 	static QString tablename = "matchdetail_playerinfo";
 
 	db.transaction();
-	static QString sqlinsert = "INSERT INTO matchdetail_playerinfo(matchid, accountid, heroid, slot, item0, item1, item2, item3, item4, item5, unitname, aitem0, aitem1, aitem2, aitem3, aitem4, aitem5"
+	static QString sqlinsert = "INSERT INTO matchdetail_playerinfo(matchid, accountid, heroid, slot, unitname"
 		", kills, deaths, assists, level, gold, lasthits, denies, goldpermin, xppermin, goldspent, herodamage, towerdamage, herohealing, leaverstatus) "
-		"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14, %15, %16, %17, %18, %19, %20, %21, %22, %23, %24, %25, %26, %27, %28, %29, %30, %31);";
+		"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14, %15, %16, %17, %18, %19);";
 	for (int i = 0; i < 5; ++i)
 	{
 		MatchDetail::PlayerDetail &player = matchdetail.radiantplayers[i];
-		db.exec(sqlinsert.arg(matchdetail.matchid).arg(player.accountid).arg(player.heroid).arg(i).arg(player.item0).arg(player.item1).arg(player.item2).arg(player.item3).arg(player.item4).arg(player.item5)
-			.arg("'" + player.unitname + "'").arg(player.aitem0).arg(player.aitem1).arg(player.aitem2).arg(player.aitem3).arg(player.aitem4).arg(player.aitem5).arg(player.kills).arg(player.deaths).arg(player.assists)
+		db.exec(sqlinsert.arg(matchdetail.matchid).arg(player.accountid).arg(player.heroid).arg(i)
+			.arg("'" + player.unitname + "'").arg(player.kills).arg(player.deaths).arg(player.assists)
 			.arg(player.level).arg(player.gold).arg(player.lasthits).arg(player.denies).arg(player.goldpermin).arg(player.xppermin).arg(player.goldspent).arg(player.herodamage).arg(player.towerdamage).arg(player.herohealing).arg(player.leaverstatus));
 	}
 	for (int i = 0; i < 5; ++i)
 	{
 		MatchDetail::PlayerDetail &player = matchdetail.direplayers[i];
-		db.exec(sqlinsert.arg(matchdetail.matchid).arg(player.accountid).arg(player.heroid).arg(i + 128).arg(player.item0).arg(player.item1).arg(player.item2).arg(player.item3).arg(player.item4).arg(player.item5)
-			.arg("'" + player.unitname + "'").arg(player.aitem0).arg(player.aitem1).arg(player.aitem2).arg(player.aitem3).arg(player.aitem4).arg(player.aitem5).arg(player.kills).arg(player.deaths).arg(player.assists)
+		db.exec(sqlinsert.arg(matchdetail.matchid).arg(player.accountid).arg(player.heroid).arg(i + 128)
+			.arg("'" + player.unitname + "'").arg(player.kills).arg(player.deaths).arg(player.assists)
 			.arg(player.level).arg(player.gold).arg(player.lasthits).arg(player.denies).arg(player.goldpermin).arg(player.xppermin).arg(player.goldspent).arg(player.herodamage).arg(player.towerdamage).arg(player.herohealing).arg(player.leaverstatus));
 	}
 
@@ -913,6 +927,7 @@ void DataBaseManager::saveMatchDetailPlayerInfo(MatchDetail &matchdetail)
 	QString errortext = error.text();
 
 	saveMatchDetailPlayerAbilitiesUpgragde(matchdetail);
+	saveMatchDetailPlayerItems(matchdetail);
 }
 
 void DataBaseManager::saveMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchdetail)
@@ -942,6 +957,51 @@ void DataBaseManager::saveMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchd
 			if (abilities.ability == 0)
 				break;
 			db.exec(sqlinsert.arg(matchdetail.matchid).arg(i + 128).arg(abilities.ability).arg(abilities.time).arg(j));
+		}
+	}
+
+	db.commit();
+}
+
+void DataBaseManager::saveMatchDetailPlayerItems(MatchDetail &matchdetail)
+{
+	static QString sqlinsert = "INSERT INTO matchdetail_items(matchid, slot, isunit, itemslot, item) "
+		"VALUES(%1, %2, %3, %4, %5);";
+	db.transaction();
+
+	for (int i = 0; i < 5; ++i)
+	{
+		MatchDetail::PlayerDetail &player = matchdetail.radiantplayers[i];
+		for (int j = 0; j < 6; ++j)
+		{
+			MatchDetail::PlayerDetail::ItemInfo &item = player.item[j];
+			db.exec(sqlinsert.arg(matchdetail.matchid).arg(i).arg(0).arg(j).arg(item.id));
+		}
+		if (!player.unitname.isEmpty())
+		{
+			for (int j = 0; j < 6; ++j)
+			{
+				MatchDetail::PlayerDetail::ItemInfo &item = player.uitem[j];
+				db.exec(sqlinsert.arg(matchdetail.matchid).arg(i).arg(1).arg(j).arg(item.id));
+			}
+		}
+	}
+
+	for (int i = 0; i < 5; ++i)
+	{
+		MatchDetail::PlayerDetail &player = matchdetail.direplayers[i];
+		for (int j = 0; j < 6; ++j)
+		{
+			MatchDetail::PlayerDetail::ItemInfo &item = player.item[j];
+			db.exec(sqlinsert.arg(matchdetail.matchid).arg(i).arg(0).arg(j).arg(item.id));
+		}
+		if (!player.unitname.isEmpty())
+		{
+			for (int j = 0; j < 6; ++j)
+			{
+				MatchDetail::PlayerDetail::ItemInfo &item = player.uitem[j];
+				db.exec(sqlinsert.arg(matchdetail.matchid).arg(i).arg(1).arg(j).arg(item.id));
+			}
 		}
 	}
 

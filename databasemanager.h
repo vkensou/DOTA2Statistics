@@ -49,11 +49,13 @@ private:
 	bool loadMatchDetailPickBanList(MatchDetail &matchdetail);
 	bool loadMatchDetailPlayerInfo(MatchDetail &matchdetail);
 	bool loadMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchdetail);
+	bool loadMatchDetailPlayerItems(MatchDetail &matchdetail);
 
 	void saveMatchDetailSide(MatchDetail &matchdetail);
 	void saveMatchDetailPickBanList(MatchDetail &matchdetail);
 	void saveMatchDetailPlayerInfo(MatchDetail &matchdetail);
 	void saveMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchdetail);
+	void saveMatchDetailPlayerItems(MatchDetail &matchdetail);
 
 private:
     QSqlDatabase db;

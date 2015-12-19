@@ -160,18 +160,11 @@ void MatchDetail::parseMatchDetailData(QString &data)
 					}
 					else if (anode.tagName() == "hero_id")
 						player->heroid = anode.text().toInt();
-					else if (anode.tagName() == "item_0")
-						player->item0 = anode.text().toInt();
-					else if (anode.tagName() == "item_1")
-						player->item1 = anode.text().toInt();
-					else if (anode.tagName() == "item_2")
-						player->item2 = anode.text().toInt();
-					else if (anode.tagName() == "item_3")
-						player->item3 = anode.text().toInt();
-					else if (anode.tagName() == "item_4")
-						player->item4 = anode.text().toInt();
-					else if (anode.tagName() == "item_5")
-						player->item5 = anode.text().toInt();
+					else if (anode.tagName().contains("item_"))
+					{
+						int itemslot = anode.tagName().mid(5).toInt();
+						player->item[itemslot].id = anode.text().toInt();
+					}
 					else if (anode.tagName() == "kills")
 						player->kills = anode.text().toInt();
 					else if (anode.tagName() == "deaths")
@@ -220,18 +213,11 @@ void MatchDetail::parseMatchDetailData(QString &data)
 							{
 								player->unitname = cnode.text();
 							}
-							else if (anode.tagName() == "item_0")
-								player->aitem0 = cnode.text().toInt();
-							else if (anode.tagName() == "item_1")
-								player->aitem1 = cnode.text().toInt();
-							else if (anode.tagName() == "item_2")
-								player->aitem2 = cnode.text().toInt();
-							else if (anode.tagName() == "item_3")
-								player->aitem3 = cnode.text().toInt();
-							else if (anode.tagName() == "item_4")
-								player->aitem4 = cnode.text().toInt();
-							else if (anode.tagName() == "item_5")
-								player->aitem5 = cnode.text().toInt();
+							else if (anode.tagName().contains("item_"))
+							{
+								int itemslot = anode.tagName().mid(5).toInt();
+								player->uitem[itemslot].id = anode.text().toInt();
+							}
 						}
 					}
 					else

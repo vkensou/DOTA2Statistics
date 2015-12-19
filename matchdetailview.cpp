@@ -149,7 +149,7 @@ void MatchDetailView::showData()
 		ui->RadiantHeroList->setItem(i, 11, new QTableWidgetItem(QString::number(m_match->radiantplayers[i].towerdamage)));
 		ui->RadiantHeroList->setItem(i, 12, new QTableWidgetItem(QString::number(m_match->radiantplayers[i].herohealing)));
 		QTableWidgetItem *heroitems = new QTableWidgetItem;
-		heroitems->setData(0, QVariant::fromValue(ItemList(m_match->radiantplayers[i].item0, m_match->radiantplayers[i].item1, m_match->radiantplayers[i].item2, m_match->radiantplayers[i].item3, m_match->radiantplayers[i].item4, m_match->radiantplayers[i].item5)));
+		heroitems->setData(0, QVariant::fromValue(ItemList(m_match->radiantplayers[i].item[0].id, m_match->radiantplayers[i].item[1].id, m_match->radiantplayers[i].item[2].id, m_match->radiantplayers[i].item[3].id, m_match->radiantplayers[i].item[4].id, m_match->radiantplayers[i].item[5].id)));
 		ui->RadiantHeroList->setItem(i, 13, heroitems);
 
 		QString str = "";
@@ -180,7 +180,7 @@ void MatchDetailView::showData()
 		ui->DireHeroList->setItem(i, 11, new QTableWidgetItem(QString::number(m_match->direplayers[i].towerdamage)));
 		ui->DireHeroList->setItem(i, 12, new QTableWidgetItem(QString::number(m_match->direplayers[i].herohealing)));
 		QTableWidgetItem *heroitems = new QTableWidgetItem;
-		heroitems->setData(0, QVariant::fromValue(ItemList(m_match->direplayers[i].item0, m_match->direplayers[i].item1, m_match->direplayers[i].item2, m_match->direplayers[i].item3, m_match->direplayers[i].item4, m_match->direplayers[i].item5)));
+		heroitems->setData(0, QVariant::fromValue(ItemList(m_match->direplayers[i].item[0].id, m_match->direplayers[i].item[1].id, m_match->direplayers[i].item[2].id, m_match->direplayers[i].item[3].id, m_match->direplayers[i].item[4].id, m_match->direplayers[i].item[5].id)));
 		ui->DireHeroList->setItem(i, 13, heroitems);
 
 		QString str = "";

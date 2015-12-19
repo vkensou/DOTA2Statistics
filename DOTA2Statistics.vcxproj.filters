@@ -173,7 +173,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="queuewaitfetchedplayers.cpp">
-      <Filter>Generated Files</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

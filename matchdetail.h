@@ -27,10 +27,6 @@ public:
 	long long int starttime{ 0 };
 	int matchid{ 0 };
 	int matchseqnum{ 0 };
-	int radianttower{ 0 };
-	int diretower{ 0 };
-	int radiantbarracks{ 0 };
-	int direbarracks{ 0 };
 	int cluster{ 0 };
 	int firstbloodtime{ 0 };
 	int lobbytype{ 0 };
@@ -40,15 +36,21 @@ public:
 	int negativevotes{ 0 };
 	int gamemode{ 0 };
 	int engine{ 0 };
-	int radiantgpm{ 0 }, radiantxpm{ 0 }, radiantherodamage{ 0 }, radianttowerdamage{ 0 }, radiantherohealing{ 0 };
-	int diregpm{ 0 }, direxpm{ 0 }, direherodamage{ 0 }, diretowerdamage{ 0 }, direherohealing{ 0 };
+	int radianttower{ 0 };
+	int diretower{ 0 };
+	int radiantbarracks{ 0 };
+	int direbarracks{ 0 };
+	int radiantgpm{ 0 }, radiantxpm{ 0 }, radiantherodamage{ 0 }, radianttowerdamage{ 0 }, radiantherohealing{ 0 }, radiantkills{ 0 }, radiantdeaths{ 0 }, radiantassists{ 0 };
+	int diregpm{ 0 }, direxpm{ 0 }, direherodamage{ 0 }, diretowerdamage{ 0 }, direherohealing{ 0 }, direkills{ 0 }, diredeaths{ 0 }, direassists{ 0 };
 	struct PlayerDetail
 	{
 		int accountid{ 0 };
 		int heroid{ 0 };
-		int item0{ 0 }, item1{ 0 }, item2{ 0 }, item3{ 0 }, item4{ 0 }, item5{ 0 };
+		struct ItemInfo
+		{
+			int id{ 0 };
+		}item[6], uitem[6];
 		QString unitname;
-		int aitem0{ 0 }, aitem1{ 0 }, aitem2{ 0 }, aitem3{ 0 }, aitem4{ 0 }, aitem5{ 0 };
 		int kills{ 0 }, deaths{ 0 }, assists{ 0 };
 		int level{ 0 };
 		int gold{ 0 };
