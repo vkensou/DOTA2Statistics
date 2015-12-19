@@ -56,7 +56,7 @@
     <index>4</index>
   </ability>
 	<ability>
-		<name>riki_backstab</name>
+		<name>riki_permanent_invisibility</name>
 		<id>5144</id>
     <index>3</index>
   </ability>
@@ -117,7 +117,7 @@
     <index>2</index>
   </ability>
 	<ability>
-		<name>lone_druid_synergy</name>
+		<name>lone_druid_savage_roar</name>
 		<id>5414</id>
     <index>3</index>
   </ability>
@@ -493,11 +493,6 @@
     <index>2</index>
   </ability>
 	<ability>
-		<name>riki_permanent_invisibility</name>
-		<id>5145</id>
-    <index>2</index>
-  </ability>
-	<ability>
 		<name>courier_shield</name>
 		<id>5209</id>
 	</ability>
@@ -627,7 +622,7 @@
     <index>1</index>
   </ability>
 	<ability>
-		<name>doom_bringer_lvl_death</name>
+		<name>doom_bringer_infernal_blade</name>
 		<id>5341</id>
     <index>3</index>
   </ability>
@@ -1183,7 +1178,7 @@
 	<ability>
 		<name>riki_blink_strike</name>
 		<id>5143</id>
-    <index>4</index>
+    <index>2</index>
   </ability>
 	<ability>
 		<name>zuus_static_field</name>
@@ -2495,19 +2490,23 @@
 	<ability>
 		<name>legion_commander_overwhelming_odds</name>
 		<id>5595</id>
-	</ability>
+    <index>1</index>
+  </ability>
 	<ability>
 		<name>legion_commander_press_the_attack</name>
 		<id>5596</id>
-	</ability>
+    <index>2</index>
+  </ability>
 	<ability>
 		<name>legion_commander_moment_of_courage</name>
 		<id>5597</id>
-	</ability>
+    <index>3</index>
+  </ability>
 	<ability>
 		<name>legion_commander_duel</name>
 		<id>5598</id>
-	</ability>
+    <index>4</index>
+  </ability>
 	<ability>
 		<name>techies_land_mines</name>
 		<id>5599</id>
@@ -2704,6 +2703,41 @@
 	<ability>
 		<name>winter_wyvern_winters_curse</name>
 		<id>5654</id>
+    <index>4</index>
+  </ability>
+  <ability>
+    <name>arc_warden_flux</name>
+    <id>5677</id>
+    <index>1</index>
+  </ability>
+  <ability>
+    <name>arc_warden_magnetic_field</name>
+    <id>5678</id>
+    <index>2</index>
+  </ability>
+  <ability>
+    <name>arc_warden_spark_wraith</name>
+    <id>5679</id>
+    <index>3</index>
+  </ability>
+  <ability>
+    <name>arc_warden_tempest_double</name>
+    <id>5683</id>
+    <index>4</index>
+  </ability>
+  <ability>
+    <name>death_prophet_spirit_siphon</name>
+    <id>5685</id>
+    <index>3</index>
+  </ability>
+  <ability>
+    <name>faceless_void_time_dilation</name>
+    <id>5691</id>
+    <index>2</index>
+  </ability>
+  <ability>
+    <name>riki_tricks_of_the_trade</name>
+    <id>5145</id>
     <index>4</index>
   </ability>
 </abilities>	

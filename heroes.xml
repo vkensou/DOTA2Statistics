@@ -1,4 +1,8 @@
 <heroes>
+  <hero name="arc warden" chinese_name="天穹守望者" id="113">
+    <alias>弧光</alias>
+    <alias>弧光守望者</alias>
+  </hero>
   <hero name="winter wyvern" chinese_name="寒冬飞龙" id="112">
     <alias>冰龙</alias>
   </hero>

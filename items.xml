@@ -1,5 +1,20 @@
 <items>
-    <item id="254" name="glimmer_cape" chinese_name="微光披风">
+  <item id="239" name="iron_talon" chinese_name="寒铁钢爪">
+    <part chinese_name="压制之刃"/>
+    <part chinese_name="守护指环"/>
+  </item>
+  <item id="237" name="faerie_fire" chinese_name="仙灵之火">
+  </item>
+  <item id="232" name="aether_lens" chinese_name="以太之镜">
+    <part chinese_name="能量之球"/>
+    <part chinese_name="治疗之环"/>
+    <part chinese_name="抗魔斗篷"/>
+  </item>
+  <item id="236" name="dragon_lance" chinese_name="魔龙枪">
+    <part chinese_name="短棍"/>
+    <part chinese_name="食人魔之斧"/>
+  </item>
+  <item id="254" name="glimmer_cape" chinese_name="微光披风">
         <part chinese_name="暗影护符"/>
         <part chinese_name="抗魔斗篷"/>
     </item>

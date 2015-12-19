@@ -148,5 +148,11 @@
         <file>resources/item_254.png</file>
         <file>resources/item_error.png</file>
         <file>resources/item_54.png</file>
+        <file>resources/item_33.png</file>
+        <file>resources/item_117.png</file>
+        <file>resources/item_237.png</file>
+        <file>resources/item_232.png</file>
+        <file>resources/item_239.png</file>
+        <file>resources/item_236.png</file>
     </qresource>
 </RCC>
