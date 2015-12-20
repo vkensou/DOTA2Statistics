@@ -144,7 +144,9 @@
     <ClCompile Include="abilitieslist.cpp" />
     <ClCompile Include="dataconfig.cpp" />
     <ClCompile Include="databasemanager.cpp" />
+    <ClCompile Include="fetchdatathread.cpp" />
     <ClCompile Include="fetchdataview.cpp" />
+    <ClCompile Include="fetchplayermatchhistorythread.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_fetchdataview.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -214,8 +216,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="matchdetail.cpp" />
+    <ClCompile Include="matchdetaildownloadthread.cpp" />
     <ClCompile Include="matchdetailmanager.cpp" />
+    <ClCompile Include="matchdetailparsethread.cpp" />
+    <ClCompile Include="matchdetailsavethread.cpp" />
     <ClCompile Include="matchdetailview.cpp" />
+    <ClCompile Include="playermatchhistory.cpp" />
     <ClCompile Include="queuewaitfetchedplayers.cpp" />
     <ClCompile Include="setdatasourcedialog.cpp" />
     <ClCompile Include="utility.cpp" />
@@ -242,6 +248,8 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -DQT_DLL "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2013" "-I.\GeneratedFiles" "-ID:\pgtools\Visual Leak Detector\include"</Command>
     </CustomBuild>
+    <ClInclude Include="fetchdatathread.h" />
+    <ClInclude Include="fetchplayermatchhistorythread.h" />
     <ClInclude Include="GeneratedFiles\ui_mainwindow.h" />
     <ClInclude Include="GeneratedFiles\ui_setdatasource.h" />
     <ClInclude Include="GeneratedFiles\ui_view_fetchdata.h" />
@@ -316,7 +324,11 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_SQL_LIB -DQT_CORE_LIB -DNDEBUG -DQT_DLL "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtNetwork" "-I$(QTDIR)\include\QtXml" "-I$(QTDIR)\include\QtSql" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2013" "-I.\GeneratedFiles" "-ID:\pgtools\Visual Leak Detector\include"</Command>
     </CustomBuild>
     <ClInclude Include="matchdetail.h" />
+    <ClInclude Include="matchdetaildownloadthread.h" />
     <ClInclude Include="matchdetailmanager.h" />
+    <ClInclude Include="matchdetailparsethread.h" />
+    <ClInclude Include="matchdetailsavethread.h" />
+    <ClInclude Include="playermatchhistory.h" />
     <ClInclude Include="queuewaitfetchedplayers.h" />
     <ClInclude Include="webdatadownloader.h" />
     <ClInclude Include="webdatasourcedotabuff.h" />

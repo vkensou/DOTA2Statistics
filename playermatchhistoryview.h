@@ -3,6 +3,7 @@
 #include "idataview.h"
 #include <QUrl>
 #include <vector>
+#include "playermatchhistory.h"
 
 namespace Ui
 {
@@ -28,24 +29,17 @@ public:
 public slots:
 	void on_ShowHistory_clicked();
 	void on_downloadMatches_clicked();
-	void on_fetchData_clicked();
-	void on_stopFetch_clicked();
 	void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
 
 signals:
 	void matchDblClicked(int matchid);
 
 private:
-	QUrl getMatchHistoryURL(int playerid = 0, int startmatch = 0);
-	void parseHistoryData(QString &data, int &remaining, int &lastmatch);
-	bool downloadPlayerAllHistory(int playerid);
 	void downloadMatchDetail();
-	void initFetchQueue();
 
 private:
 	Ui::View_PlayerMatchHistory *ui;
-	std::vector<int> m_matchhistory;
+	PlayerMatchHistory m_playermatchhistory;
 	QueueWaitFetchedPlayers *queuewaitfetchedplayers;
-	bool m_fetchstop;
 	int m_fetchedplayer, m_fetchedmatch;
 };

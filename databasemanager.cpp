@@ -28,6 +28,16 @@ void DataBaseManager::closedb()
     db.close();
 }
 
+void DataBaseManager::transaction()
+{
+	db.transaction();
+}
+
+bool DataBaseManager::commit()
+{
+	return db.commit();
+}
+
 bool DataBaseManager::loadHeroesUsedAndRate(std::function<void(const QString &, int, double)> &callback, const DataConfig &config)
 {
 	QString tablename = getTable_HeroesUsedAndRate_Name(config);
@@ -254,7 +264,7 @@ int DataBaseManager::getPlayerRandomly()
 {
 	static QString sqlrandomselect = "select accountid from matchdetail_playerinfo ORDER BY random() LIMIT 1;";
 	auto query = db.exec(sqlrandomselect);
-	if (query.size() == 0)
+	if (!query.next())
 		return 0;
 
 	query.first();
@@ -657,19 +667,7 @@ void DataBaseManager::initMatchDetaildbs()
 		"accountid  INTEGER NOT NULL,"
 		"heroid  INTEGER NOT NULL,"
 		"slot  INTEGER NOT NULL,"
-		"item0  INTEGER NOT NULL,"
-		"item1  INTEGER NOT NULL,"
-		"item2  INTEGER NOT NULL,"
-		"item3  INTEGER NOT NULL,"
-		"item4  INTEGER NOT NULL,"
-		"item5  INTEGER NOT NULL,"
 		"unitname  TEXT NOT NULL,"
-		"aitem0  INTEGER NOT NULL,"
-		"aitem1  INTEGER NOT NULL,"
-		"aitem2  INTEGER NOT NULL,"
-		"aitem3  INTEGER NOT NULL,"
-		"aitem4  INTEGER NOT NULL,"
-		"aitem5  INTEGER NOT NULL,"
 		"kills  INTEGER NOT NULL,"
 		"deaths  INTEGER NOT NULL,"
 		"assists  INTEGER NOT NULL,"
@@ -952,11 +950,11 @@ void DataBaseManager::saveMatchDetailSide(MatchDetail &matchdetail)
 	if (model.rowCount() != 0)
 		return;
 
-	db.transaction();
+	//db.transaction();
 	static QString sqlinsert = "INSERT INTO matchdetail_side(matchid, side, win, tower, barrack, gpm, xpm, herodamage, towerdamage, herohealing) VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10);";
 	db.exec(sqlinsert.arg(matchdetail.matchid).arg(1).arg(matchdetail.victoryparty == 1 ? 1 : 0).arg(matchdetail.radianttower).arg(matchdetail.radiantbarracks).arg(matchdetail.radiantgpm).arg(matchdetail.radiantxpm).arg(matchdetail.radiantherodamage).arg(matchdetail.radianttowerdamage).arg(matchdetail.radiantherohealing));
 	db.exec(sqlinsert.arg(matchdetail.matchid).arg(0).arg(matchdetail.victoryparty == 0 ? 1 : 0).arg(matchdetail.diretower).arg(matchdetail.direbarracks).arg(matchdetail.diregpm).arg(matchdetail.direxpm).arg(matchdetail.direherodamage).arg(matchdetail.diretowerdamage).arg(matchdetail.direherohealing));
-	db.commit();
+	//db.commit();
 	auto e2 = db.lastError().text();
 }
 
@@ -972,20 +970,20 @@ void DataBaseManager::saveMatchDetailPickBanList(MatchDetail& matchdetail)
 	if (model.rowCount() != 0)
 		return;
 
-	db.transaction();
+	//db.transaction();
 	static QString sqlinsert = "INSERT INTO matchdetail_pickban(matchid, ispick, heroid, team, bporder) VALUES(%1, %2, %3, %4, %5);";
 	for (int i = 0; i < 20; ++i)
 	{
 		db.exec(sqlinsert.arg(matchdetail.matchid).arg(matchdetail.pickbanlist[i].ispick ? 1 : 0).arg(matchdetail.pickbanlist[i].heroid).arg(matchdetail.pickbanlist[i].team).arg(i));
 	}
-	db.commit();
+	//db.commit();
 }
 
 void DataBaseManager::saveMatchDetailPlayerInfo(MatchDetail &matchdetail)
 {
 	static QString tablename = "matchdetail_playerinfo";
 
-	db.transaction();
+	//db.transaction();
 	static QString sqlinsert = "INSERT INTO matchdetail_playerinfo(matchid, accountid, heroid, slot, unitname"
 		", kills, deaths, assists, level, gold, lasthits, denies, goldpermin, xppermin, goldspent, herodamage, towerdamage, herohealing, leaverstatus) "
 		"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14, %15, %16, %17, %18, %19);";
@@ -1004,7 +1002,7 @@ void DataBaseManager::saveMatchDetailPlayerInfo(MatchDetail &matchdetail)
 			.arg(player.level).arg(player.gold).arg(player.lasthits).arg(player.denies).arg(player.goldpermin).arg(player.xppermin).arg(player.goldspent).arg(player.herodamage).arg(player.towerdamage).arg(player.herohealing).arg(player.leaverstatus));
 	}
 
-	db.commit();
+	//db.commit();
 	QSqlError error = db.lastError();
 	QString errortext = error.text();
 
@@ -1016,7 +1014,7 @@ void DataBaseManager::saveMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchd
 {
 	static QString tablename = "matchdetail_abilitiesupgrade";
 
-	db.transaction();
+	//db.transaction();
 	static QString sqlinsert = "INSERT INTO matchdetail_abilitiesupgrade(matchid, slot, ability, time, level) "
 		"VALUES(%1, %2, %3, %4, %5);";
 	for (int i = 0; i < 5; ++i)
@@ -1042,14 +1040,14 @@ void DataBaseManager::saveMatchDetailPlayerAbilitiesUpgragde(MatchDetail &matchd
 		}
 	}
 
-	db.commit();
+	//db.commit();
 }
 
 void DataBaseManager::saveMatchDetailPlayerItems(MatchDetail &matchdetail)
 {
 	static QString sqlinsert = "INSERT INTO matchdetail_items(matchid, slot, isunit, itemslot, item) "
 		"VALUES(%1, %2, %3, %4, %5);";
-	db.transaction();
+	//db.transaction();
 
 	for (int i = 0; i < 5; ++i)
 	{
@@ -1095,5 +1093,5 @@ void DataBaseManager::saveMatchDetailPlayerItems(MatchDetail &matchdetail)
 		}
 	}
 
-	db.commit();
+	//db.commit();
 }

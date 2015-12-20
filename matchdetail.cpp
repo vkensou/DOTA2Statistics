@@ -60,7 +60,12 @@ void MatchDetail::parseMatchDetailData(QString &data)
 
 	for (auto node = root.firstChildElement(); !node.isNull(); node = node.nextSiblingElement())
 	{
-		if (node.tagName() == "radiant_win")
+		if (node.tagName() == "match_id")
+		{
+			if (matchid == 0)
+				matchid = node.text().toInt();
+		}
+		else if (node.tagName() == "radiant_win")
 		{
 			victoryparty = node.text() == "true" ? 1 : 0;
 		}

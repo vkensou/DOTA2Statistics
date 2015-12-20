@@ -9,17 +9,17 @@ class MatchDetail
 {
 public:
 	MatchDetail(int matchid);
+	void parseMatchDetailData(QString &data);
+	virtual void save() override;
 
 private:
 	virtual bool loaded() override;
 	virtual bool loadFromDataBase() override;
 	virtual void download() override;
 	virtual void handleData(bool) override;
-	virtual void save() override;
 	virtual void clear() override;
 
 	QUrl getMatchDetailURL(int matchid);
-	void parseMatchDetailData(QString &data);
 
 public:
 	int victoryparty{ 0 };
