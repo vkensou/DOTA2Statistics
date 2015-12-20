@@ -8,9 +8,11 @@
 class MatchDetailDownloadThread
 	:public QThread, public Singleton<MatchDetailDownloadThread>
 {
+	typedef std::tuple<int, int, QString> MatchDownlodInfo;
 public:
+
 	virtual void run() override;
-	QString getData();
+	MatchDownlodInfo getData();
 	int getCount();
 
 private:
@@ -19,5 +21,5 @@ private:
 private:
 	QMutex mutex;
 	const int MAX_SIZE{ 10 };
-	std::queue<QString> m_dataqueue;
+	std::queue<MatchDownlodInfo> m_dataqueue;
 };

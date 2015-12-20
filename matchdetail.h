@@ -8,7 +8,7 @@ class MatchDetail
 	:public DataNeedCache
 {
 public:
-	MatchDetail(int matchid);
+	MatchDetail(int matchid = 0, int skill = 0);
 	void parseMatchDetailData(QString &data);
 	virtual void save() override;
 
@@ -22,6 +22,7 @@ private:
 	QUrl getMatchDetailURL(int matchid);
 
 public:
+	int skill{ 0 };
 	int victoryparty{ 0 };
 	int duration{ 0 };
 	long long int starttime{ 0 };

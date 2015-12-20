@@ -123,7 +123,7 @@
     <item row="0" column="1">
      <widget class="QLabel" name="numofplayerqueue">
       <property name="text">
-       <string>1</string>
+       <string>0</string>
       </property>
      </widget>
     </item>
@@ -137,7 +137,7 @@
     <item row="1" column="1">
      <widget class="QLabel" name="numofhistoryqueue">
       <property name="text">
-       <string>1</string>
+       <string>0</string>
       </property>
      </widget>
     </item>
@@ -151,7 +151,7 @@
     <item row="2" column="1">
      <widget class="QLabel" name="numofdownloadqueue">
       <property name="text">
-       <string>1</string>
+       <string>0</string>
       </property>
      </widget>
     </item>
@@ -165,7 +165,7 @@
     <item row="3" column="1">
      <widget class="QLabel" name="numofparsequeue">
       <property name="text">
-       <string>1</string>
+       <string>0</string>
       </property>
      </widget>
     </item>
@@ -179,7 +179,7 @@
     <item row="4" column="1">
      <widget class="QLabel" name="numofsavequeue">
       <property name="text">
-       <string>1</string>
+       <string>0</string>
       </property>
      </widget>
     </item>

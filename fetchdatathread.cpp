@@ -3,7 +3,7 @@
 #include "databasemanager.h"
 #include "statusbarsetter.h"
 #include "playermatchhistory.h"
-#include "fetchplayermatchhistorythread.h"
+#include "fetchmatchhistorythread.h"
 #include "matchdetaildownloadthread.h"
 #include "matchdetailparsethread.h"
 #include "matchdetailsavethread.h"
@@ -26,7 +26,7 @@ void FetchDataThread::setStartTime(unsigned int starttime)
 
 void FetchDataThread::run()
 {
-	FetchPlayerMatchHistoryThread *m_fetchplayermatchhistorythread = new FetchPlayerMatchHistoryThread;
+	FetchMatchHistoryThread *m_fetchplayermatchhistorythread = new FetchMatchHistoryThread;
 	MatchDetailDownloadThread *m_matchdetaildownloadthread = new MatchDetailDownloadThread;
 	MatchDetailParseThread *m_matchdetailparsethread = new MatchDetailParseThread;
 	MatchDetailSaveThread *m_matchdetailsavethread = new MatchDetailSaveThread;

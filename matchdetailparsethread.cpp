@@ -1,6 +1,6 @@
 #include "matchdetailparsethread.h"
 #include <QUrl>
-#include "fetchplayermatchhistorythread.h"
+#include "fetchmatchhistorythread.h"
 #include "Utility.h"
 #include "matchdetaildownloadthread.h"
 #include <QMutexLocker>
@@ -18,12 +18,12 @@ void MatchDetailParseThread::run()
 		}
 
 		auto data = MatchDetailDownloadThread::getInstance().getData();
-		if (data.isEmpty())
+		if (std::get<2>(data).isEmpty())
 			continue;
 
-		qDebug() << "parse match detail";
-		MatchDetail matchdetail(0);
-		matchdetail.parseMatchDetailData(data);
+		qDebug() << "parse match " << std::get<0>(data) << " detail";
+		MatchDetail matchdetail(std::get<0>(data), std::get<1>(data));
+		matchdetail.parseMatchDetailData(std::get<2>(data));
 
 		{
 			QMutexLocker locker(&mutex);

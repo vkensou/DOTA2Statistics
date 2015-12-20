@@ -1,6 +1,6 @@
 #include "matchdetaildownloadthread.h"
 #include <QUrl>
-#include "fetchplayermatchhistorythread.h"
+#include "fetchmatchhistorythread.h"
 #include "Utility.h"
 #include <QMutexLocker>
 
@@ -16,18 +16,18 @@ void MatchDetailDownloadThread::run()
 				continue;
 		}
 
-		int matchid = FetchPlayerMatchHistoryThread::getInstance().getMatch();
+		auto match = FetchMatchHistoryThread::getInstance().getMatch();
 		{
-			if (matchid == 0)
+			if (match.first == 0)
 				continue;
 		}
 
-		qDebug() << "download match " << matchid << " detail";
-		auto url = getMatchDetailURL(matchid);
+		qDebug() << "download match " << match.first << " detail";
+		auto url = getMatchDetailURL(match.first);
 		auto data = downloadWebPage(url);
 		{
 			QMutexLocker locker(&mutex);
-			m_dataqueue.push(data);
+			m_dataqueue.push(std::make_tuple(match.first, match.second, data));
 		}
 	}
 }
@@ -42,13 +42,13 @@ QUrl MatchDetailDownloadThread::getMatchDetailURL(int matchid)
 
 }
 
-QString MatchDetailDownloadThread::getData()
+MatchDetailDownloadThread::MatchDownlodInfo MatchDetailDownloadThread::getData()
 {
 	QMutexLocker locker(&mutex);
 	if (m_dataqueue.empty())
-		return "";
+		return std::make_tuple(0, 0, "");
 
-	QString data = m_dataqueue.front();
+	auto data = m_dataqueue.front();
 	m_dataqueue.pop();
 	return data;
 }

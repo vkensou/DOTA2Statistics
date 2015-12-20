@@ -4,7 +4,7 @@
 #include "ui_view_fetchdata.h"
 #include <QUrl>
 #include "fetchdatathread.h"
-#include "fetchplayermatchhistorythread.h"
+#include "fetchmatchhistorythread.h"
 #include "matchdetaildownloadthread.h"
 #include "matchdetailparsethread.h"
 #include "matchdetailsavethread.h"
@@ -94,7 +94,7 @@ QUrl FetchDataView::getMatchHistoryURL(int playerid /*= 0*/, int startmatch /*= 
 void FetchDataView::timerEvent(QTimerEvent *)
 {
 	ui->numofplayerqueue->setText(QString::number(FetchDataThread::getInstance().getCount()));
-	ui->numofhistoryqueue->setText(QString::number(FetchPlayerMatchHistoryThread::getInstance().getCount()));
+	ui->numofhistoryqueue->setText(QString::number(FetchMatchHistoryThread::getInstance().getCount()));
 	ui->numofdownloadqueue->setText(QString::number(MatchDetailDownloadThread::getInstance().getCount()));
 	ui->numofparsequeue->setText(QString::number(MatchDetailParseThread::getInstance().getCount()));
 	ui->numofsavequeue->setText(QString::number(MatchDetailSaveThread::getInstance().getCount()));

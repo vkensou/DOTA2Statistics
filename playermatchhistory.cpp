@@ -15,7 +15,7 @@ int PlayerMatchHistory::at(int i)
 	return m_matchhistory[i];
 }
 
-bool PlayerMatchHistory::downloadPlayerAllHistory(int playerid, unsigned int starttime)
+bool PlayerMatchHistory::downloadPlayerAllHistory(int playerid, unsigned int starttime /*= 0*/, int skill /*= 0*/)
 {
 	m_prepared = false;
 	m_matchhistory.clear();
@@ -23,7 +23,7 @@ bool PlayerMatchHistory::downloadPlayerAllHistory(int playerid, unsigned int sta
 	int remaining = 0, lastmatch = 0;
 	do
 	{
-		auto url = getMatchHistoryURL(playerid, lastmatch, 0);
+		auto url = getMatchHistoryURL(playerid, lastmatch, skill);
 		int error = 0;
 		auto data = downloadWebPage(url, &error);
 		if (error != 0)
@@ -42,6 +42,11 @@ bool PlayerMatchHistory::downloadPlayerAllHistory(int playerid, unsigned int sta
 bool PlayerMatchHistory::prepared()
 {
 	return m_prepared;
+}
+
+void PlayerMatchHistory::clear()
+{
+	m_prepared = false;
 }
 
 QUrl PlayerMatchHistory::getMatchHistoryURL(int playerid /*= 0*/, int startmatch /*= 0*/, int skill /*= 0*/, unsigned int startdate /*= 0*/, int gamemode /*= 0*/)

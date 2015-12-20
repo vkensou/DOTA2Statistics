@@ -2,12 +2,11 @@
 #include "utility.h"
 #include <QDomDocument>
 #include "databasemanager.h"
-#include "queuewaitfetchedplayers.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
-MatchDetail::MatchDetail(int matchid) 
-	:matchid(matchid)
+MatchDetail::MatchDetail(int matchid, int skill) 
+	:matchid(matchid), skill(skill)
 {
 
 }
@@ -154,14 +153,14 @@ void MatchDetail::parseMatchDetailData(QString &data)
 					if (anode.tagName() == "account_id")
 					{
 						player->accountid = anode.text().toInt();
-						if (player->accountid != 0)
-						{
-							auto queue = QueueWaitFetchedPlayers::getInstancePtr();
-							if (queue)
-							{
-								queue->push(player->accountid);
-							}
-						}
+						//if (player->accountid != 0)
+						//{
+						//	auto queue = QueueWaitFetchedPlayers::getInstancePtr();
+						//	if (queue)
+						//	{
+						//		queue->push(player->accountid);
+						//	}
+						//}
 					}
 					else if (anode.tagName() == "hero_id")
 						player->heroid = anode.text().toInt();

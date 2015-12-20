@@ -9,8 +9,9 @@ class PlayerMatchHistory
 public:
 	int getCount();
 	int at(int i);
-	bool downloadPlayerAllHistory(int playerid, unsigned int starttime = 0);
+	bool downloadPlayerAllHistory(int playerid, unsigned int starttime = 0, int skill = 0);
 	bool prepared();
+	void clear();
 
 private:
 	QUrl getMatchHistoryURL(int playerid = 0, int startmatch = 0, int skill = 0, unsigned int startdate = 0, int gamemode = 0);

@@ -168,6 +168,7 @@ bool DataBaseManager::loadMatchDetail(MatchDetail& matchdetail)
 		matchdetail.gamemode = record.value("gamemode").toInt();
 		matchdetail.engine = record.value("engine").toInt();
 		matchdetail.starttime = record.value("starttime").toInt();
+		matchdetail.skill = record.value("skill").toInt();
 	}
 
 	if (!loadMatchDetailSide(matchdetail))
@@ -192,12 +193,12 @@ void DataBaseManager::saveMatchDetail(MatchDetail &matchdetail)
 		return;
 
 	static QString sqlinsert = "INSERT INTO matchdetail(matchid, victoryparty, duration, seqnum, cluster, firstbloodtime, lobbytype, humanplayer, leagueid, "
-		"positivevotes, negativevotes, gamemode, engine, starttime) "
-		"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14);";
+		"positivevotes, negativevotes, gamemode, engine, starttime, skill) "
+		"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14, %15);";
 
 	db.exec(sqlinsert.arg(matchdetail.matchid).arg(matchdetail.victoryparty).arg(matchdetail.duration).arg(matchdetail.matchseqnum).arg(matchdetail.cluster)
 		.arg(matchdetail.firstbloodtime).arg(matchdetail.lobbytype).arg(matchdetail.humanplayer).arg(matchdetail.leagueid).arg(matchdetail.positivevotes)
-		.arg(matchdetail.negativevotes).arg(matchdetail.gamemode).arg(matchdetail.engine).arg(matchdetail.starttime)
+		.arg(matchdetail.negativevotes).arg(matchdetail.gamemode).arg(matchdetail.engine).arg(matchdetail.starttime).arg(matchdetail.skill)
 		);
 	auto e2 = db.lastError().text();
 
@@ -321,6 +322,7 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 		matchdetail.gamemode = record.value("gamemode").toInt();
 		matchdetail.engine = record.value("engine").toInt();
 		matchdetail.starttime = record.value("starttime").toInt();
+		matchdetail.starttime = record.value("skill").toInt();
 		//side
 		{
 			static QString tablename = "matchdetail_side";
@@ -501,12 +503,12 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 		//save
 		{
 			static QString sqlinsertmatch = "INSERT INTO matchdetail(matchid, victoryparty, duration, seqnum, cluster, firstbloodtime, lobbytype, humanplayer, leagueid, "
-				"positivevotes, negativevotes, gamemode, engine, starttime) "
-				"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14);";
+				"positivevotes, negativevotes, gamemode, engine, starttime, skill) "
+				"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14, %15);";
 
 			db.exec(sqlinsertmatch.arg(matchdetail.matchid).arg(matchdetail.victoryparty).arg(matchdetail.duration).arg(matchdetail.matchseqnum).arg(matchdetail.cluster)
 				.arg(matchdetail.firstbloodtime).arg(matchdetail.lobbytype).arg(matchdetail.humanplayer).arg(matchdetail.leagueid).arg(matchdetail.positivevotes)
-				.arg(matchdetail.negativevotes).arg(matchdetail.gamemode).arg(matchdetail.engine).arg(matchdetail.starttime)
+				.arg(matchdetail.negativevotes).arg(matchdetail.gamemode).arg(matchdetail.engine).arg(matchdetail.starttime).arg(matchdetail.skill)
 				);
 
 			static QString sqlinsertpickban = "INSERT INTO matchdetail_pickban(matchid, ispick, heroid, team, bporder) VALUES(%1, %2, %3, %4, %5);";
@@ -642,6 +644,7 @@ void DataBaseManager::initMatchDetaildbs()
 		"gamemode  INTEGER NOT NULL,"
 		"engine  INTEGER NOT NULL,"
 		"starttime  INTEGER NOT NULL,"
+		"skill  INTEGER NOT NULL,"
 		"PRIMARY KEY(matchid)); ";
 
 	db.exec(sqlcreatematchdetail);
