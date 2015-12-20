@@ -23,6 +23,7 @@ public:
 	void transaction();
 	bool commit();
 
+	QMutex &getMutex();
 	void lock();
 	void unlock();
 
@@ -34,6 +35,7 @@ public:
 
 	bool loadMatchDetail(MatchDetail& matchdetail);
 	void saveMatchDetail(MatchDetail& matchdetail, bool transaction = true, bool lock = false);
+	void updateMatchDetailSkill(int matchid, int skill);
 
 	bool isMatchSaved(int matchid);
 	bool isPlayerSaved(int playerid);

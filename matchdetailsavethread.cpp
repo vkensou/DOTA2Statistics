@@ -3,6 +3,7 @@
 #include "matchdetailparsethread.h"
 #include <QDebug>
 #include "databasemanager.h"
+#include <QMutexLocker>
 
 int MatchDetailSaveThread::getSaved()
 {
@@ -24,9 +25,9 @@ void MatchDetailSaveThread::run()
 			continue;
 
 		qDebug() << "save match " << match.matchid;
-		DataBaseManager::getInstance().lock();
+		auto &dbmanager = DataBaseManager::getInstance();
+		QMutexLocker locker(&dbmanager.getMutex());
 		match.save();
-		DataBaseManager::getInstance().unlock();
 		m_count++;
 	}
 }

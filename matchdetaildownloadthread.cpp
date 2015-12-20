@@ -3,6 +3,7 @@
 #include "fetchmatchhistorythread.h"
 #include "Utility.h"
 #include <QMutexLocker>
+#include "databasemanager.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -23,6 +24,17 @@ void MatchDetailDownloadThread::run()
 		}
 
 		qDebug() << "download match " << match.first << " detail";
+		auto &dbmanager = DataBaseManager::getInstance();
+
+		{
+			QMutexLocker locker(&dbmanager.getMutex());
+			if (dbmanager.isMatchSaved(match.first))
+			{
+				dbmanager.updateMatchDetailSkill(match.first, match.second);
+				continue;
+			}
+		}
+
 		auto url = getMatchDetailURL(match.first);
 		auto data = downloadWebPage(url);
 		{

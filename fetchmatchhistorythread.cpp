@@ -60,7 +60,7 @@ bool FetchMatchHistoryThread::downloadAllHistory(int skill)
 		if (error != 0)
 			return false;
 		parseHistoryData(data, skill, 0, remaining, lastmatch);
-	} while (remaining > 0);
+	} while (remaining > 0 && !isInterruptionRequested());
 	return true;
 }
 

@@ -38,6 +38,11 @@ bool DataBaseManager::commit()
 	return db.commit();
 }
 
+QMutex & DataBaseManager::getMutex()
+{
+	return mutex;
+}
+
 void DataBaseManager::lock()
 {
 	mutex.lock();
@@ -224,11 +229,20 @@ void DataBaseManager::saveMatchDetail(MatchDetail& matchdetail, bool transaction
 		saveMatchDetailPickBanList(matchdetail);
 
 	saveMatchDetailPlayerInfo(matchdetail);
+	bool e = isMatchSaved(matchdetail.matchid);
 
 	if (transaction)
 		db.commit();
+
 	if (lock)
 		mutex.unlock();
+}
+
+void DataBaseManager::updateMatchDetailSkill(int matchid, int skill)
+{
+	static QString sqlupdate_matchdetail_skill = "update matchdetail set skill=%1 where matchid=%2";
+	db.exec(sqlupdate_matchdetail_skill.arg(skill).arg(matchid));
+	auto errstr = db.lastError().text();
 }
 
 bool DataBaseManager::isMatchSaved(int matchid)
