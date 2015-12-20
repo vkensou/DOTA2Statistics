@@ -357,7 +357,7 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 		matchdetail.gamemode = record.value("gamemode").toInt();
 		matchdetail.engine = record.value("engine").toInt();
 		matchdetail.starttime = record.value("starttime").toInt();
-		matchdetail.starttime = record.value("skill").toInt();
+		matchdetail.skill = record.value("skill").toInt();
 		//side
 		{
 			static QString tablename = "matchdetail_side";

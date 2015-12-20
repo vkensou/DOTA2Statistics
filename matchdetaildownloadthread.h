@@ -6,20 +6,20 @@
 #include "singleton.h"
 
 class MatchDetailDownloadThread
-	:public QThread, public Singleton<MatchDetailDownloadThread>
+	:public QThread
 {
 	typedef std::tuple<int, int, QString> MatchDownlodInfo;
 public:
 
 	virtual void run() override;
-	MatchDownlodInfo getData();
-	int getCount();
+	static MatchDownlodInfo getData();
+	static int getCount();
 
 private:
 	QUrl getMatchDetailURL(int matchid);
-
+	static void push(MatchDownlodInfo &info);
 private:
-	QMutex mutex;
-	const int MAX_SIZE{ 10 };
-	std::queue<MatchDownlodInfo> m_dataqueue;
+	static QMutex mutex;
+	static const int MAX_SIZE{ 10 };
+	static std::queue<MatchDownlodInfo> m_dataqueue;
 };

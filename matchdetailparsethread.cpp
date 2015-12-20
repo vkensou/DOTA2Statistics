@@ -17,7 +17,7 @@ void MatchDetailParseThread::run()
 				continue;
 		}
 
-		auto data = MatchDetailDownloadThread::getInstance().getData();
+		auto data = MatchDetailDownloadThread::getData();
 		if (std::get<2>(data).isEmpty())
 			continue;
 

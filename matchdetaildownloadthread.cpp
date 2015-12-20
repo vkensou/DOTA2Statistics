@@ -38,8 +38,7 @@ void MatchDetailDownloadThread::run()
 		auto url = getMatchDetailURL(match.first);
 		auto data = downloadWebPage(url);
 		{
-			QMutexLocker locker(&mutex);
-			m_dataqueue.push(std::make_tuple(match.first, match.second, data));
+			push(std::make_tuple(match.first, match.second, data));
 		}
 	}
 	FetchMatchHistoryThread::getInstance().getMatch();
@@ -52,7 +51,12 @@ QUrl MatchDetailDownloadThread::getMatchDetailURL(int matchid)
 
 	QUrl url = str;
 	return url;
+}
 
+void MatchDetailDownloadThread::push(MatchDownlodInfo &info)
+{
+	QMutexLocker locker(&mutex);
+	m_dataqueue.push(info);
 }
 
 MatchDetailDownloadThread::MatchDownlodInfo MatchDetailDownloadThread::getData()
@@ -71,3 +75,6 @@ int MatchDetailDownloadThread::getCount()
 	QMutexLocker locker(&mutex);
 	return m_dataqueue.size();
 }
+
+QMutex MatchDetailDownloadThread::mutex;
+std::queue<MatchDetailDownloadThread::MatchDownlodInfo> MatchDetailDownloadThread::m_dataqueue;

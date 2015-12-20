@@ -47,8 +47,8 @@
      <string>菜单</string>
     </property>
     <addaction name="action_set_datasource"/>
-    <addaction name="action_about"/>
     <addaction name="action_joinDatabase"/>
+    <addaction name="action_about"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">

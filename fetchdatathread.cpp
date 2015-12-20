@@ -27,12 +27,14 @@ void FetchDataThread::setStartTime(unsigned int starttime)
 void FetchDataThread::run()
 {
 	FetchMatchHistoryThread *m_fetchplayermatchhistorythread = new FetchMatchHistoryThread;
-	MatchDetailDownloadThread *m_matchdetaildownloadthread = new MatchDetailDownloadThread;
+	MatchDetailDownloadThread *m_matchdetaildownloadthread = new MatchDetailDownloadThread[4];
+
 	MatchDetailParseThread *m_matchdetailparsethread = new MatchDetailParseThread;
 	MatchDetailSaveThread *m_matchdetailsavethread = new MatchDetailSaveThread;
 
 	m_fetchplayermatchhistorythread->start();
-	m_matchdetaildownloadthread->start();
+	for (int i = 0; i < 4; ++i)
+		m_matchdetaildownloadthread[i].start();
 	m_matchdetailparsethread->start();
 	m_matchdetailsavethread->start();
 
@@ -42,17 +44,19 @@ void FetchDataThread::run()
 	}
 
 	m_fetchplayermatchhistorythread->requestInterruption();
-	m_matchdetaildownloadthread->requestInterruption();
+	for (int i = 0; i < 4; ++i)
+		m_matchdetaildownloadthread[i].requestInterruption();
 	m_matchdetailparsethread->requestInterruption();
 	m_matchdetailsavethread->requestInterruption();
 
 	m_fetchplayermatchhistorythread->wait();
-	m_matchdetaildownloadthread->wait();
+	for (int i = 0; i < 4; ++i)
+		m_matchdetaildownloadthread[i].wait();
 	m_matchdetailparsethread->wait();
 	m_matchdetailsavethread->wait();
 
 	delete m_fetchplayermatchhistorythread;
-	delete m_matchdetaildownloadthread;
+	delete[] m_matchdetaildownloadthread;
 	delete m_matchdetailparsethread;
 	delete m_matchdetailsavethread;
 }
