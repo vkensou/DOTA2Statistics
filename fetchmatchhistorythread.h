@@ -1,12 +1,11 @@
 #pragma once
 
 #include <QThread>
-#include "playermatchhistory.h"
 #include <QMutex>
 #include "singleton.h"
 #include <queue>
-#include <QSemaphore>
 #include <utility>
+#include <QSemaphore>
 
 class FetchMatchHistoryThread
 	:public QThread, public Singleton<FetchMatchHistoryThread>
@@ -14,18 +13,19 @@ class FetchMatchHistoryThread
 public:
 	std::pair<int, int> getMatch();
 	int getCount();
-	int getSkill();
-
-public:
-	QMutex mutex;
 
 private:
 	virtual void run() override;
+	bool downloadAllHistory(int skill);
+	QUrl getMatchHistoryURL(int playerid = 0, int startmatch = 0, int skill = 0, unsigned int startdate = 0, int gamemode = 0);
+	void parseHistoryData(QString &data, int skill, int starttime, int &remaining, int &lastmatch);
 
 private:
-	PlayerMatchHistory *m_frontplayermatchhistory{ nullptr }, *m_backplayermatchhistory{ nullptr };
-	int m_frontcount{ 0 }, m_frontindex{ 0 };
-	bool m_needdownload;
 	int m_skill{ 1 };
 	int m_frontskill, m_backskill;
+	const int MAX_SIZE{ 1500 };
+	std::queue<std::pair<int, int>> m_queue;
+	QSemaphore freesmp{ MAX_SIZE }, usedsmp;
+	bool m_prepared{ false };
+	QMutex mutex;
 };

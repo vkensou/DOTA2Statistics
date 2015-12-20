@@ -36,15 +36,9 @@ void FetchDataThread::run()
 	m_matchdetailparsethread->start();
 	m_matchdetailsavethread->start();
 
-	initFetchQueue();
-
 	m_fetchedplayer = m_fetchedmatch = 0;
 	while (!isInterruptionRequested())
 	{
-		QMutexLocker locker(&m_mutex);
-
-		if (m_queuewaitfetchedplayers.isEmpty())
-			initFetchQueue();
 	}
 
 	m_fetchplayermatchhistorythread->requestInterruption();
@@ -61,28 +55,4 @@ void FetchDataThread::run()
 	delete m_matchdetaildownloadthread;
 	delete m_matchdetailparsethread;
 	delete m_matchdetailsavethread;
-}
-
-int FetchDataThread::getPlayerid()
-{
-	QMutexLocker locker(&m_mutex);
-	return m_queuewaitfetchedplayers.pop();
-}
-
-void FetchDataThread::pushPlayerid(int playerid)
-{
-	QMutexLocker locker(&m_mutex);
-	m_queuewaitfetchedplayers.push(playerid);
-}
-
-int FetchDataThread::getCount()
-{
-	QMutexLocker locker(&m_mutex);
-	return m_queuewaitfetchedplayers.getSize();
-}
-
-void FetchDataThread::initFetchQueue()
-{
-	int initplayerid = DataBaseManager::getInstance().getPlayerRandomly();
-	m_queuewaitfetchedplayers.push(initplayerid);
 }

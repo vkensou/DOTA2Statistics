@@ -93,11 +93,10 @@ QUrl FetchDataView::getMatchHistoryURL(int playerid /*= 0*/, int startmatch /*= 
 
 void FetchDataView::timerEvent(QTimerEvent *)
 {
-	ui->numofplayerqueue->setText(QString::number(FetchDataThread::getInstance().getCount()));
 	ui->numofhistoryqueue->setText(QString::number(FetchMatchHistoryThread::getInstance().getCount()));
 	ui->numofdownloadqueue->setText(QString::number(MatchDetailDownloadThread::getInstance().getCount()));
 	ui->numofparsequeue->setText(QString::number(MatchDetailParseThread::getInstance().getCount()));
-	ui->numofsavequeue->setText(QString::number(MatchDetailSaveThread::getInstance().getCount()));
+	ui->numoffetched->setText(QString::number(MatchDetailSaveThread::getInstance().getSaved()));
 }
 
 void FetchDataView::closeEvent(QCloseEvent *)

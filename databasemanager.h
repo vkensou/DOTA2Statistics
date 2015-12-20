@@ -33,7 +33,7 @@ public:
 	void saveHeroItems(const QString &heroname, std::function<void(std::function<void(const ItemRateAndUsed *)>)> &callback, const DataConfig &config);
 
 	bool loadMatchDetail(MatchDetail& matchdetail);
-	void saveMatchDetail(MatchDetail& matchdetail);
+	void saveMatchDetail(MatchDetail& matchdetail, bool transaction = true, bool lock = false);
 
 	bool isMatchSaved(int matchid);
 	bool isPlayerSaved(int playerid);

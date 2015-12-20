@@ -30,6 +30,7 @@ void MatchDetailDownloadThread::run()
 			m_dataqueue.push(std::make_tuple(match.first, match.second, data));
 		}
 	}
+	FetchMatchHistoryThread::getInstance().getMatch();
 }
 
 QUrl MatchDetailDownloadThread::getMatchDetailURL(int matchid)

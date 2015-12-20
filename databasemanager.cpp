@@ -38,6 +38,16 @@ bool DataBaseManager::commit()
 	return db.commit();
 }
 
+void DataBaseManager::lock()
+{
+	mutex.lock();
+}
+
+void DataBaseManager::unlock()
+{
+	mutex.unlock();
+}
+
 bool DataBaseManager::loadHeroesUsedAndRate(std::function<void(const QString &, int, double)> &callback, const DataConfig &config)
 {
 	QString tablename = getTable_HeroesUsedAndRate_Name(config);
@@ -180,8 +190,14 @@ bool DataBaseManager::loadMatchDetail(MatchDetail& matchdetail)
 	return loadMatchDetailPlayerInfo(matchdetail);
 }
 
-void DataBaseManager::saveMatchDetail(MatchDetail &matchdetail)
+void DataBaseManager::saveMatchDetail(MatchDetail& matchdetail, bool transaction /*= true*/, bool lock /*= false*/)
 {
+	if (lock)
+		mutex.lock();
+
+	if (transaction)
+		db.transaction();
+
 	static QString tablename = "matchdetail";
 
 	QSqlTableModel model(0, db);
@@ -208,6 +224,11 @@ void DataBaseManager::saveMatchDetail(MatchDetail &matchdetail)
 		saveMatchDetailPickBanList(matchdetail);
 
 	saveMatchDetailPlayerInfo(matchdetail);
+
+	if (transaction)
+		db.commit();
+	if (lock)
+		mutex.unlock();
 }
 
 bool DataBaseManager::isMatchSaved(int matchid)

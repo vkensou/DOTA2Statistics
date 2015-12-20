@@ -4,6 +4,11 @@
 #include <QDebug>
 #include "databasemanager.h"
 
+int MatchDetailSaveThread::getSaved()
+{
+	return m_count;
+}
+
 int MatchDetailSaveThread::getCount()
 {
 	return m_count;
@@ -19,9 +24,9 @@ void MatchDetailSaveThread::run()
 			continue;
 
 		qDebug() << "save match " << match.matchid;
-		DataBaseManager::getInstance().transaction();
+		DataBaseManager::getInstance().lock();
 		match.save();
-		DataBaseManager::getInstance().commit();
+		DataBaseManager::getInstance().unlock();
 		m_count++;
 	}
 }
