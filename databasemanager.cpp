@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "matchdetail.h"
 #include <QDir>
+#include <QMessageBox>
 
 DataBaseManager::DataBaseManager()
 {
@@ -324,23 +325,23 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 	modelnew.setTable("matchdetail");
 	modelnew.select();
 
-	if (modelnew.rowCount() == 0)
-	{
-		newdb.close();
-		return true;
-	}
+	while (modelnew.canFetchMore())
+		modelnew.fetchMore();
 
 	db.transaction();
+	int exist(0), merged(0);
 
 	for (int i = 0; i < modelnew.rowCount(); ++i)
 	{
 		auto record = modelnew.record(i);
 		int matchid = record.value("matchid").toInt();
-		static QString sqlselect = "select matchid from matchdetail WHERE matchid = %1;";
-		QSqlQuery r = db.exec(sqlselect.arg(matchid));
-		//r.next()返回true，说明不为空
-		if (r.next())
+		static QString sqlselect = "select count(*) from matchdetail WHERE matchid = %1;";
+		if (isMatchSaved(matchid))
+		{
+			exist++;
 			continue;
+		}
+
 		MatchDetail matchdetail(matchid);
 		//load
 		//match detail
@@ -367,37 +368,32 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 			model.setFilter(QString("matchid=%1").arg(matchdetail.matchid));
 			model.select();
 
-			if (model.rowCount() != 2)
-				return false;
-			else
+			for (int i = 0; i < 2; ++i)
 			{
-				for (int i = 0; i < 2; ++i)
-				{
-					QSqlRecord record;
-					int side;
+				QSqlRecord record;
+				int side;
 
-					record = model.record(i);
-					side = record.value("side").toInt();
-					if (side == 1)
-					{
-						matchdetail.radianttower = record.value("tower").toInt();
-						matchdetail.radiantbarracks = record.value("barrack").toInt();
-						matchdetail.radiantgpm = record.value("gpm").toInt();
-						matchdetail.radiantxpm = record.value("xpm").toInt();
-						matchdetail.radiantherodamage = record.value("herodamage").toInt();
-						matchdetail.radianttowerdamage = record.value("towerdamage").toInt();
-						matchdetail.radiantherohealing = record.value("herohealing").toInt();
-					}
-					else
-					{
-						matchdetail.diretower = record.value("tower").toInt();
-						matchdetail.direbarracks = record.value("barrack").toInt();
-						matchdetail.diregpm = record.value("gpm").toInt();
-						matchdetail.direxpm = record.value("xpm").toInt();
-						matchdetail.direherodamage = record.value("herodamage").toInt();
-						matchdetail.diretowerdamage = record.value("towerdamage").toInt();
-						matchdetail.direherohealing = record.value("herohealing").toInt();
-					}
+				record = model.record(i);
+				side = record.value("side").toInt();
+				if (side == 1)
+				{
+					matchdetail.radianttower = record.value("tower").toInt();
+					matchdetail.radiantbarracks = record.value("barrack").toInt();
+					matchdetail.radiantgpm = record.value("gpm").toInt();
+					matchdetail.radiantxpm = record.value("xpm").toInt();
+					matchdetail.radiantherodamage = record.value("herodamage").toInt();
+					matchdetail.radianttowerdamage = record.value("towerdamage").toInt();
+					matchdetail.radiantherohealing = record.value("herohealing").toInt();
+				}
+				else
+				{
+					matchdetail.diretower = record.value("tower").toInt();
+					matchdetail.direbarracks = record.value("barrack").toInt();
+					matchdetail.diregpm = record.value("gpm").toInt();
+					matchdetail.direxpm = record.value("xpm").toInt();
+					matchdetail.direherodamage = record.value("herodamage").toInt();
+					matchdetail.diretowerdamage = record.value("towerdamage").toInt();
+					matchdetail.direherohealing = record.value("herohealing").toInt();
 				}
 			}
 		}
@@ -411,18 +407,13 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 			model.setFilter(QString("matchid=%1").arg(matchdetail.matchid));
 			model.select();
 
-			if (model.rowCount() == 0)
-				return false;
-			else
+			for (int i = 0; i < model.rowCount(); ++i)
 			{
-				for (int i = 0; i < model.rowCount(); ++i)
-				{
-					auto record = model.record(i);
-					int order = record.value("bporder").toInt();
-					matchdetail.pickbanlist[order].ispick = record.value("ispick").toInt() == 1;
-					matchdetail.pickbanlist[order].heroid = record.value("heroid").toInt();
-					matchdetail.pickbanlist[order].team = record.value("team").toInt();
-				}
+				auto record = model.record(i);
+				int order = record.value("bporder").toInt();
+				matchdetail.pickbanlist[order].ispick = record.value("ispick").toInt() == 1;
+				matchdetail.pickbanlist[order].heroid = record.value("heroid").toInt();
+				matchdetail.pickbanlist[order].team = record.value("team").toInt();
 			}
 		}
 		//playerinfo
@@ -434,39 +425,34 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 			model.setFilter(QString("matchid=%1").arg(matchdetail.matchid));
 			model.select();
 
-			if (model.rowCount() == 0)
-				return false;
-			else
+			for (int i = 0; i < model.rowCount(); ++i)
 			{
-				for (int i = 0; i < model.rowCount(); ++i)
-				{
-					auto record = model.record(i);
-					int slot = record.value("slot").toInt();
+				auto record = model.record(i);
+				int slot = record.value("slot").toInt();
 
-					MatchDetail::PlayerDetail *player;
-					if (slot < 128)
-						player = &matchdetail.radiantplayers[slot];
-					else
-						player = &matchdetail.direplayers[slot - 128];
+				MatchDetail::PlayerDetail *player;
+				if (slot < 128)
+					player = &matchdetail.radiantplayers[slot];
+				else
+					player = &matchdetail.direplayers[slot - 128];
 
-					player->accountid = record.value("accountid").toInt();
-					player->heroid = record.value("heroid").toInt();
-					player->unitname = record.value("unitname").toString();
-					player->kills = record.value("kills").toInt();
-					player->deaths = record.value("deaths").toInt();
-					player->assists = record.value("assists").toInt();
-					player->level = record.value("level").toInt();
-					player->gold = record.value("gold").toInt();
-					player->lasthits = record.value("lasthits").toInt();
-					player->denies = record.value("denies").toInt();
-					player->goldpermin = record.value("goldpermin").toInt();
-					player->xppermin = record.value("xppermin").toInt();
-					player->goldspent = record.value("goldspent").toInt();
-					player->herodamage = record.value("herodamage").toInt();
-					player->towerdamage = record.value("towerdamage").toInt();
-					player->herohealing = record.value("herohealing").toInt();
-					player->leaverstatus = record.value("leaverstatus").toInt();
-				}
+				player->accountid = record.value("accountid").toInt();
+				player->heroid = record.value("heroid").toInt();
+				player->unitname = record.value("unitname").toString();
+				player->kills = record.value("kills").toInt();
+				player->deaths = record.value("deaths").toInt();
+				player->assists = record.value("assists").toInt();
+				player->level = record.value("level").toInt();
+				player->gold = record.value("gold").toInt();
+				player->lasthits = record.value("lasthits").toInt();
+				player->denies = record.value("denies").toInt();
+				player->goldpermin = record.value("goldpermin").toInt();
+				player->xppermin = record.value("xppermin").toInt();
+				player->goldspent = record.value("goldspent").toInt();
+				player->herodamage = record.value("herodamage").toInt();
+				player->towerdamage = record.value("towerdamage").toInt();
+				player->herohealing = record.value("herohealing").toInt();
+				player->leaverstatus = record.value("leaverstatus").toInt();
 			}
 		}
 		//abilities
@@ -478,26 +464,21 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 			model.setFilter(QString("matchid=%1").arg(matchdetail.matchid));
 			model.select();
 
-			if (model.rowCount() == 0)
-				return false;
-			else
+			for (int i = 0; i < model.rowCount(); ++i)
 			{
-				for (int i = 0; i < model.rowCount(); ++i)
-				{
-					auto record = model.record(i);
-					int slot = record.value("slot").toInt();
+				auto record = model.record(i);
+				int slot = record.value("slot").toInt();
 
-					MatchDetail::PlayerDetail *player;
-					if (slot < 128)
-						player = &matchdetail.radiantplayers[slot];
-					else
-						player = &matchdetail.direplayers[slot - 128];
+				MatchDetail::PlayerDetail *player;
+				if (slot < 128)
+					player = &matchdetail.radiantplayers[slot];
+				else
+					player = &matchdetail.direplayers[slot - 128];
 
-					int level = record.value("level").toInt();
-					MatchDetail::PlayerDetail::AbilityUpgradesDetail &ability = player->abilityupgrades[level];
-					ability.ability = record.value("ability").toInt();
-					ability.time = record.value("time").toInt();
-				}
+				int level = record.value("level").toInt();
+				MatchDetail::PlayerDetail::AbilityUpgradesDetail &ability = player->abilityupgrades[level];
+				ability.ability = record.value("ability").toInt();
+				ability.time = record.value("time").toInt();
 			}
 		}
 		//items
@@ -509,30 +490,25 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 			model.setFilter(QString("matchid=%1").arg(matchdetail.matchid));
 			model.select();
 
-			if (model.rowCount() == 0)
-				return false;
-			else
+			for (int i = 0; i < model.rowCount(); ++i)
 			{
-				for (int i = 0; i < model.rowCount(); ++i)
-				{
-					auto record = model.record(i);
-					int slot = record.value("slot").toInt();
+				auto record = model.record(i);
+				int slot = record.value("slot").toInt();
 
-					MatchDetail::PlayerDetail *player;
-					if (slot < 128)
-						player = &matchdetail.radiantplayers[slot];
-					else
-						player = &matchdetail.direplayers[slot - 128];
+				MatchDetail::PlayerDetail *player;
+				if (slot < 128)
+					player = &matchdetail.radiantplayers[slot];
+				else
+					player = &matchdetail.direplayers[slot - 128];
 
-					int itemslot = record.value("itemslot").toInt();
-					MatchDetail::PlayerDetail::ItemInfo *iteminfo;
-					if (record.value("isunit").toInt() == 1)
-						iteminfo = &player->uitem[itemslot];
-					else
-						iteminfo = &player->item[itemslot];
+				int itemslot = record.value("itemslot").toInt();
+				MatchDetail::PlayerDetail::ItemInfo *iteminfo;
+				if (record.value("isunit").toInt() == 1)
+					iteminfo = &player->uitem[itemslot];
+				else
+					iteminfo = &player->item[itemslot];
 
-					iteminfo->id = record.value("item").toInt();
-				}
+				iteminfo->id = record.value("item").toInt();
 			}
 		}
 		//save
@@ -598,7 +574,7 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 			static QString sqlinsertside = "INSERT INTO matchdetail_side(matchid, side, win, tower, barrack, gpm, xpm, herodamage, towerdamage, herohealing) VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10);";
 			db.exec(sqlinsertside.arg(matchdetail.matchid).arg(1).arg(matchdetail.victoryparty == 1 ? 1 : 0).arg(matchdetail.radianttower).arg(matchdetail.radiantbarracks).arg(matchdetail.radiantgpm).arg(matchdetail.radiantxpm).arg(matchdetail.radiantherodamage).arg(matchdetail.radianttowerdamage).arg(matchdetail.radiantherohealing));
 			db.exec(sqlinsertside.arg(matchdetail.matchid).arg(0).arg(matchdetail.victoryparty == 0 ? 1 : 0).arg(matchdetail.diretower).arg(matchdetail.direbarracks).arg(matchdetail.diregpm).arg(matchdetail.direxpm).arg(matchdetail.direherodamage).arg(matchdetail.diretowerdamage).arg(matchdetail.direherohealing));
-		
+
 			static QString sqlinsertitems = "INSERT INTO matchdetail_items(matchid, slot, isunit, itemslot, item) "
 				"VALUES(%1, %2, %3, %4, %5);";
 
@@ -646,6 +622,7 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 				}
 			}
 		}
+		merged++;
 	}
 
 	if (!db.commit())
@@ -654,6 +631,7 @@ bool DataBaseManager::joinOtherDatabase(const QString &otherdbpath)
 	}
 
 	newdb.close();
+	QMessageBox::information(0, "merg", QString("%1,%2").arg(exist).arg(merged));
 	return true;
 }
 

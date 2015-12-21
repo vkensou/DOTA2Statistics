@@ -8,24 +8,26 @@
 #include <QSemaphore>
 
 class FetchMatchHistoryThread
-	:public QThread, public Singleton<FetchMatchHistoryThread>
+	:public QThread
 {
 public:
-	std::pair<int, int> getMatch();
-	int getCount();
+	typedef std::pair<int, int> MatchIDAndSkill;
+	void init(int skill);
+	static MatchIDAndSkill getMatch();
+	static void free();
+	static int getCount();
 
 private:
 	virtual void run() override;
 	bool downloadAllHistory(int skill);
 	QUrl getMatchHistoryURL(int playerid = 0, int startmatch = 0, int skill = 0, unsigned int startdate = 0, int gamemode = 0);
 	void parseHistoryData(QString &data, int skill, int starttime, int &remaining, int &lastmatch);
+	void push(MatchIDAndSkill &match);
 
 private:
-	int m_skill{ 1 };
-	int m_frontskill, m_backskill;
-	const int MAX_SIZE{ 1500 };
-	std::queue<std::pair<int, int>> m_queue;
-	QSemaphore freesmp{ MAX_SIZE }, usedsmp;
-	bool m_prepared{ false };
-	QMutex mutex;
+	int m_skill{ 0 };
+	static const int MAX_SIZE{ 1500 };
+	static std::queue<MatchIDAndSkill> m_queue;
+	static QSemaphore freesmp, usedsmp;
+	static QMutex mutex;
 };

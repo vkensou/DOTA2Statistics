@@ -17,7 +17,7 @@ void MatchDetailDownloadThread::run()
 				continue;
 		}
 
-		auto match = FetchMatchHistoryThread::getInstance().getMatch();
+		auto match = FetchMatchHistoryThread::getMatch();
 		{
 			if (match.first == 0)
 				continue;
@@ -41,7 +41,7 @@ void MatchDetailDownloadThread::run()
 			push(std::make_tuple(match.first, match.second, data));
 		}
 	}
-	FetchMatchHistoryThread::getInstance().getMatch();
+	FetchMatchHistoryThread::free();
 }
 
 QUrl MatchDetailDownloadThread::getMatchDetailURL(int matchid)

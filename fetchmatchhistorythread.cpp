@@ -10,6 +10,12 @@
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
+void FetchMatchHistoryThread::init(int skill)
+{
+	assert(skill >= 0 && skill <= 3);
+	m_skill = skill;
+}
+
 std::pair<int, int> FetchMatchHistoryThread::getMatch()
 {
 	usedsmp.acquire();
@@ -23,6 +29,11 @@ std::pair<int, int> FetchMatchHistoryThread::getMatch()
 	return data;
 }
 
+void FetchMatchHistoryThread::free()
+{
+	freesmp.release(100);
+}
+
 int FetchMatchHistoryThread::getCount()
 {
 	QMutexLocker locker(&mutex);
@@ -31,21 +42,9 @@ int FetchMatchHistoryThread::getCount()
 
 void FetchMatchHistoryThread::run()
 {
-	m_frontskill = m_backskill = m_skill = 1;
-
 	while (!isInterruptionRequested())
 	{
-		{
-			QMutexLocker locker(&mutex);
-			if (m_queue.size() >= MAX_SIZE)
-			{
-				continue;
-			}
-		}
-
-		downloadAllHistory(m_skill++);
-		if (m_skill > 3)
-			m_skill = 1;
+		downloadAllHistory(m_skill);
 	}
 }
 
@@ -104,10 +103,7 @@ void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int sta
 		int id = idnode.text().toInt();
 		if (matchnode.firstChildElement("start_time").text().toInt() > starttime)
 		{
-			freesmp.acquire();
-			QMutexLocker locker(&mutex);
-			m_queue.push({ id, skill });
-			usedsmp.release();
+			push(std::make_pair(id, skill));
 		}
 		else
 		{
@@ -118,3 +114,15 @@ void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int sta
 	}
 	lastmatch = last;
 }
+
+void FetchMatchHistoryThread::push(MatchIDAndSkill &match)
+{
+	freesmp.acquire();
+	QMutexLocker locker(&mutex);
+	m_queue.push(match);
+	usedsmp.release();
+}
+
+std::queue<FetchMatchHistoryThread::MatchIDAndSkill> FetchMatchHistoryThread::m_queue;
+QSemaphore FetchMatchHistoryThread::freesmp{ FetchMatchHistoryThread::MAX_SIZE }, FetchMatchHistoryThread::usedsmp;
+QMutex FetchMatchHistoryThread::mutex;

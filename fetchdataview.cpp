@@ -57,13 +57,14 @@ void FetchDataView::on_fetchdata_clicked()
 
 void FetchDataView::on_stop_clicked()
 {
-	if (m_timer)
-		killTimer(m_timer);
 	if (!m_fetchthread)
 		return;
+	if (m_timer)
+		killTimer(m_timer);
 	m_fetchthread->requestInterruption();
 	m_fetchthread->wait();
 	delete m_fetchthread;
+	m_fetchthread = 0;
 }
 
 QUrl FetchDataView::getMatchHistoryURL(int playerid /*= 0*/, int startmatch /*= 0*/, int skill /*= 0*/, unsigned int startdate /*= 0*/, int gamemode /*= 0*/)
@@ -93,7 +94,7 @@ QUrl FetchDataView::getMatchHistoryURL(int playerid /*= 0*/, int startmatch /*= 
 
 void FetchDataView::timerEvent(QTimerEvent *)
 {
-	ui->numofhistoryqueue->setText(QString::number(FetchMatchHistoryThread::getInstance().getCount()));
+	ui->numofhistoryqueue->setText(QString::number(FetchMatchHistoryThread::getCount()));
 	ui->numofdownloadqueue->setText(QString::number(MatchDetailDownloadThread::getCount()));
 	ui->numofparsequeue->setText(QString::number(MatchDetailParseThread::getInstance().getCount()));
 	ui->numoffetched->setText(QString::number(MatchDetailSaveThread::getInstance().getSaved()));
