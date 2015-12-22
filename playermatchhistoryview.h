@@ -10,7 +10,6 @@ namespace Ui
 	class View_PlayerMatchHistory;
 }
 class QListWidgetItem;
-class QueueWaitFetchedPlayers;
 
 class PlayerMatchHistoryView
 	:public IDataView
@@ -40,6 +39,5 @@ private:
 private:
 	Ui::View_PlayerMatchHistory *ui;
 	PlayerMatchHistory m_playermatchhistory;
-	QueueWaitFetchedPlayers *queuewaitfetchedplayers;
 	int m_fetchedplayer, m_fetchedmatch;
 };

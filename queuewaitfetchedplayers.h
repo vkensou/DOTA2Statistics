@@ -1,10 +1,8 @@
 #pragma once
 
 #include <queue>
-#include "singleton.h"
 
 class QueueWaitFetchedPlayers
-	:public Singleton<QueueWaitFetchedPlayers>
 {
 public:
 	QueueWaitFetchedPlayers();

@@ -103,7 +103,8 @@ void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int sta
 		int id = idnode.text().toInt();
 		if (matchnode.firstChildElement("start_time").text().toInt() > starttime)
 		{
-			push(std::make_pair(id, skill));
+			if (isNeed(matchnode))
+				push(std::make_pair(id, skill));
 		}
 		else
 		{
@@ -121,6 +122,18 @@ void FetchMatchHistoryThread::push(MatchIDAndSkill &match)
 	QMutexLocker locker(&mutex);
 	m_queue.push(match);
 	usedsmp.release();
+}
+
+bool FetchMatchHistoryThread::isNeed(QDomElement &node)
+{
+	auto lobbynode = node.firstChildElement("lobby_type");
+	if (!lobbynode.isNull())
+	{
+		int lobby = lobbynode.text().toInt();
+		if (lobby == 7)
+			return true;
+	}
+	return false;
 }
 
 std::queue<FetchMatchHistoryThread::MatchIDAndSkill> FetchMatchHistoryThread::m_queue;
