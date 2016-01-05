@@ -4,6 +4,7 @@
 #include "Singleton.h"
 #include <QtSql>
 #include <functional>
+#include <QMutex>
 
 class HeroRateAndUsed;
 class ItemRateAndUsed;
@@ -19,6 +20,13 @@ public:
     bool opendb();
     void closedb();
 
+	void transaction();
+	bool commit();
+
+	QMutex &getMutex();
+	void lock();
+	void unlock();
+
 	bool loadHeroesUsedAndRate(std::function<void(const QString &, int, double)> &callback, const DataConfig &config);
 	void saveHeroesUsedAndRate(std::function<void(std::function<void(const HeroRateAndUsed *)>)> &callback, const DataConfig &config);
 
@@ -26,7 +34,8 @@ public:
 	void saveHeroItems(const QString &heroname, std::function<void(std::function<void(const ItemRateAndUsed *)>)> &callback, const DataConfig &config);
 
 	bool loadMatchDetail(MatchDetail& matchdetail);
-	void saveMatchDetail(MatchDetail& matchdetail);
+	void saveMatchDetail(MatchDetail& matchdetail, bool transaction = true, bool lock = false);
+	void updateMatchDetailSkill(int matchid, int skill);
 
 	bool isMatchSaved(int matchid);
 	bool isPlayerSaved(int playerid);
@@ -59,6 +68,7 @@ private:
 
 private:
     QSqlDatabase db;
+	QMutex mutex;
 };
 
 

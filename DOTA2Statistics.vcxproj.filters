@@ -53,6 +53,15 @@
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="FetchData">
+      <UniqueIdentifier>{45c77cf4-2ea5-4448-8ed0-c4a451ff0976}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FetchData\Header Files">
+      <UniqueIdentifier>{11130702-47f5-43de-8b1a-bbd6b9a5d3a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FetchData\Source Files">
+      <UniqueIdentifier>{e3f6c3fd-44a7-4baf-a7d8-d7c7c346de65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dataconfig.cpp">
@@ -175,6 +184,33 @@
     <ClCompile Include="queuewaitfetchedplayers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="fetchdataview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_fetchdataview.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_fetchdataview.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="fetchdatathread.cpp">
+      <Filter>FetchData\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="playermatchhistory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="matchdetailsavethread.cpp">
+      <Filter>FetchData\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="matchdetailparsethread.cpp">
+      <Filter>FetchData\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="matchdetaildownloadthread.cpp">
+      <Filter>FetchData\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fetchmatchhistorythread.cpp">
+      <Filter>FetchData\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataconfig.h">
@@ -261,6 +297,27 @@
     <ClInclude Include="queuewaitfetchedplayers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_view_fetchdata.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fetchdatathread.h">
+      <Filter>FetchData\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="playermatchhistory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matchdetailsavethread.h">
+      <Filter>FetchData\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matchdetailparsethread.h">
+      <Filter>FetchData\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="matchdetaildownloadthread.h">
+      <Filter>FetchData\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fetchmatchhistorythread.h">
+      <Filter>FetchData\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="mainwindow.ui">
@@ -301,6 +358,12 @@
     </CustomBuild>
     <CustomBuild Include="resource.qrc">
       <Filter>Other Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="view_fetchdata.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="fetchdataview.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
