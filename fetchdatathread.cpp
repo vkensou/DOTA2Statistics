@@ -8,6 +8,7 @@
 #include "matchdetailparsethread.h"
 #include "matchdetailsavethread.h"
 #include <QMutexLocker>
+#include "downloadcenter.h"
 
 FetchDataThread::FetchDataThread()
 {
@@ -26,18 +27,24 @@ void FetchDataThread::setStartTime(unsigned int starttime)
 
 void FetchDataThread::run()
 {
-	FetchMatchHistoryThread *m_fetchplayermatchhistorythread = new FetchMatchHistoryThread[3];
-	MatchDetailDownloadThread *m_matchdetaildownloadthread = new MatchDetailDownloadThread[4];
+	int const HISTORY_THREAD_COUNT = 3, DETAIL_THREAD_COUNT = 3;
+	DownloadCenter *downloadcenter = new DownloadCenter();
+	FetchMatchHistoryThread *m_fetchplayermatchhistorythread = new FetchMatchHistoryThread[HISTORY_THREAD_COUNT];
+	MatchDetailDownloadThread *m_matchdetaildownloadthread = new MatchDetailDownloadThread[DETAIL_THREAD_COUNT];
 	MatchDetailParseThread *m_matchdetailparsethread = new MatchDetailParseThread;
 	MatchDetailSaveThread *m_matchdetailsavethread = new MatchDetailSaveThread;
 
-	for (int i = 0; i < 3; ++i)
+	emit ready();
+
+	for (int i = 0; i < HISTORY_THREAD_COUNT; ++i)
 	{
-		m_fetchplayermatchhistorythread[i].init(i);
+		m_fetchplayermatchhistorythread[i].init(i+1);
 		m_fetchplayermatchhistorythread[i].start();
 	}
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < DETAIL_THREAD_COUNT; ++i)
+	{
 		m_matchdetaildownloadthread[i].start();
+	}
 	m_matchdetailparsethread->start();
 	m_matchdetailsavethread->start();
 
@@ -46,16 +53,16 @@ void FetchDataThread::run()
 	{
 	}
 
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < HISTORY_THREAD_COUNT; ++i)
 		m_fetchplayermatchhistorythread[i].requestInterruption();
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < DETAIL_THREAD_COUNT; ++i)
 		m_matchdetaildownloadthread[i].requestInterruption();
 	m_matchdetailparsethread->requestInterruption();
 	m_matchdetailsavethread->requestInterruption();
 
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < HISTORY_THREAD_COUNT; ++i)
 		m_fetchplayermatchhistorythread[i].wait();
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < DETAIL_THREAD_COUNT; ++i)
 		m_matchdetaildownloadthread[i].wait();
 	m_matchdetailparsethread->wait();
 	m_matchdetailsavethread->wait();
@@ -64,4 +71,5 @@ void FetchDataThread::run()
 	delete[] m_matchdetaildownloadthread;
 	delete m_matchdetailparsethread;
 	delete m_matchdetailsavethread;
+	delete downloadcenter;
 }

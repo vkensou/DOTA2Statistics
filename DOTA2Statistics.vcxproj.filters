@@ -211,6 +211,21 @@
     <ClCompile Include="fetchmatchhistorythread.cpp">
       <Filter>FetchData\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_matchdetaildownloadthread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_matchdetaildownloadthread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_fetchdatathread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_fetchdatathread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="downloadcenter.cpp">
+      <Filter>FetchData\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataconfig.h">
@@ -300,9 +315,6 @@
     <ClInclude Include="GeneratedFiles\ui_view_fetchdata.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="fetchdatathread.h">
-      <Filter>FetchData\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="playermatchhistory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -312,10 +324,10 @@
     <ClInclude Include="matchdetailparsethread.h">
       <Filter>FetchData\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="matchdetaildownloadthread.h">
+    <ClInclude Include="fetchmatchhistorythread.h">
       <Filter>FetchData\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="fetchmatchhistorythread.h">
+    <ClInclude Include="downloadcenter.h">
       <Filter>FetchData\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -356,18 +368,21 @@
     <CustomBuild Include="itemimagedelegate.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="resource.qrc">
-      <Filter>Other Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="view_fetchdata.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="fetchdataview.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="dota2statistics.rc" />
+    <CustomBuild Include="resource.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="matchdetaildownloadthread.h">
+      <Filter>FetchData\Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="fetchdatathread.h">
+      <Filter>FetchData\Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="heroes.xml">
@@ -379,5 +394,10 @@
     <Xml Include="abilities.xml">
       <Filter>Other Files</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="dota2statistics.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -5,8 +5,10 @@
 #include "fetchdatathread.h"
 #include <QMutexLocker>
 #include <QDebug>
-#include "Utility.h"
 #include <QDomDocument>
+#include "databasemanager.h"
+#include "downloadcenter.h"
+#include "utility.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -42,10 +44,21 @@ int FetchMatchHistoryThread::getCount()
 
 void FetchMatchHistoryThread::run()
 {
+	QTime time;
+	time.start();
+	int lastdown = -0;
 	while (!isInterruptionRequested())
 	{
+		while (time.elapsed() < lastdown + 0)
+		{
+			QThread::msleep(50);
+			if (isInterruptionRequested())
+				break;
+		}
+		lastdown = time.elapsed();
 		downloadAllHistory(m_skill);
 	}
+	usedsmp.release(100);
 }
 
 bool FetchMatchHistoryThread::downloadAllHistory(int skill)
@@ -54,8 +67,8 @@ bool FetchMatchHistoryThread::downloadAllHistory(int skill)
 	do
 	{
 		auto url = getMatchHistoryURL(0, lastmatch, skill);
-		int error = 0;
-		auto data = downloadWebPage(url, &error);
+		int error(0);
+		auto data = downloadWebPage(url, &error);//DownloadCenter::getInstance().download(url, error);
 		if (error != 0)
 			return false;
 		parseHistoryData(data, skill, 0, remaining, lastmatch);
@@ -104,7 +117,18 @@ void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int sta
 		if (matchnode.firstChildElement("start_time").text().toInt() > starttime)
 		{
 			if (isNeed(matchnode))
-				push(std::make_pair(id, skill));
+			{
+				{
+					bool exist = false;
+					{
+						auto &dbmanager = DataBaseManager::getInstance();
+						QMutexLocker locker(&dbmanager.getMutex());
+						exist = dbmanager.isMatchSaved(id);
+					}
+					if (!exist)
+						push(std::make_pair(id, skill));
+				}
+			}
 		}
 		else
 		{

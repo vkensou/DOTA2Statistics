@@ -30,9 +30,9 @@ void MatchDetail::download()
 	m_init = true;
 }
 
-void MatchDetail::save()
+void MatchDetail::save(bool transaction /*= true*/)
 {
-	DataBaseManager::getInstance().saveMatchDetail(*this);
+	DataBaseManager::getInstance().saveMatchDetail(*this, transaction);
 }
 
 void MatchDetail::clear()
