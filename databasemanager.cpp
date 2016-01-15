@@ -201,39 +201,33 @@ void DataBaseManager::saveMatchDetail(MatchDetail& matchdetail, bool transaction
 	if (lock)
 		mutex.lock();
 
-	if (transaction)
-		db.transaction();
+	if (!isMatchSaved(matchdetail.matchid))
+	{
+		if (transaction)
+			db.transaction();
 
-	static QString tablename = "matchdetail";
+		static QString tablename = "matchdetail";
 
-	QSqlTableModel model(0, db);
-	model.setTable(tablename);
-	model.setFilter(QString("matchid=%1").arg(matchdetail.matchid));
-	model.select();
+		static QString sqlinsert = "INSERT INTO matchdetail(matchid, victoryparty, duration, seqnum, cluster, firstbloodtime, lobbytype, humanplayer, leagueid, "
+			"positivevotes, negativevotes, gamemode, engine, starttime, skill) "
+			"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14, %15);";
 
-	if (model.rowCount() != 0)
-		return;
+		db.exec(sqlinsert.arg(matchdetail.matchid).arg(matchdetail.victoryparty).arg(matchdetail.duration).arg(matchdetail.matchseqnum).arg(matchdetail.cluster)
+			.arg(matchdetail.firstbloodtime).arg(matchdetail.lobbytype).arg(matchdetail.humanplayer).arg(matchdetail.leagueid).arg(matchdetail.positivevotes)
+			.arg(matchdetail.negativevotes).arg(matchdetail.gamemode).arg(matchdetail.engine).arg(matchdetail.starttime).arg(matchdetail.skill)
+			);
+		auto e2 = db.lastError().text();
 
-	static QString sqlinsert = "INSERT INTO matchdetail(matchid, victoryparty, duration, seqnum, cluster, firstbloodtime, lobbytype, humanplayer, leagueid, "
-		"positivevotes, negativevotes, gamemode, engine, starttime, skill) "
-		"VALUES(%1, %2, %3, %4, %5, %6, %7, %8, %9, %10, %11, %12, %13, %14, %15);";
+		saveMatchDetailSide(matchdetail);
 
-	db.exec(sqlinsert.arg(matchdetail.matchid).arg(matchdetail.victoryparty).arg(matchdetail.duration).arg(matchdetail.matchseqnum).arg(matchdetail.cluster)
-		.arg(matchdetail.firstbloodtime).arg(matchdetail.lobbytype).arg(matchdetail.humanplayer).arg(matchdetail.leagueid).arg(matchdetail.positivevotes)
-		.arg(matchdetail.negativevotes).arg(matchdetail.gamemode).arg(matchdetail.engine).arg(matchdetail.starttime).arg(matchdetail.skill)
-		);
-	auto e2 = db.lastError().text();
+		if (matchdetail.gamemode == 2)
+			saveMatchDetailPickBanList(matchdetail);
 
-	saveMatchDetailSide(matchdetail);
+		saveMatchDetailPlayerInfo(matchdetail);
 
-	if (matchdetail.gamemode == 2)
-		saveMatchDetailPickBanList(matchdetail);
-
-	saveMatchDetailPlayerInfo(matchdetail);
-	bool e = isMatchSaved(matchdetail.matchid);
-
-	if (transaction)
-		db.commit();
+		if (transaction)
+			db.commit();
+	}
 
 	if (lock)
 		mutex.unlock();
@@ -246,12 +240,19 @@ void DataBaseManager::updateMatchDetailSkill(int matchid, int skill)
 	auto errstr = db.lastError().text();
 }
 
-bool DataBaseManager::isMatchSaved(int matchid)
+bool DataBaseManager::isMatchSaved(int matchid, bool lock /*= false*/)
 {
+	if (lock)
+		mutex.lock();
+
 	static QString sqlselect = "select count(matchid) from matchdetail where matchid = %1;";
 	auto query = db.exec(sqlselect.arg(matchid));
 	query.next();
-	return query.value(0).toInt() != 0;
+	int count = query.value(0).toInt();
+
+	if (lock)
+		mutex.unlock();
+	return count;
 }
 
 bool DataBaseManager::isPlayerSaved(int playerid)

@@ -56,8 +56,11 @@ void FetchMatchHistoryThread::run()
 				break;
 		}
 		lastdown = time.elapsed();
-		if (downloadAllHistory(m_skill) == 0)
+		auto num = downloadAllHistory(m_skill);
+		if (num == 0)
 			m_waittime = 60000;
+		else if(num < 10)
+			m_waittime = 30000;
 		else
 			m_waittime = 0;
 	}
@@ -124,9 +127,7 @@ int FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int star
 				{
 					bool exist = false;
 					{
-						auto &dbmanager = DataBaseManager::getInstance();
-						QMutexLocker locker(&dbmanager.getMutex());
-						exist = dbmanager.isMatchSaved(id);
+						exist = DataBaseManager::getInstance().isMatchSaved(id, true);
 					}
 					if (!exist)
 					{
@@ -163,13 +164,24 @@ void FetchMatchHistoryThread::push(MatchIDAndSkill &match)
 bool FetchMatchHistoryThread::isNeed(QDomElement &node)
 {
 	auto lobbynode = node.firstChildElement("lobby_type");
-	if (!lobbynode.isNull())
+	if (lobbynode.isNull())
+		return false;
+
+	int lobby = lobbynode.text().toInt();
+	if (lobby != 7)
+		return false;
+
+	auto playersnode = node.firstChildElement("players");
+	for (auto playernode = playersnode.firstChildElement("player"); !playernode.isNull(); playernode = playernode.nextSiblingElement("player"))
 	{
-		int lobby = lobbynode.text().toInt();
-		if (lobby == 7)
-			return true;
+		auto heronode = playernode.firstChildElement("hero_id");
+		if (heronode.isNull())
+			return false;
+		int heroid = heronode.text().toInt();
+		if (heroid == 0)
+			return false;
 	}
-	return false;
+	return true;
 }
 
 std::queue<FetchMatchHistoryThread::MatchIDAndSkill> FetchMatchHistoryThread::m_queue;

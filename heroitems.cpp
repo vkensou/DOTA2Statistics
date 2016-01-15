@@ -30,7 +30,7 @@ void HeroItems::download()
 	WebDataDownloader::getInstance().downloadHeroItems(m_name, m_addItem_callback, DataConfig::getCurrentConfig());
 }
 
-void HeroItems::save(bool transaction /*= true*/)
+void HeroItems::save(bool transaction /*= true*/, bool lock /*= false*/)
 {
 	DataBaseManager::getInstance().saveHeroItems(m_name, m_enumList, DataConfig::getCurrentConfig());
 }

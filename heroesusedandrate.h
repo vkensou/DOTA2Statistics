@@ -46,7 +46,7 @@ private:
 
 	virtual bool loadFromDataBase() override;
 	virtual void download() override;
-	virtual void save(bool translate = true) override;
+	virtual void save(bool translate = true, bool lock = false) override;
 
 };
 

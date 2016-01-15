@@ -58,7 +58,7 @@ private:
 
 	virtual bool loadFromDataBase() override;
 	virtual void download() override;
-	virtual void save(bool transaction = true) override;
+	virtual void save(bool transaction = true, bool lock = false) override;
 	virtual void handleData(bool force_download = false) override;
 
     QString m_name;

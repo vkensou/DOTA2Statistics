@@ -37,7 +37,7 @@ public:
 	void saveMatchDetail(MatchDetail& matchdetail, bool transaction = true, bool lock = false);
 	void updateMatchDetailSkill(int matchid, int skill);
 
-	bool isMatchSaved(int matchid);
+	bool isMatchSaved(int matchid, bool lock = false);
 	bool isPlayerSaved(int playerid);
 	void insertPlayerInfo(int playerid);
 	void updataPlayerStatus(int playerid, int newstatus);

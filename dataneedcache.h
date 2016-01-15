@@ -19,7 +19,7 @@ public:
 		save();
 	}
 
-	virtual void save(bool transaction = true) = 0;
+	virtual void save(bool transaction = true, bool lock = false) = 0;
 
 private:
 	virtual bool loaded() = 0;

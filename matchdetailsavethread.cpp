@@ -27,9 +27,7 @@ void MatchDetailSaveThread::run()
 			continue;
 
 		qDebug() << "save match " << match.matchid;
-		auto &dbmanager = DataBaseManager::getInstance();
-		QMutexLocker locker(&dbmanager.getMutex());
-		match.save(false);
+		match.save(false, true);
 		m_count++;
 		saved++;
 		if (saved > 10)

@@ -51,6 +51,7 @@ void FetchDataThread::run()
 	m_fetchedplayer = m_fetchedmatch = 0;
 	while (!isInterruptionRequested())
 	{
+		sleep(1);
 	}
 
 	for (int i = 0; i < HISTORY_THREAD_COUNT; ++i)
