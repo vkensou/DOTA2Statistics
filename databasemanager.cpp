@@ -248,12 +248,10 @@ void DataBaseManager::updateMatchDetailSkill(int matchid, int skill)
 
 bool DataBaseManager::isMatchSaved(int matchid)
 {
-	QSqlTableModel model(0, db);
-	model.setTable("matchdetail");
-	model.setFilter(QString("matchid=%1").arg(matchid));
-	model.select();
-
-	return model.rowCount() != 0;
+	static QString sqlselect = "select count(matchid) from matchdetail where matchid = %1;";
+	auto query = db.exec(sqlselect.arg(matchid));
+	query.next();
+	return query.value(0).toInt() != 0;
 }
 
 bool DataBaseManager::isPlayerSaved(int playerid)
@@ -668,11 +666,11 @@ void DataBaseManager::initMatchDetaildbs()
 		"heroid  INTEGER NOT NULL,"
 		"team  INTEGER NOT NULL,"
 		"bporder  INTEGER NOT NULL,"
-		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid),"
+		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid) ON DELETE CASCADE"
 		");";
 
 	db.exec(sqlcreatematchdetailpickban);
-
+	auto err = db.lastError().text();
 	static QString sqlindexmatchdetailpickban = "CREATE INDEX IF NOT EXISTS index_matchid ON matchdetail_pickban("
 		"matchid)";
 
@@ -698,7 +696,7 @@ void DataBaseManager::initMatchDetaildbs()
 		"towerdamage  INTEGER NOT NULL,"
 		"herohealing  INTEGER NOT NULL,"
 		"leaverstatus  INTEGER NOT NULL,"
-		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid)"
+		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid) ON DELETE CASCADE"
 		"); ";
 
 	db.exec(sqlcreatematchdetail_playerinfo);
@@ -714,7 +712,7 @@ void DataBaseManager::initMatchDetaildbs()
 		"ability  INTEGER NOT NULL,"
 		"time  INTEGER NOT NULL,"
 		"level  INTEGER NOT NULL,"
-		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid))";
+		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid) ON DELETE CASCADE)";
 
 	db.exec(sqlcreatematchdetail_abilitiesupgrade);
 
@@ -729,7 +727,7 @@ void DataBaseManager::initMatchDetaildbs()
 		"herodamage  INTEGER NOT NULL,"
 		"towerdamage  INTEGER NOT NULL,"
 		"herohealing  INTEGER NOT NULL,"
-		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid)"
+		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid) ON DELETE CASCADE"
 		");";
 
 	db.exec(sqlcreateside);
@@ -740,7 +738,7 @@ void DataBaseManager::initMatchDetaildbs()
 		"isunit  INTEGER NOT NULL,"
 		"itemslot  INTEGER NOT NULL,"
 		"item  INTEGER NOT NULL,"
-		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid)"
+		"FOREIGN KEY(matchid) REFERENCES matchdetail (matchid) ON DELETE CASCADE"
 		");";
 
 	db.exec(sqlcreate_matchdetail_items);

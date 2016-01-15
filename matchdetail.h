@@ -10,7 +10,7 @@ class MatchDetail
 public:
 	MatchDetail(int matchid = 0, int skill = 0);
 	void parseMatchDetailData(QString &data);
-	virtual void save() override;
+	virtual void save(bool transaction = true) override;
 
 private:
 	virtual bool loaded() override;

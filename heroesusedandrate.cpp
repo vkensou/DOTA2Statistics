@@ -26,7 +26,7 @@ void HeroesUsedAndRate::download()
 	WebDataDownloader::getInstance().downloadHeroesUsedAndRate(m_addHero_callback, DataConfig::getCurrentConfig());
 }
 
-void HeroesUsedAndRate::save()
+void HeroesUsedAndRate::save(bool translate /*= true*/)
 {
 	DataBaseManager::getInstance().saveHeroesUsedAndRate(m_enumList, DataConfig::getCurrentConfig());
 }

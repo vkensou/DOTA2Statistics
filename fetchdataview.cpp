@@ -8,6 +8,8 @@
 #include "matchdetaildownloadthread.h"
 #include "matchdetailparsethread.h"
 #include "matchdetailsavethread.h"
+#include "downloadcenter.h"
+#include <QTimerEvent>
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -50,9 +52,8 @@ void FetchDataView::on_fetchdata_clicked()
 
 	m_fetchthread = new FetchDataThread;
 	m_fetchthread->setStartTime(starttime);
+	connect(m_fetchthread, SIGNAL(ready()), this, SLOT(on_fetchthread_ready()));
 	m_fetchthread->start();
-
-	m_timer = startTimer(1);
 }
 
 void FetchDataView::on_stop_clicked()
@@ -65,6 +66,11 @@ void FetchDataView::on_stop_clicked()
 	m_fetchthread->wait();
 	delete m_fetchthread;
 	m_fetchthread = 0;
+}
+
+void FetchDataView::on_fetchthread_ready()
+{
+	m_timer = startTimer(1);
 }
 
 QUrl FetchDataView::getMatchHistoryURL(int playerid /*= 0*/, int startmatch /*= 0*/, int skill /*= 0*/, unsigned int startdate /*= 0*/, int gamemode /*= 0*/)
@@ -92,12 +98,16 @@ QUrl FetchDataView::getMatchHistoryURL(int playerid /*= 0*/, int startmatch /*= 
 	return url;
 }
 
-void FetchDataView::timerEvent(QTimerEvent *)
+void FetchDataView::timerEvent(QTimerEvent *event)
 {
-	ui->numofhistoryqueue->setText(QString::number(FetchMatchHistoryThread::getCount()));
-	ui->numofdownloadqueue->setText(QString::number(MatchDetailDownloadThread::getCount()));
-	ui->numofparsequeue->setText(QString::number(MatchDetailParseThread::getInstance().getCount()));
-	ui->numoffetched->setText(QString::number(MatchDetailSaveThread::getInstance().getSaved()));
+	if (event->timerId() == m_timer)
+	{
+		ui->numofhistoryqueue->setText(QString::number(FetchMatchHistoryThread::getCount()));
+		ui->numofdownloadqueue->setText(QString::number(MatchDetailDownloadThread::getCount()));
+		ui->numofparsequeue->setText(QString::number(MatchDetailParseThread::getInstance().getCount()));
+		ui->numoffetched->setText(QString::number(MatchDetailSaveThread::getInstance().getSaved()));
+		ui->numoferror->setText(QString::number(DownloadCenter::getInstance().getNumOfError()));
+	}
 }
 
 void FetchDataView::closeEvent(QCloseEvent *)

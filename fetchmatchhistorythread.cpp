@@ -5,8 +5,10 @@
 #include "fetchdatathread.h"
 #include <QMutexLocker>
 #include <QDebug>
-#include "Utility.h"
 #include <QDomDocument>
+#include "databasemanager.h"
+#include "downloadcenter.h"
+#include "utility.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -42,25 +44,39 @@ int FetchMatchHistoryThread::getCount()
 
 void FetchMatchHistoryThread::run()
 {
+	QTime time;
+	time.start();
+	int lastdown = -0;
 	while (!isInterruptionRequested())
 	{
-		downloadAllHistory(m_skill);
+		while (time.elapsed() < lastdown + m_waittime)
+		{
+			QThread::msleep(50);
+			if (isInterruptionRequested())
+				break;
+		}
+		lastdown = time.elapsed();
+		if (downloadAllHistory(m_skill) == 0)
+			m_waittime = 60000;
+		else
+			m_waittime = 0;
 	}
+	usedsmp.release(100);
 }
 
-bool FetchMatchHistoryThread::downloadAllHistory(int skill)
+int FetchMatchHistoryThread::downloadAllHistory(int skill)
 {
-	int remaining = 0, lastmatch = 0;
+	int remaining = 0, lastmatch = 0, numofmatch = 0;
 	do
 	{
 		auto url = getMatchHistoryURL(0, lastmatch, skill);
-		int error = 0;
-		auto data = downloadWebPage(url, &error);
+		int error(0);
+		auto data = downloadWebPage(url, &error);//DownloadCenter::getInstance().download(url, error);
 		if (error != 0)
 			return false;
-		parseHistoryData(data, skill, 0, remaining, lastmatch);
+		numofmatch += parseHistoryData(data, skill, 0, remaining, lastmatch);
 	} while (remaining > 0 && !isInterruptionRequested());
-	return true;
+	return numofmatch;
 }
 
 QUrl FetchMatchHistoryThread::getMatchHistoryURL(int playerid /*= 0*/, int startmatch /*= 0*/, int skill /*= 0*/, unsigned int startdate /*= 0*/, int gamemode /*= 0*/)
@@ -88,7 +104,7 @@ QUrl FetchMatchHistoryThread::getMatchHistoryURL(int playerid /*= 0*/, int start
 	return url;
 }
 
-void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int starttime, int &remaining, int &lastmatch)
+int FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int starttime, int &remaining, int &lastmatch)
 {
 	QDomDocument doc;
 	doc.setContent(data);
@@ -96,7 +112,7 @@ void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int sta
 	auto root = doc.documentElement();
 	remaining = root.firstChildElement("results_remaining").text().toInt();
 	auto matchnodes = root.firstChildElement("matches");
-	int last = 0;
+	int last = 0, numofmatch = 0;
 	for (auto matchnode = matchnodes.firstChildElement("match"); !matchnode.isNull() && !isInterruptionRequested(); matchnode = matchnode.nextSiblingElement("match"))
 	{
 		auto idnode = matchnode.firstChildElement("match_id");
@@ -104,7 +120,26 @@ void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int sta
 		if (matchnode.firstChildElement("start_time").text().toInt() > starttime)
 		{
 			if (isNeed(matchnode))
-				push(std::make_pair(id, skill));
+			{
+				{
+					bool exist = false;
+					{
+						auto &dbmanager = DataBaseManager::getInstance();
+						QMutexLocker locker(&dbmanager.getMutex());
+						exist = dbmanager.isMatchSaved(id);
+					}
+					if (!exist)
+					{
+						push(std::make_pair(id, skill));
+						numofmatch++;
+					}
+					else
+					{
+						remaining = 0;
+						break;
+					}
+				}
+			}
 		}
 		else
 		{
@@ -114,6 +149,7 @@ void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int sta
 		last = id;
 	}
 	lastmatch = last;
+	return numofmatch;
 }
 
 void FetchMatchHistoryThread::push(MatchIDAndSkill &match)

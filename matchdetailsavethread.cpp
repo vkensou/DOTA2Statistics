@@ -18,6 +18,8 @@ int MatchDetailSaveThread::getCount()
 void MatchDetailSaveThread::run()
 {
 	m_count = 0;
+	DataBaseManager::getInstance().transaction();
+	int saved = 0;
 	while (!isInterruptionRequested())
 	{
 		auto match = MatchDetailParseThread::getInstance().getMatchDetail();
@@ -27,7 +29,15 @@ void MatchDetailSaveThread::run()
 		qDebug() << "save match " << match.matchid;
 		auto &dbmanager = DataBaseManager::getInstance();
 		QMutexLocker locker(&dbmanager.getMutex());
-		match.save();
+		match.save(false);
 		m_count++;
+		saved++;
+		if (saved > 10)
+		{
+			DataBaseManager::getInstance().commit();
+			saved = 0;
+			DataBaseManager::getInstance().transaction();
+		}
 	}
+	DataBaseManager::getInstance().commit();
 }

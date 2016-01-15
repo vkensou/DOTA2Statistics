@@ -4,16 +4,21 @@
 #include <queue>
 #include <QMutex>
 #include "singleton.h"
+#include <QtNetwork>
 
 class MatchDetailDownloadThread
 	:public QThread
 {
+	Q_OBJECT
 	typedef std::tuple<int, int, QString> MatchDownlodInfo;
 public:
+	MatchDetailDownloadThread();
 
 	virtual void run() override;
 	static MatchDownlodInfo getData();
 	static int getCount();
+
+private slots:
 
 private:
 	QUrl getMatchDetailURL(int matchid);

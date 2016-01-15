@@ -108,8 +108,8 @@
     <rect>
      <x>340</x>
      <y>160</y>
-     <width>91</width>
-     <height>68</height>
+     <width>110</width>
+     <height>86</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
@@ -164,6 +164,20 @@
     </item>
     <item row="3" column="1">
      <widget class="QLabel" name="numoffetched">
+      <property name="text">
+       <string>0</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>下载错误</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLabel" name="numoferror">
       <property name="text">
        <string>0</string>
       </property>

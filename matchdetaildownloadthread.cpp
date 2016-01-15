@@ -1,11 +1,14 @@
 #include "matchdetaildownloadthread.h"
 #include <QUrl>
 #include "fetchmatchhistorythread.h"
-#include "Utility.h"
 #include <QMutexLocker>
-#include "databasemanager.h"
+#include "downloadcenter.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
+
+MatchDetailDownloadThread::MatchDetailDownloadThread()
+{
+}
 
 void MatchDetailDownloadThread::run()
 {
@@ -23,23 +26,13 @@ void MatchDetailDownloadThread::run()
 				continue;
 		}
 
-		qDebug() << "download match " << match.first << " detail";
-		auto &dbmanager = DataBaseManager::getInstance();
-
-		{
-			QMutexLocker locker(&dbmanager.getMutex());
-			if (dbmanager.isMatchSaved(match.first))
-			{
-				dbmanager.updateMatchDetailSkill(match.first, match.second);
-				continue;
-			}
-		}
+		qDebug() << "begin download match " << match.first << " detail";
 
 		auto url = getMatchDetailURL(match.first);
-		auto data = downloadWebPage(url);
-		{
+		QNetworkReply::NetworkError error(QNetworkReply::NoError);
+		QString data = DownloadCenter::getInstance().download(url, error, 0, 1);
+		if (!error)
 			push(std::make_tuple(match.first, match.second, data));
-		}
 	}
 	FetchMatchHistoryThread::free();
 }

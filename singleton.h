@@ -21,12 +21,12 @@ public:
 
     static T& getInstance()
     {
-        assert(nullptr != getInstancePtr());
         return (*getInstancePtr());
     }
 
     static T* getInstancePtr()
     {
+		assert(nullptr != msInstance);
         return msInstance;
     }
 
