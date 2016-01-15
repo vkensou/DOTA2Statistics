@@ -12,7 +12,7 @@ QString downloadWebPage(const QUrl &url, int *error)
 
     request.setSslConfiguration(config);
     request.setUrl(url);
-
+	qDebug() << url;
     QNetworkAccessManager manager;
     QNetworkReply *reply = manager.get(request);
 

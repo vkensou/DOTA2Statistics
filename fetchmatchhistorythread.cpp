@@ -49,21 +49,24 @@ void FetchMatchHistoryThread::run()
 	int lastdown = -0;
 	while (!isInterruptionRequested())
 	{
-		while (time.elapsed() < lastdown + 0)
+		while (time.elapsed() < lastdown + m_waittime)
 		{
 			QThread::msleep(50);
 			if (isInterruptionRequested())
 				break;
 		}
 		lastdown = time.elapsed();
-		downloadAllHistory(m_skill);
+		if (downloadAllHistory(m_skill) == 0)
+			m_waittime = 60000;
+		else
+			m_waittime = 0;
 	}
 	usedsmp.release(100);
 }
 
-bool FetchMatchHistoryThread::downloadAllHistory(int skill)
+int FetchMatchHistoryThread::downloadAllHistory(int skill)
 {
-	int remaining = 0, lastmatch = 0;
+	int remaining = 0, lastmatch = 0, numofmatch = 0;
 	do
 	{
 		auto url = getMatchHistoryURL(0, lastmatch, skill);
@@ -71,9 +74,9 @@ bool FetchMatchHistoryThread::downloadAllHistory(int skill)
 		auto data = downloadWebPage(url, &error);//DownloadCenter::getInstance().download(url, error);
 		if (error != 0)
 			return false;
-		parseHistoryData(data, skill, 0, remaining, lastmatch);
+		numofmatch += parseHistoryData(data, skill, 0, remaining, lastmatch);
 	} while (remaining > 0 && !isInterruptionRequested());
-	return true;
+	return numofmatch;
 }
 
 QUrl FetchMatchHistoryThread::getMatchHistoryURL(int playerid /*= 0*/, int startmatch /*= 0*/, int skill /*= 0*/, unsigned int startdate /*= 0*/, int gamemode /*= 0*/)
@@ -101,7 +104,7 @@ QUrl FetchMatchHistoryThread::getMatchHistoryURL(int playerid /*= 0*/, int start
 	return url;
 }
 
-void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int starttime, int &remaining, int &lastmatch)
+int FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int starttime, int &remaining, int &lastmatch)
 {
 	QDomDocument doc;
 	doc.setContent(data);
@@ -109,7 +112,7 @@ void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int sta
 	auto root = doc.documentElement();
 	remaining = root.firstChildElement("results_remaining").text().toInt();
 	auto matchnodes = root.firstChildElement("matches");
-	int last = 0;
+	int last = 0, numofmatch = 0;
 	for (auto matchnode = matchnodes.firstChildElement("match"); !matchnode.isNull() && !isInterruptionRequested(); matchnode = matchnode.nextSiblingElement("match"))
 	{
 		auto idnode = matchnode.firstChildElement("match_id");
@@ -126,7 +129,15 @@ void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int sta
 						exist = dbmanager.isMatchSaved(id);
 					}
 					if (!exist)
+					{
 						push(std::make_pair(id, skill));
+						numofmatch++;
+					}
+					else
+					{
+						remaining = 0;
+						break;
+					}
 				}
 			}
 		}
@@ -138,6 +149,7 @@ void FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int sta
 		last = id;
 	}
 	lastmatch = last;
+	return numofmatch;
 }
 
 void FetchMatchHistoryThread::push(MatchIDAndSkill &match)
