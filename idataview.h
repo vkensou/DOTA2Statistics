@@ -19,7 +19,7 @@ public:
 		View_HeroItems = 0,
 		View_PlayerMatchHistory,
 		View_MatchDetail,
-		View_FetchDAta,
+		View_FetchData,
 		Count
 	};
 

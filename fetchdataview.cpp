@@ -27,7 +27,7 @@ FetchDataView::~FetchDataView()
 
 int FetchDataView::getType()
 {
-	return IDataView::View_FetchDAta;
+	return IDataView::View_FetchData;
 }
 
 const QString & FetchDataView::getViewName()

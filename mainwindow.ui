@@ -57,6 +57,7 @@
     <addaction name="action_view_heroitems"/>
     <addaction name="action_view_playermatchhistory"/>
     <addaction name="action_view_matchdetail"/>
+    <addaction name="action_view_fetchdata"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -90,6 +91,11 @@
   <action name="action_joinDatabase">
    <property name="text">
     <string>合并数据库</string>
+   </property>
+  </action>
+  <action name="action_view_fetchdata">
+   <property name="text">
+    <string>扒取数据</string>
    </property>
   </action>
  </widget>

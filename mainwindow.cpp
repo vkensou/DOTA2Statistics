@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	tableAddTab(IDataView::View_HeroItems);
 	tableAddTab(IDataView::View_PlayerMatchHistory);
 	tableAddTab(IDataView::View_MatchDetail);
-	tableAddTab(IDataView::View_FetchDAta);
+	tableAddTab(IDataView::View_FetchData);
 }
 
 MainWindow::~MainWindow()
@@ -84,7 +84,7 @@ IDataView * MainWindow::getDataView(IDataView::ViewType type)
 		connect(this, SIGNAL(matchDblClicked(int)), sview, SLOT(showMatchDetail(int)));
 		break;
 	}
-	case IDataView::View_FetchDAta:
+	case IDataView::View_FetchData:
 	{
 		view = new FetchDataView;
 		break;
@@ -186,5 +186,10 @@ void MainWindow::on_action_view_playermatchhistory_triggered()
 void MainWindow::on_action_view_matchdetail_triggered()
 {
 	tableAddTab(IDataView::View_MatchDetail);
+}
+
+void MainWindow::on_action_view_fetchdata_triggered()
+{
+	tableAddTab(IDataView::View_FetchData);
 }
 

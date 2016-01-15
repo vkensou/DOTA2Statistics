@@ -37,6 +37,7 @@ private slots:
 	void on_action_view_heroitems_triggered();
 	void on_action_view_playermatchhistory_triggered();
 	void on_action_view_matchdetail_triggered();
+	void on_action_view_fetchdata_triggered();
 	void setStatusBarText(const QString &text);
 	void on_tabWidget_tabCloseRequested(int index);
 	void on_MatchDblClicked(int matchid);
