@@ -26,7 +26,7 @@ std::pair<int, int> FetchMatchHistoryThread::getMatch()
 		return{ 0, 0 };
 
 	auto data = m_queue.front();
-	m_queue.pop();
+	m_queue.pop_front();
 	freesmp.release();
 	return data;
 }
@@ -125,13 +125,15 @@ int FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int star
 			if (isNeed(matchnode))
 			{
 				{
+					MatchIDAndSkill match = std::make_pair(id, skill);
 					bool exist = false;
 					{
 						exist = DataBaseManager::getInstance().isMatchSaved(id, true);
+						exist |= isMatchInQueue(match);
 					}
 					if (!exist)
 					{
-						push(std::make_pair(id, skill));
+						push(match);
 						numofmatch++;
 					}
 					else
@@ -157,7 +159,7 @@ void FetchMatchHistoryThread::push(MatchIDAndSkill &match)
 {
 	freesmp.acquire();
 	QMutexLocker locker(&mutex);
-	m_queue.push(match);
+	m_queue.push_back(match);
 	usedsmp.release();
 }
 
@@ -184,6 +186,12 @@ bool FetchMatchHistoryThread::isNeed(QDomElement &node)
 	return true;
 }
 
-std::queue<FetchMatchHistoryThread::MatchIDAndSkill> FetchMatchHistoryThread::m_queue;
+bool FetchMatchHistoryThread::isMatchInQueue(MatchIDAndSkill &match)
+{
+	QMutexLocker locker(&mutex);
+	return std::find(m_queue.begin(), m_queue.end(), match) != m_queue.end();
+}
+
+std::list<FetchMatchHistoryThread::MatchIDAndSkill> FetchMatchHistoryThread::m_queue;
 QSemaphore FetchMatchHistoryThread::freesmp{ FetchMatchHistoryThread::MAX_SIZE }, FetchMatchHistoryThread::usedsmp;
 QMutex FetchMatchHistoryThread::mutex;

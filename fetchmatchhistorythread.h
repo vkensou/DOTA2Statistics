@@ -26,12 +26,13 @@ private:
 	int parseHistoryData(QString &data, int skill, int starttime, int &remaining, int &lastmatch);
 	void push(MatchIDAndSkill &match);
 	bool isNeed(QDomElement &node);
+	bool isMatchInQueue(MatchIDAndSkill &match);
 
 private:
 	int m_skill{ 0 };
 	int m_waittime{ 0 };
 	static const int MAX_SIZE{ 1500 };
-	static std::queue<MatchIDAndSkill> m_queue;
+	static std::list<MatchIDAndSkill> m_queue;
 	static QSemaphore freesmp, usedsmp;
 	static QMutex mutex;
 };
