@@ -138,8 +138,8 @@ int FetchMatchHistoryThread::parseHistoryData(QString &data, int skill, int star
 					}
 					else
 					{
-						remaining = 0;
-						break;
+						//remaining = 0;
+						//break;
 					}
 				}
 			}
