@@ -22,6 +22,7 @@ FetchDataView::FetchDataView(QWidget *parent /*= nullptr*/)
 
 FetchDataView::~FetchDataView()
 {
+	closeFetchThread();
 	delete ui;
 }
 
@@ -58,14 +59,7 @@ void FetchDataView::on_fetchdata_clicked()
 
 void FetchDataView::on_stop_clicked()
 {
-	if (!m_fetchthread)
-		return;
-	if (m_timer)
-		killTimer(m_timer);
-	m_fetchthread->requestInterruption();
-	m_fetchthread->wait();
-	delete m_fetchthread;
-	m_fetchthread = 0;
+	closeFetchThread();
 }
 
 void FetchDataView::on_fetchthread_ready()
@@ -113,4 +107,16 @@ void FetchDataView::timerEvent(QTimerEvent *event)
 void FetchDataView::closeEvent(QCloseEvent *)
 {
 	on_stop_clicked();
+}
+
+void FetchDataView::closeFetchThread()
+{
+	if (!m_fetchthread)
+		return;
+	if (m_timer)
+		killTimer(m_timer);
+	m_fetchthread->requestInterruption();
+	m_fetchthread->wait();
+	delete m_fetchthread;
+	m_fetchthread = 0;
 }

@@ -33,6 +33,7 @@ private:
 	virtual void timerEvent(QTimerEvent *) override;
 
 	virtual void closeEvent(QCloseEvent *) override;
+	void closeFetchThread();
 
 private:
 	Ui::View_FetchData *ui;
