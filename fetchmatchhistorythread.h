@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QThread>
+#include "needdownload.h"
 #include <QMutex>
 #include "singleton.h"
 #include <queue>
@@ -10,7 +10,7 @@
 class QDomElement;
 
 class FetchMatchHistoryThread
-	:public QThread
+	:public NeedDownload
 {
 public:
 	typedef std::pair<int, int> MatchIDAndSkill;

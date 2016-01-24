@@ -8,7 +8,6 @@
 #include <QDomDocument>
 #include "databasemanager.h"
 #include "downloadcenter.h"
-#include "utility.h"
 
 const QString key = "387B6D180AD105C6CD289B0556C7A846";
 
@@ -73,8 +72,8 @@ int FetchMatchHistoryThread::downloadAllHistory(int skill)
 	do
 	{
 		auto url = getMatchHistoryURL(0, lastmatch, skill);
-		int error(0);
-		auto data = downloadWebPage(url, &error);//DownloadCenter::getInstance().download(url, error);
+		QNetworkReply::NetworkError error(QNetworkReply::NoError);
+		auto data = DownloadCenter::getInstance().download(*this, url, error); 
 		if (error != 0)
 			return false;
 		numofmatch += parseHistoryData(data, skill, 0, remaining, lastmatch);

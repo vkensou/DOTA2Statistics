@@ -18,6 +18,7 @@ public:
 
 signals:
 	void ready();
+	void downloadthreadrequeststop();
 
 public:
 	QMutex m_mutex;

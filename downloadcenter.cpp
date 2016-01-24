@@ -6,7 +6,7 @@ DownloadCenter::DownloadCenter()
 	m_time.start();
 }
 
-QString DownloadCenter::download(const QUrl &url, QNetworkReply::NetworkError &error, int extratime /*= 0*/, int retry /*= 0*/)
+QString DownloadCenter::download(NeedDownload &from, const QUrl &url, QNetworkReply::NetworkError &error, int extratime /*= 0*/, int retry /*= 0*/)
 {
 	error = QNetworkReply::NoError;
 	QNetworkRequest request;
@@ -31,18 +31,26 @@ QString DownloadCenter::download(const QUrl &url, QNetworkReply::NetworkError &e
 		QNetworkReply *reply = manager.get(request);
 
 		QEventLoop eventLoop;
-		QObject::connect(reply, (void(QNetworkReply::*)(QNetworkReply::NetworkError))&QNetworkReply::error, [&eventLoop, &error](QNetworkReply::NetworkError replyerror)
-		{
-			error = replyerror;
-			eventLoop.quit();
-		});
+		QObject::connect(&from, SIGNAL(threadstop()), &eventLoop, SLOT(quit()));
+		//QObject::connect(reply, (void(QNetworkReply::*)(QNetworkReply::NetworkError))&QNetworkReply::error, [&eventLoop, &error](QNetworkReply::NetworkError replyerror)
+		//{
+		//	error = replyerror;
+		//	eventLoop.quit();
+		//});
 		QObject::connect(reply, SIGNAL(finished()), &eventLoop, SLOT(quit()));
 		eventLoop.exec();       //block until finish
 
 		m_lastdown = m_time.elapsed();
+
+		if (!reply->isFinished())
+		{
+			reply->abort();
+		}
+
 		if (reply->error())
 		{
 			QMutexLocker locker(&m_mutex);
+			error = reply->error();
 			havetryed++;
 			qDebug() << reply->error();
 			if (havetryed > retry)

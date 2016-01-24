@@ -1,13 +1,13 @@
 #pragma once
 
-#include <QThread>
+#include "needdownload.h"
 #include <queue>
 #include <QMutex>
 #include "singleton.h"
 #include <QtNetwork>
 
 class MatchDetailDownloadThread
-	:public QThread
+	:public NeedDownload
 {
 	Q_OBJECT
 	typedef std::tuple<int, int, QString> MatchDownlodInfo;

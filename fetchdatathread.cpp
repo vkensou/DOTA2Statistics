@@ -40,10 +40,12 @@ void FetchDataThread::run()
 	{
 		m_fetchplayermatchhistorythread[i].init(i+1);
 		m_fetchplayermatchhistorythread[i].start();
+		connect(this, SIGNAL(downloadthreadrequeststop()), &m_fetchplayermatchhistorythread[i], SIGNAL(threadstop()));
 	}
 	for (int i = 0; i < DETAIL_THREAD_COUNT; ++i)
 	{
 		m_matchdetaildownloadthread[i].start();
+		connect(this, SIGNAL(downloadthreadrequeststop()), &m_matchdetaildownloadthread[i], SIGNAL(threadstop()));
 	}
 	m_matchdetailparsethread->start();
 	m_matchdetailsavethread->start();
@@ -60,6 +62,7 @@ void FetchDataThread::run()
 		m_matchdetaildownloadthread[i].requestInterruption();
 	m_matchdetailparsethread->requestInterruption();
 	m_matchdetailsavethread->requestInterruption();
+	downloadthreadrequeststop();
 
 	for (int i = 0; i < HISTORY_THREAD_COUNT; ++i)
 		m_fetchplayermatchhistorythread[i].wait();

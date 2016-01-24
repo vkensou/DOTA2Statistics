@@ -226,6 +226,12 @@
     <ClCompile Include="downloadcenter.cpp">
       <Filter>FetchData\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_needdownload.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_needdownload.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dataconfig.h">
@@ -382,6 +388,9 @@
     </CustomBuild>
     <CustomBuild Include="fetchdatathread.h">
       <Filter>FetchData\Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="needdownload.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

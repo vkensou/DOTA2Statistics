@@ -4,6 +4,7 @@
 #include <QMutex>
 #include <QtNetwork>
 #include <QTime>
+#include "needdownload.h"
 
 class DownloadCenter
 	:public Singleton<DownloadCenter>
@@ -11,7 +12,7 @@ class DownloadCenter
 public:
 	DownloadCenter();
 
-	QString download(const QUrl &url, QNetworkReply::NetworkError &error, int extratime = 0, int retry = 0);
+	QString download(NeedDownload &from, const QUrl &url, QNetworkReply::NetworkError &error, int extratime = 0, int retry = 0);
 	int getNumOfError()
 	{
 		return m_numoferror;

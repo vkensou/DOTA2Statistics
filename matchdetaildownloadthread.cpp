@@ -30,7 +30,7 @@ void MatchDetailDownloadThread::run()
 
 		auto url = getMatchDetailURL(match.first);
 		QNetworkReply::NetworkError error(QNetworkReply::NoError);
-		QString data = DownloadCenter::getInstance().download(url, error, 0, 1);
+		QString data = DownloadCenter::getInstance().download(*this, url, error, 0, 1);
 		if (!error)
 			push(std::make_tuple(match.first, match.second, data));
 	}
